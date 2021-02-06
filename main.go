@@ -1,14 +1,15 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/serpedious/automatic-trading-system/config"
+	"github.com/serpedious/automatic-trading-system/utils"
 )
 
 func main() {
-	fmt.Println(config.Config.ApiKey)
-	fmt.Println(config.Config.ApiSecret)
+	utils.LoggingSettings(config.Config.LogFile)
+	log.Println("test")
 }
 
 // package main
