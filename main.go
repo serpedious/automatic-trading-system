@@ -16,6 +16,10 @@ func private(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("hello private!\n"))
 }
 
+func balance(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("this is balance form golang!\n"))
+}
+
 func main() {
     allowedOrigins := handlers.AllowedOrigins([]string{"http://localhost:8080"})
     allowedMethods := handlers.AllowedMethods([]string{"GET", "POST", "DELETE", "PUT"})
@@ -24,6 +28,7 @@ func main() {
     r := mux.NewRouter()
     r.HandleFunc("/public", public)
     r.HandleFunc("/private", private)
+	r.HandleFunc("/balance", balance)
 
     log.Fatal(http.ListenAndServe(":8000", handlers.CORS(allowedOrigins, allowedMethods, allowedHeaders)(r)))
 }
