@@ -1,15 +1,17 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
+	"github.com/serpedious/automatic-trading-system/bitflyer"
 	"github.com/serpedious/automatic-trading-system/config"
 	"github.com/serpedious/automatic-trading-system/utils"
 )
 
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
-	log.Println("test")
+	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	fmt.Println(apiClient.GetBalance())
 }
 
 // package main
