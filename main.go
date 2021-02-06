@@ -28,7 +28,7 @@ func main() {
     r := mux.NewRouter()
     r.HandleFunc("/public", public)
     r.HandleFunc("/private", private)
-	r.HandleFunc("/balance", balance)
+    r.HandleFunc("/balance", balance)
 
     log.Fatal(http.ListenAndServe(":8000", handlers.CORS(allowedOrigins, allowedMethods, allowedHeaders)(r)))
 }
