@@ -5,9 +5,9 @@ import (
 
 	"net/http"
 
-	"github.com/serpedious/automatic-trading-system/bitflyer"
-	"github.com/serpedious/automatic-trading-system/config"
-	"github.com/serpedious/automatic-trading-system/utils"
+	"github.com/serpedious/automatic-trading-system/server/bitflyer"
+	"github.com/serpedious/automatic-trading-system/server/config"
+	"github.com/serpedious/automatic-trading-system/server/utils"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"

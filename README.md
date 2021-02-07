@@ -1,1 +1,0 @@
-# automatic-trading-system

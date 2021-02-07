@@ -1,2 +1,2 @@
-config.ini
-gotrading.log
+server/config.ini
+server/cmd/gotrading.log
