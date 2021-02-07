@@ -31,7 +31,7 @@ func balance(w http.ResponseWriter, r *http.Request) {
 
 func ticker(w http.ResponseWriter, r *http.Request) {
 	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
-	ticker_data, _ := apiClient.GetTicker("BTC_JPY")
+	ticker_data, _ := apiClient.GetTicker(config.Config.ProductCode)
 	js, _ := json.Marshal(ticker_data)
 	w.Write([]byte(js))
 }
