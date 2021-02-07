@@ -29,6 +29,13 @@ func balance(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(js))
 }
 
+func ticker(w http.ResponseWriter, r *http.Request) {
+	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	ticker_data, _ := apiClient.GetTicker("BTC_JPY")
+	js, _ := json.Marshal(ticker_data)
+	w.Write([]byte(js))
+}
+
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
 
@@ -52,6 +59,7 @@ func main() {
 	r.Get("/public", public)
 	r.Get("/private", private)
 	r.Get("/balance", balance)
+	r.Get("/ticker", ticker)
 
 	http.ListenAndServe(":8000", r)
 }
