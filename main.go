@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"net/http"
@@ -23,14 +24,15 @@ func private(w http.ResponseWriter, r *http.Request) {
 }
 
 func balance(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("this is balance form golang!\n"))
+	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	balance_data, _ := apiClient.GetBalance()
+	js, _ := json.Marshal(balance_data)
+	w.Write([]byte(js))
 }
 
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
-	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
-	fmt.Println(apiClient.GetBalance())
-	
+
 	r := chi.NewRouter()
 
 	r.Use(middleware.Logger)
