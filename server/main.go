@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"net/http"
@@ -10,7 +9,6 @@ import (
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/config"
 	"github.com/serpedious/automatic-trading-system/server/utils"
-	"github.com/serpedious/automatic-trading-system/server/gotest"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -40,7 +38,6 @@ func ticker(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println(gotest.GetHello())
 	utils.LoggingSettings(config.Config.LogFile)
 
 	r := chi.NewRouter()

@@ -15,3 +15,17 @@ services:
       - 8000:8000
     volumes:
       - ./server:/api
+  
+  db:
+    image: postgres:10-alpine
+    container_name: postgres_db
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGPASSWORD: ${PGPASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      DATABASE_HOST: ${DATABASE_HOST}
+    volumes:
+      - $PWD/docker/db/init:/docker-entrypoint-initdb.d
