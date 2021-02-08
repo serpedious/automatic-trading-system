@@ -1,1 +1,17 @@
-# TODO
+version: '3'
+
+services:
+  client:
+    build: ./front
+    ports:
+      - 8080:8080
+    volumes:
+      - ./front:/app
+    command: npm run serve
+
+  server:
+    build: ./server
+    ports:
+      - 8000:8000
+    volumes:
+      - ./server:/api
