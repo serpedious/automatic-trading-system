@@ -1,4 +1,5 @@
+.env
+
 server/config.ini
 server/gotrading.log
-
-.env
+server/.env
