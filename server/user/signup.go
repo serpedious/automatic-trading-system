@@ -1,13 +1,15 @@
 package user
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
+	_ "github.com/lib/pq"
+
 	"github.com/davecgh/go-spew/spew"
-	"github.com/serpedious/automatic-trading-system/server/tool"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -45,9 +47,12 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	user.Password = string(hash)
 	fmt.Println("converted password: ", user.Password)
 
-	sql_query := "INSERT INTO USERS(EMAIL, PASSWORD) VALUES($1, $2) RETURNING ID;"
+	sql_query := "INSERT INTO USERS(EMAIL, PASSWORD) VALUES($1, $2) RETURNING id;"
 
-	err = tool.Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
+	var Db *sql.DB
+	Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user=postgres password=mysecretpassword1234 dbname=test_db sslmode=disable")
+
+	err = Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
 	if err != nil {
 		error.Message = "server error"
 		utils.ErrorInResponse(w, http.StatusInternalServerError, error)

@@ -8,10 +8,11 @@ import (
 	"net/http"
 	"os"
 
+	_ "github.com/lib/pq"
+
 	"github.com/davecgh/go-spew/spew"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
-	"github.com/serpedious/automatic-trading-system/server/tool"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -35,8 +36,10 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	}
 	password := user.Password
 	fmt.Println("password: ", password)
+	var Db *sql.DB
+	Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user=postgres password=mysecretpassword1234 dbname=test_db sslmode=disable")
 
-	row := tool.Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", user.Email)
+	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", user.Email)
 	err := row.Scan(&user.ID, &user.Email, &user.Password)
 
 	if err != nil {
