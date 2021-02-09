@@ -6,8 +6,8 @@ import (
 
 	"net/http"
 
+	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/config"
-	"github.com/serpedious/automatic-trading-system/server/config/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/user"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 
