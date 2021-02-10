@@ -2,8 +2,8 @@
   <div class="signup">
     <h2>Sign up</h2>
     <p>{{ email }}</p>
-    <input type="text" placeholder="Username" v-model="email">
-    <input type="password" placeholder="Password" v-model="password">
+    <input type="text" placeholder="Email" v-model="email" required>
+    <input type="password" placeholder="Password" v-model="password" required>
     <button @click="apiSignup">Register</button>
     <p>Do you have an account?
       <router-link to="/signin">sign in now!!</router-link>
@@ -19,6 +19,7 @@
 
 <script>
 import axios from 'axios'
+import router from '../router'
 export default {
   name: 'Signup',
   data () {
@@ -30,10 +31,11 @@ export default {
   methods: {
       apiSignup: async function() {
         let res = await axios.post("http://localhost:8000/signup", {
-            email: "example333@gmail.com",
-            password: "golang"
+            email: this.email,
+            password: this.password
         });
         this.email = res.data.email
+        router.push("/memo");
       }
   }
 }
