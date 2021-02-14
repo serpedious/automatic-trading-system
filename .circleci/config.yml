@@ -41,7 +41,7 @@ jobs:
       - run:
           name: build
           command: npm run build
-          working_directory: front
+          working_directory: front/ 
       - aws-s3/sync:
           from: dist/
           to: s3://automatic-trading-system-front/
