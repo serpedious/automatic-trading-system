@@ -39,17 +39,16 @@ jobs:
     working_directory: ~/workspace
     steps:
       - checkout
-      - run: cd front
-      - run: ls
       - npm_install
       - run:
           name: build
-          working_directory: front
           command: npm run build
+          working_directory: front
       - aws-s3/sync:
           from: dist/
           to: s3://automatic-trading-system-front/
           overwrite: true
+          working_directory: front
 
 workflows:
   version: 2
