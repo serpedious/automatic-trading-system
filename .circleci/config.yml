@@ -34,7 +34,7 @@ jobs:
 
   deploy:
     executor: default
-    working_directory: ~/workspace
+    working_directory: ~/workspace/front
     steps:
       - checkout
       - run:
