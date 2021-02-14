@@ -28,8 +28,6 @@ jobs:
     executor: default
     working_directory: ~/workspace
     steps:
-      - run: pwd
-      - run: ls
       - checkout
       - npm_install
       # - run: npm run test
@@ -48,7 +46,6 @@ jobs:
           from: dist/
           to: s3://automatic-trading-system-front/
           overwrite: true
-          working_directory: front
 
 workflows:
   version: 2
