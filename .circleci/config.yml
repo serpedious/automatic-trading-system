@@ -28,10 +28,6 @@ jobs:
     executor: default
     working_directory: ~/workspace
     steps:
-      - persist_to_workspace:
-          root: front
-          paths:
-            - front
       - run: pwd
       - run: ls
       - checkout
@@ -42,13 +38,9 @@ jobs:
     executor: default
     working_directory: ~/workspace
     steps:
-      - persist_to_workspace:
-          root: front
-          paths:
-            - front
-      - run: pwd
-      - run: ls
       - checkout
+      - run: cd front
+      - run: ls
       - npm_install
       - run:
           name: build
