@@ -26,25 +26,25 @@ commands:
 jobs:
   build:
     executor: default
-    working_directory: ~/automatic-trading-system
+    working_directory: ~/repo
     steps:
       - run: pwd
       - run: ls
       - checkout
         paths:
-          - front
+              - ~/repo/front
       - npm_install
       # - run: npm run test
 
   deploy:
     executor: default
-    working_directory: ~/automatic-trading-system
+    working_directory: ~/repo
     steps:
       - run: pwd
       - run: ls
       - checkout
         paths:
-          - front
+            - ~/repo/front
       - npm_install
       - run:
           name: build
