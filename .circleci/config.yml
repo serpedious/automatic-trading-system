@@ -45,10 +45,14 @@ jobs:
           name: build
           command: npm run build
           working_directory: front
-      - aws-s3/sync:
-          from: ~/workspace/front/dist
-          to: s3://automatic-trading-system-front/
-          overwrite: true
+      - run:
+           name: Deploy to S3 if branch is Master.
+           command: aws s3 sync ~/workspace/front/dist s3://automatic-trading-system-front/ --exact-timestamps --delete
+
+      # - aws-s3/sync:
+      #     from: ~/workspace/front/dist
+      #     to: s3://automatic-trading-system-front/
+      #     overwrite: true
 
 workflows:
   version: 2
