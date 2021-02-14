@@ -26,25 +26,29 @@ commands:
 jobs:
   build:
     executor: default
-    working_directory: ~/repo
+    working_directory: ~/workspace
     steps:
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - front
       - run: pwd
       - run: ls
       - checkout
-        paths:
-              - ~/repo/front
       - npm_install
       # - run: npm run test
 
   deploy:
     executor: default
-    working_directory: ~/repo
+    working_directory: ~/workspace
     steps:
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - front
       - run: pwd
       - run: ls
       - checkout
-        paths:
-            - ~/repo/front
       - npm_install
       - run:
           name: build
