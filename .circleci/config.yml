@@ -8,6 +8,9 @@ executors:
     docker:
       - image: circleci/node:10.17.0
       - image: circleci/python:2.7
+        # aws_auth:
+        #     aws_access_key_id: 
+        #     aws_secret_access_key: $ECR_AWS_SECRET_ACCESS_KEY
 
 commands:
   npm_install:
@@ -23,21 +26,23 @@ commands:
 jobs:
   build:
     executor: default
-    working_directory: ~/front
+    working_directory: ~/automatic-trading-system
     steps:
       - run: pwd
       - run: ls
       - checkout
+        path: ~/front
       - npm_install
       # - run: npm run test
 
   deploy:
     executor: default
-    working_directory: ~/front 
+    working_directory: ~/automatic-trading-system
     steps:
       - run: pwd
       - run: ls
       - checkout
+        path: ~/front
       - npm_install
       - run:
           name: build
