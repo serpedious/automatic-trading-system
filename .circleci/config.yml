@@ -25,6 +25,8 @@ jobs:
     executor: default
     working_directory: ~/automatic-trading-system/front
     steps:
+      - run: pwd
+      - run: ls
       - checkout
       - npm_install
       # - run: npm run test
@@ -33,6 +35,8 @@ jobs:
     executor: default
     working_directory: ~/automatic-trading-system/front 
     steps:
+      - run: pwd
+      - run: ls
       - checkout
       - npm_install
       - run:
