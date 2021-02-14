@@ -23,7 +23,7 @@ commands:
 jobs:
   build:
     executor: default
-    working_directory: /Users/serpedious/go/src/github.com/serpedious/automatic-trading-system
+    working_directory: ~/dist/
     steps:
       - checkout
       - npm_install
@@ -31,7 +31,7 @@ jobs:
 
   deploy:
     executor: default
-    working_directory: /Users/serpedious/go/src/github.com/serpedious/automatic-trading-system
+    working_directory: ~/dist/
     steps:
       - checkout
       - npm_install
