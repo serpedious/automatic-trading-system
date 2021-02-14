@@ -16,7 +16,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App from ci cd test'
     }
   },
   methods: {
