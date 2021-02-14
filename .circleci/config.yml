@@ -20,26 +20,17 @@ commands:
           paths:
               - node_modules
 
-# jobs:
-#   build:
-#     executor: default
-#     working_directory: ~/front
-#     steps:
-#       - checkout
-#       - npm_install
-#       - run: npm run test
-
   deploy:
     executor: default
-    working_directory: ~/front
+    working_directory: /Users/serpedious/go/src/github.com/serpedious/automatic-trading-system
     steps:
       - checkout
       - npm_install
       - run:
           name: build
-          command: API_ID=$API_ID API_TOKEN=$API_TOKEN npm run build
+          command: npm run build
       - aws-s3/sync:
-          from: dist
+          from: front/dist/
           to: s3://automatic-trading-system-front/
           overwrite: true
 
@@ -47,7 +38,6 @@ workflows:
   version: 2
   continuous-deploy:
     jobs:
-      # - build
       - deploy:
           requires:
             - build
