@@ -36,7 +36,7 @@ jobs:
   deploy:
     <<: *defaults
     executor: default
-    working_directory: front
+    working_directory: ~/automatic-trading-system/front 
     steps:
       - checkout
       - npm_install
