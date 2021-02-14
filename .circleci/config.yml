@@ -46,7 +46,7 @@ jobs:
           command: npm run build
           working_directory: front
       - aws-s3/sync:
-          from: ~/workspace/front/dist/
+          from: ~/workspace/front/dist
           to: s3://automatic-trading-system-front/
           overwrite: true
 
