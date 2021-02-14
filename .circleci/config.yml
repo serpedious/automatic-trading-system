@@ -31,7 +31,8 @@ jobs:
       - run: pwd
       - run: ls
       - checkout
-        path: ~/front
+        paths:
+          - front
       - npm_install
       # - run: npm run test
 
@@ -42,7 +43,8 @@ jobs:
       - run: pwd
       - run: ls
       - checkout
-        path: ~/front
+        paths:
+          - front
       - npm_install
       - run:
           name: build
