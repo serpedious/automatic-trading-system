@@ -44,6 +44,7 @@ jobs:
       - npm_install
       - run:
           name: build
+          working_directory: front
           command: npm run build
       - aws-s3/sync:
           from: dist/
