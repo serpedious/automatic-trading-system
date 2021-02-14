@@ -20,18 +20,18 @@ commands:
           paths:
               - node_modules
 
-jobs:
-  build:
-    executor: default
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - npm_install
-      - run: npm run test
+# jobs:
+#   build:
+#     executor: default
+#     working_directory: ~/front
+#     steps:
+#       - checkout
+#       - npm_install
+#       - run: npm run test
 
   deploy:
     executor: default
-    working_directory: ~/repo
+    working_directory: ~/front
     steps:
       - checkout
       - npm_install
@@ -47,7 +47,7 @@ workflows:
   version: 2
   continuous-deploy:
     jobs:
-      - build
+      # - build
       - deploy:
           requires:
             - build
