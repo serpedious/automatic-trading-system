@@ -34,7 +34,7 @@ jobs:
 
   deploy:
     executor: default
-    working_directory: ~/workspace
+    working_directory: ~/workspace/front
     steps:
       - checkout
       - run:
@@ -46,7 +46,7 @@ jobs:
           command: npm run build
           working_directory: front
       - aws-s3/sync:
-          from: dist/
+          from: ~/workspace/front/dist/
           to: s3://automatic-trading-system-front/
           overwrite: true
 
