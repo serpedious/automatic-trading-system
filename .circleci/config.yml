@@ -23,7 +23,7 @@ commands:
 jobs:
   build:
     executor: default
-    working_directory: ~/automatic-trading-system/front
+    working_directory: ~/front
     steps:
       - run: pwd
       - run: ls
@@ -33,7 +33,7 @@ jobs:
 
   deploy:
     executor: default
-    working_directory: ~/automatic-trading-system/front 
+    working_directory: ~/front 
     steps:
       - run: pwd
       - run: ls
