@@ -16,7 +16,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'it is lambda batch test'
+      msg: 'it is lambda batch test2'
     }
   },
   methods: {
