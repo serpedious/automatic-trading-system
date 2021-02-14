@@ -19,8 +19,16 @@ commands:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
               - node_modules
-              
+
 jobs:
+  build:
+    executor: default
+    working_directory: /Users/serpedious/go/src/github.com/serpedious/automatic-trading-system
+    steps:
+      - checkout
+      - npm_install
+      # - run: npm run test
+
   deploy:
     executor: default
     working_directory: /Users/serpedious/go/src/github.com/serpedious/automatic-trading-system
@@ -39,6 +47,7 @@ workflows:
   version: 2
   continuous-deploy:
     jobs:
+      - build
       - deploy:
           requires:
             - build
