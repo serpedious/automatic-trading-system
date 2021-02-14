@@ -1,6 +1,3 @@
-defaults: &defaults
-  working_directory: /go/src/github.com/serpedious/automatic-trading-system
-
 version: 2.1
 
 orbs:
@@ -25,7 +22,6 @@ commands:
 
 jobs:
   build:
-    <<: *defaults
     executor: default
     working_directory: ~/automatic-trading-system/front
     steps:
@@ -34,7 +30,6 @@ jobs:
       # - run: npm run test
 
   deploy:
-    <<: *defaults
     executor: default
     working_directory: ~/automatic-trading-system/front 
     steps:
