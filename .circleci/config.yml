@@ -23,7 +23,7 @@ commands:
 jobs:
   build:
     executor: default
-    working_directory: ~/dist/
+    working_directory: ~/automatic-trading-system/front
     steps:
       - checkout
       - npm_install
@@ -31,7 +31,7 @@ jobs:
 
   deploy:
     executor: default
-    working_directory: ~/dist/
+    working_directory: ~/automatic-trading-system/front
     steps:
       - checkout
       - npm_install
@@ -39,7 +39,7 @@ jobs:
           name: build
           command: npm run build
       - aws-s3/sync:
-          from: front/dist/
+          from: dist/
           to: s3://automatic-trading-system-front/
           overwrite: true
 
