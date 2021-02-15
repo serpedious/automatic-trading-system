@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     apiPublic: async function () {
-      let res = await axios.get('http://18.177.143.252:8080/')
+      let res = await axios.get('https://fc5ab7o0l5.execute-api.ap-northeast-1.amazonaws.com')
       this.msg = res.data
     },
     apiPrivate: async function () {
