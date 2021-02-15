@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     apiPublic: async function () {
-      let res = await axios.get('http://localhost:8000/public')
+      let res = await axios.get('http://18.177.143.252:8080/')
       this.msg = res.data
     },
     apiPrivate: async function () {
