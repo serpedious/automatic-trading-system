@@ -25,7 +25,7 @@ export default {
       this.msg = res.data
     },
     apiPrivate: async function () {
-      let res = await axios.get('http://localhost:8000/private')
+      let res = await axios.get('https://api.serpedious.link/bye')
       this.msg = res.data
     }
   }
