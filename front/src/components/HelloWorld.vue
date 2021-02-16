@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     apiPublic: async function () {
-      let res = await axios.get('https://fc5ab7o0l5.execute-api.ap-northeast-1.amazonaws.com')
+      let res = await axios.get('https://api.serpedious.link/')
       this.msg = res.data
     },
     apiPrivate: async function () {
