@@ -21,11 +21,11 @@ export default {
   },
   methods: {
     apiPublic: async function () {
-      let res = await axios.get('https://api.serpedious.link/')
+      let res = await axios.get('https://api.serpedious.link/public')
       this.msg = res.data
     },
     apiPrivate: async function () {
-      let res = await axios.get('https://api.serpedious.link/bye')
+      let res = await axios.get('https://api.serpedious.link/private')
       this.msg = res.data
     }
   }

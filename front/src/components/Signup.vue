@@ -30,7 +30,7 @@ export default {
   },
   methods: {
       apiSignup: async function() {
-        let res = await axios.post("http://localhost:8000/signup", {
+        let res = await axios.post("https://api.serpedious.link/signup", {
             email: this.email,
             password: this.password
         });

@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     apiBalance: async function () {
-      let res = await axios.get('http://localhost:8000/balance')
+      let res = await axios.get('https://api.serpedious.link/balance')
       this.deposit = res.data
     },
     apiBalanceHide: async function () {
