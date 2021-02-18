@@ -7,6 +7,7 @@ ENV CGO_ENABLED=0
 ENV GOOS=linux 
 ENV GOARCH=amd64
 
+
 RUN go get github.com/pilu/fresh
 EXPOSE 8000
 CMD ["fresh"]
