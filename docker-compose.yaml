@@ -29,3 +29,4 @@ services:
       DATABASE_HOST: ${DATABASE_HOST}
     volumes:
       - $PWD/docker/db/init:/docker-entrypoint-initdb.d
+      
