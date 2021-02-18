@@ -52,7 +52,7 @@ jobs:
           overwrite: true
 
   deploy_server:
-　　executor: default
+    executor: default
     working_directory: ~/workspace/server
     steps:
       - checkout
@@ -61,9 +61,9 @@ jobs:
           command: |
             echo -e "Host git-codecommit.*.amazonaws.com\n  User ${IAM_SSH_KEY_ID}\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null" >> ${HOME}/.ssh/config
             git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/automatic-trading-system main
-           working_directory: server
+          working_directory: server
 
-           
+
 workflows:
   version: 2
   continuous-deploy:
