@@ -14,6 +14,8 @@ CMD ["fresh"]
 
 
 
+
+
 # FROM golang:latest as builder
 
 # # Application working directory ( Created if it doesn't exist )
