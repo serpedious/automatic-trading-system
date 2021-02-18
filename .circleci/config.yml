@@ -70,8 +70,8 @@ workflows:
     jobs:
       - deploy_server:
           filters:
-          branches:
-          only: main
+            branches:
+              only: main
       - build
       - deploy:
           requires:
