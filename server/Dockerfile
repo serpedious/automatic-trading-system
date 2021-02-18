@@ -3,6 +3,7 @@ FROM golang:1.11
 WORKDIR /api
 COPY . .
 ENV GO111MODULE=on
+ENV CGO_ENABLED=0
 
 RUN go get github.com/pilu/fresh
 EXPOSE 8000
