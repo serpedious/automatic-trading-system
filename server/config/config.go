@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -17,13 +18,7 @@ type ConfigList struct {
 var Config ConfigList
 
 func init() {
-	var err error
-
-	err = godotenv.Load()
-
-	if err != nil {
-		log.Printf("Failed to read config file: %v", err)
-	}
+	_ = godotenv.Load()
 
 	Config = ConfigList{
 		ApiKey:      os.Getenv("BITFLYER_API_KEY"),
@@ -31,6 +26,11 @@ func init() {
 		LogFile:     os.Getenv("LOG_FILE"),
 		ProductCode: os.Getenv("PRODUCT_CODE"),
 	}
+
+	fmt.Println(os.Getenv("PRODUCT_CODE"))
+	fmt.Println(os.Getenv("LOG_FILE"))
+	log.Printf(os.Getenv("LOG_FILE"))
+	log.Printf(os.Getenv("PRODUCT_CODE"))
 }
 
 // package config
