@@ -24,7 +24,7 @@ commands:
               - node_modules
 
 jobs:
-  build:
+  build_front:
     executor: default
     working_directory: ~/workspace
     steps:
@@ -32,7 +32,7 @@ jobs:
       - npm_install
       # - run: npm run test
 
-  deploy:
+  deploy_front:
     executor: default
     working_directory: ~/workspace/front
     steps:
@@ -68,14 +68,14 @@ workflows:
   version: 2
   continuous-deploy:
     jobs:
-      - deploy_server:
-          filters:
-            branches:
-              only: main
+      # - deploy_server:
+      #     filters:
+      #       branches:
+      #         only: main
       - build
-      - deploy:
+      - deploy_front:
           requires:
-            - build
+            - build_front
           filters:
             branches:
               only: main

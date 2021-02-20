@@ -45,11 +45,11 @@ export default {
   },
   methods: {
     apiPublic: async function () {
-      let res = await axios.get('https://api.serpedious.link/public')
+      let res = await axios.get(process.env.API_BASE_URL + '/public')
       this.msg = res.data
     },
     apiPrivate: async function () {
-      let res = await axios.get('http://localhost:8000/private')
+      let res = await axios.get(process.env.API_BASE_URL + '/private')
       this.msg = res.data
     }
   }
