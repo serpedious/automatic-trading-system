@@ -43,7 +43,7 @@ jobs:
           working_directory: front
       - run:
           name: build
-          command: npm run build
+          command: npm run generate
           working_directory: front
       - aws-s3/sync:
           from: front/dist
