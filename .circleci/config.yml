@@ -72,7 +72,6 @@ workflows:
       #     filters:
       #       branches:
       #         only: main
-      - build
       - deploy_front:
           requires:
             - build_front
