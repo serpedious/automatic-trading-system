@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	_ "github.com/lib/pq"
 
@@ -15,6 +16,12 @@ import (
 )
 
 func Signup(w http.ResponseWriter, r *http.Request) {
+	var (
+		HOST     = os.Getenv("DATABASE_HOST")
+		DATABASE = os.Getenv("POSTGRES_DB")
+		USER     = os.Getenv("POSTGRES_USER")
+		PASSWORD = os.Getenv("PGPASSWORD")
+	)
 	var user User
 	var error utils.Error
 
@@ -50,7 +57,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	sql_query := "INSERT INTO USERS(EMAIL, PASSWORD) VALUES($1, $2) RETURNING id;"
 
 	var Db *sql.DB
-	Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user=postgres password=mysecretpassword1234 dbname=test_db sslmode=disable")
+	Db, _ = sql.Open("postgres", "host="+HOST+" port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
 
 	err = Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
 	if err != nil {

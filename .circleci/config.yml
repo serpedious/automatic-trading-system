@@ -68,10 +68,10 @@ workflows:
   version: 2
   continuous-deploy:
     jobs:
-      # - deploy_server:
-      #     filters:
-      #       branches:
-      #         only: main
+      - deploy_server:
+          filters:
+            branches:
+              only: main
       - build_front
       - deploy_front:
           requires:

@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     apiTicker: async function () {
-      let res = await axios.get('https://api.serpedious.link/ticker')
+      let res = await axios.get(process.env.API_BASE_URL + '/ticker')
       this.ticker = res.data
     },
     apiTickerHide: async function () {

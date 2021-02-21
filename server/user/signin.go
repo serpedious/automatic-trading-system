@@ -18,6 +18,13 @@ import (
 )
 
 func Signin(w http.ResponseWriter, r *http.Request) {
+	var (
+		HOST     = os.Getenv("DATABASE_HOST")
+		DATABASE = os.Getenv("POSTGRES_DB")
+		USER     = os.Getenv("POSTGRES_USER")
+		PASSWORD = os.Getenv("PGPASSWORD")
+	)
+
 	var user User
 	var error utils.Error
 	var jwt JWT
@@ -37,7 +44,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	password := user.Password
 	fmt.Println("password: ", password)
 	var Db *sql.DB
-	Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user=postgres password=mysecretpassword1234 dbname=test_db sslmode=disable")
+	Db, _ = sql.Open("postgres", "host="+HOST+" port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
 
 	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", user.Email)
 	err := row.Scan(&user.ID, &user.Email, &user.Password)

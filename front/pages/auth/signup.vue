@@ -31,12 +31,12 @@ export default {
   },
   methods: {
       apiSignup: async function() {
-        let res = await axios.post("https://api.serpedious.link/signup", {
+        let res = await axios.post(process.env.API_BASE_URL + "/signup", {
             email: this.email,
             password: this.password
         });
         this.email = res.data.email
-        router.push("/users");
+        this.$router.push("/users");
       }
   }
 }

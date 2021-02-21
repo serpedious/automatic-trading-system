@@ -1,8 +1,6 @@
 package config
 
 import (
-	"fmt"
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -26,11 +24,6 @@ func init() {
 		LogFile:     os.Getenv("LOG_FILE"),
 		ProductCode: os.Getenv("PRODUCT_CODE"),
 	}
-
-	fmt.Println(os.Getenv("PRODUCT_CODE"))
-	fmt.Println(os.Getenv("LOG_FILE"))
-	log.Printf(os.Getenv("LOG_FILE"))
-	log.Printf(os.Getenv("PRODUCT_CODE"))
 }
 
 // package config
