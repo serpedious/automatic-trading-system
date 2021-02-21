@@ -1,6 +1,7 @@
 package tool
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -13,7 +14,7 @@ type Info struct {
 func (u Info) GetDBUrl() string {
 	err := godotenv.Load()
 	if err != nil {
-		panic(err.Error())
+		fmt.Println("production...")	
 	}
 	postgresURL := os.Getenv("POSTGRES_URL")
 	return postgresURL
