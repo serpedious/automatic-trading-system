@@ -2,7 +2,6 @@ package tool
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	"github.com/lib/pq"
