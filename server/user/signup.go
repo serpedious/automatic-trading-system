@@ -57,7 +57,8 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	// var Db *sql.DB
 	// Db, _ = sql.Open("postgres", "host="+HOST+" port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
-
+	tool.Connect()
+	
 	err = tool.Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
 	if err != nil {
 		error.Message = "server error"

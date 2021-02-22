@@ -2,6 +2,7 @@ package tool
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/lib/pq"
@@ -10,7 +11,7 @@ import (
 
 var Db *sql.DB
 
-func init() {
+func Connect() {
 	i := Info{}
 	pgUrl, err := pq.ParseURL(i.GetDBUrl())
 	if err != nil {

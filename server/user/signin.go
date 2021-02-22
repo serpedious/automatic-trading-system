@@ -47,6 +47,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	// var Db *sql.DB
 	// Db, _ = sql.Open("postgres", "host="+HOST+" port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
 
+	tool.Connect()
 	row := tool.Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", user.Email)
 	err := row.Scan(&user.ID, &user.Email, &user.Password)
 
