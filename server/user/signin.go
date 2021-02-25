@@ -92,10 +92,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 func createToken(user User) (string, error) {
 	var err error
 
-	err = godotenv.Load()
-	if err != nil {
-		panic(err.Error())
-	}
+	_ = godotenv.Load()
 
 	secret := os.Getenv("JWT_SECRET")
 
