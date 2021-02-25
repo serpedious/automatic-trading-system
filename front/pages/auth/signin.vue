@@ -4,7 +4,7 @@
         <h2>Sign in</h2>
         <input type="text" placeholder="email" v-model="email">
         <input type="password" placeholder="Password" v-model="password">
-        <button>Signin</button>
+        <button @click="apiSignin">Signin</button>
         <p>You don't have an account?
             <router-link to="/auth/signup">create account now!!</router-link>
         </p>
@@ -13,13 +13,23 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Signin',
   data: function () {
     return {
-      email: '',
-      password: ''
+      token: ''
     }
+  },
+  methods: {
+      apiSignin: async function() {
+        let res = await axios.post(process.env.API_BASE_URL + "/signin", {
+            email: this.email,
+            password: this.password
+        });
+        this.token = res.data.token
+        this.$router.push("/users");
+      }
   }
 }
 </script>

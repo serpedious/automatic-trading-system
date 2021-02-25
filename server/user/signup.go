@@ -60,7 +60,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	var Db *sql.DB
 
 	err = godotenv.Load()
-	
+
 	if err != nil {
 		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", HOST, USER, DATABASE, PASSWORD)
 	    Db, _ = sql.Open("postgres", dbURI)
@@ -78,6 +78,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	user.Password = ""
 	w.Header().Set("Content-Type", "application/json")
+	defer Db.Close()
 
 	utils.ResponseByJSON(w, user)
 }

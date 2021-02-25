@@ -36,7 +36,7 @@ export default {
             password: this.password
         });
         this.email = res.data.email
-        this.$router.push("/users");
+        this.$router.push("/auth/signin");
       }
   }
 }

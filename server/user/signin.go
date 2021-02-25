@@ -84,6 +84,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	jwt.Token = token
+	defer Db.Close()
 
 	utils.ResponseByJSON(w, jwt)
 }
