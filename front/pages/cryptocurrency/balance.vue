@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     apiBalance: async function () {
-      let res = await axios.get(process.env.API_BASE_URL + 'balance')
+      let res = await axios.get(process.env.API_BASE_URL + '/balance')
       this.deposit = res.data
     },
     apiBalanceHide: async function () {

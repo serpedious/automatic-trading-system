@@ -1,26 +1,28 @@
 package user
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/serpedious/automatic-trading-system/server/tool"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func Signup(w http.ResponseWriter, r *http.Request) {
-	// var (
-	// 	HOST     = os.Getenv("DATABASE_HOST")
-	// 	DATABASE = os.Getenv("POSTGRES_DB")
-	// 	USER     = os.Getenv("POSTGRES_USER")
-	// 	PASSWORD = os.Getenv("PGPASSWORD")
-	// )
+	var (
+		HOST     = os.Getenv("POSTGRES_URL")
+		DATABASE = os.Getenv("POSTGRES_DB")
+		USER     = os.Getenv("POSTGRES_USER")
+		PASSWORD = os.Getenv("PGPASSWORD")
+	)
 	var user User
 	var error utils.Error
 
@@ -55,11 +57,19 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	sql_query := "INSERT INTO USERS(EMAIL, PASSWORD) VALUES($1, $2) RETURNING id;"
 
-	// var Db *sql.DB
-	// Db, _ = sql.Open("postgres", "host="+HOST+" port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
-	tool.Connect()
+	var Db *sql.DB
+
+	err = godotenv.Load()
 	
-	err = tool.Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
+	if err != nil {
+		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", HOST, USER, DATABASE, PASSWORD)
+	    Db, _ = sql.Open("postgres", dbURI)
+	} else {
+	    Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")	
+	}
+
+
+	err = Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
 	if err != nil {
 		error.Message = "server error"
 		utils.ErrorInResponse(w, http.StatusInternalServerError, error)

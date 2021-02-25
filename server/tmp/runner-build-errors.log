@@ -1,3 +1,0 @@
-# github.com/serpedious/automatic-trading-system/server/tool
-tool/db.go:5:2: imported and not used: "fmt"
-note: module requires Go 1.16
