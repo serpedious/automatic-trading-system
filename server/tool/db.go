@@ -1,14 +1,14 @@
 package tool
 
 import (
-	"database/sql"
+	// "database/sql"
 	// "log"
 	// "os"
 
-	_ "github.com/lib/pq"
+	// _ "github.com/lib/pq"
 )
 
-var Db *sql.DB
+// var Db *sql.DB
 
 func Connect() {
 	// var (
