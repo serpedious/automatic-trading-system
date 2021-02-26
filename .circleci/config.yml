@@ -58,9 +58,12 @@ jobs:
 
   test_server:
     executor: default
+    docker:
+      - image: circleci/golang:latest
     working_directory: ~/workspace/server
     steps:
       - checkout
+      - run: go mod download
       - run:
           name: test golang api
           command: go test -run ''
