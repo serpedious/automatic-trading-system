@@ -30,7 +30,7 @@ jobs:
     steps:
       - checkout
       - npm_install
-       - run:
+      - run:
           name: jest test
           command: npm run test
           working_directory: front
@@ -94,4 +94,3 @@ workflows:
           filters:
             branches:
               only: main
-              
