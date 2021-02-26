@@ -4,4 +4,13 @@ server/config.ini
 server/gotrading.log
 server/.env
 
+
+terraform/.envrc
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform
+terraform/.tfvars
+terraform/crash.log
+
 .DS_Store
