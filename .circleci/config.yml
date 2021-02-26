@@ -63,7 +63,6 @@ jobs:
     working_directory: ~/workspace/server
     steps:
       - checkout
-      - run: go mod download
       - run:
           name: test golang api
           command: go test -run ''
