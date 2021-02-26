@@ -16,6 +16,10 @@ import (
 	"github.com/rs/cors"
 )
 
+func hello() int {
+	return 1
+}
+
 func public(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello public!\n"))
 }

@@ -24,13 +24,16 @@ commands:
               - node_modules
 
 jobs:
-  build_front:
+  test_front:
     executor: default
-    working_directory: ~/workspace
+    working_directory: ~/workspace/front
     steps:
       - checkout
       - npm_install
-      # - run: npm run test
+       - run:
+          name: jest test
+          command: npm run test
+          working_directory: front
 
   deploy_front:
     executor: default
@@ -48,8 +51,17 @@ jobs:
       - aws-s3/sync:
           from: front/dist
           to: s3://automatic-trading-system-front/
-
           overwrite: true
+
+  test_server:
+    executor: default
+    working_directory: ~/workspace/server
+    steps:
+      - checkout
+      - run:
+          name: test golang api
+          command: go test -run ''
+          working_directory: server
 
   deploy_server:
     executor: default
@@ -68,14 +80,18 @@ workflows:
   version: 2
   continuous-deploy:
     jobs:
+      - test_server
       - deploy_server:
+          requires:
+            - test_server
           filters:
             branches:
               only: main
       - build_front
       - deploy_front:
           requires:
-            - build_front
+            - test_front
           filters:
             branches:
               only: main
+              
