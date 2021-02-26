@@ -87,7 +87,7 @@ workflows:
           filters:
             branches:
               only: main
-      - build_front
+      - test_front
       - deploy_front:
           requires:
             - test_front
