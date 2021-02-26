@@ -3,3 +3,5 @@
 server/config.ini
 server/gotrading.log
 server/.env
+
+.DS_Store
