@@ -12,16 +12,16 @@ executors:
         #     aws_access_key_id: 
         #     aws_secret_access_key: $ECR_AWS_SECRET_ACCESS_KEY
 
-commands:
-  npm_install:
-    steps:
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-              - node_modules
+# commands:
+#   npm_install:
+#     steps:
+#       - restore_cache:
+#           key: dependency-cache-{{ checksum "package.json" }}
+#       - run: npm install
+#       - save_cache:
+#           key: dependency-cache-{{ checksum "package.json" }}
+#           paths:
+#               - node_modules
 
 jobs:
   test_front:
@@ -29,7 +29,10 @@ jobs:
     working_directory: ~/workspace/
     steps:
       - checkout
-      - npm_install
+      - run:
+          name: install
+          command: npm install
+          working_directory: front
       - run:
           name: jest test
           command: npm run test
