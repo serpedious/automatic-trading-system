@@ -26,6 +26,19 @@ resource "aws_s3_bucket" "artifact" {
     }
   }
 }
+resource "aws_s3_bucket" "automatic-trading-system-valt-secret" {
+  bucket = "automatic-trading-system-valt-secret"
+  
+  cors_rule {
+    allowed_origins = ["*"]
+    allowed_methods = ["GET"]
+    allowed_headers = ["*"]
+  }
+
+  tags = {
+    Name = "automatic-trading-system-s3-bucket-for-nuxt"
+  }
+}
 
 resource "aws_s3_bucket_policy" "automatic-trading-system" {
   bucket = aws_s3_bucket.automatic-trading-system-s3-bucket.id

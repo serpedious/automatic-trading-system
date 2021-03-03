@@ -10,11 +10,11 @@ resource "aws_security_group" "automatic-trading-system-rds-sg" {
 #####################
 # SecurityGroup NLB #
 #####################
-# resource "aws_security_group" "automatic-trading-system-nlb-sg" {
-#   name        = "automatic-trading-system-alb-sg"
-#   description = "ALB security group for automatic-trading-system"
-#   vpc_id      = aws_vpc.automatic-trading-system.id
-# }
+resource "aws_security_group" "automatic-trading-system-nlb-sg" {
+  name        = "automatic-trading-system-alb-sg"
+  description = "NLB security group for automatic-trading-system"
+  vpc_id      = aws_vpc.automatic-trading-system.id
+}
 
 #####################
 # SecurityGroup ECS #
