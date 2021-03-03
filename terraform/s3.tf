@@ -36,11 +36,11 @@ resource "aws_s3_bucket_policy" "automatic-trading-system" {
 ##############
 #   secret   #
 ##############
-# variable "GITHUB_TOKEN" {}
-# variable "GITHUB_USER" {}
-# variable "GITHUB_REPO" {}
-# variable "GITHUB_BRANCH" {}
-# variable "WEBHOOK_TOKEN" {}
+variable "GITHUB_TOKEN" {}
+variable "GITHUB_USER" {}
+variable "GITHUB_REPO" {}
+variable "GITHUB_BRANCH" {}
+variable "WEBHOOK_TOKEN" {}
 variable "DB_USERNAME" {}
 variable "DB_PASSWORD" {}
 
