@@ -1,11 +1,11 @@
 ####################
 # SecurityGroup RDS #
 # ####################
-# resource "aws_security_group" "automatic-trading-system-rds-sg" {
-#   description = "RDS security group for automatic-trading-system"
-#   name        = "automatic-trading-system-rds-sg"
-#   vpc_id      = aws_vpc.automatic-trading-system.id
-# }
+resource "aws_security_group" "automatic-trading-system-rds-sg" {
+  description = "RDS security group for automatic-trading-system"
+  name        = "automatic-trading-system-rds-sg"
+  vpc_id      = aws_vpc.automatic-trading-system.id
+}
 
 #####################
 # SecurityGroup NLB #

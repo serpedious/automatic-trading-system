@@ -35,7 +35,7 @@ resource "aws_ecs_service" "automatic-trading-system-api-ecs-service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.automatic-trading-system-nlb-api-tg.arn
-    container_name   = "api-container"
+    container_name   = "automatic-trading-system"
     container_port   = "8000"
   }
 }

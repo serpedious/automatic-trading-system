@@ -26,8 +26,8 @@ resource "aws_subnet" "automatic-trading-system-public-1c" {
 ###############
 # SubnetGroup #
 ###############
-# resource "aws_db_subnet_group" "automatic-trading-system-rds-subnet-group" {
-#   name        = "automatic-trading-system-rds-subnet-group"
-#   description = "rds subnet for automatic-trading-system"
-#   subnet_ids  = [aws_subnet.automatic-trading-system-private-1a.id, aws_subnet.automatic-trading-system-private-1c.id]
-# }
+resource "aws_db_subnet_group" "automatic-trading-system-rds-subnet-group" {
+  name        = "automatic-trading-system-rds-subnet-group"
+  description = "rds subnet for automatic-trading-system"
+  subnet_ids  = [aws_subnet.automatic-trading-system-public-1a.id, aws_subnet.automatic-trading-system-public-1c.id]
+}
