@@ -3,12 +3,17 @@
 ##########
 resource "aws_s3_bucket" "automatic-trading-system-s3-bucket" {
   bucket = "automatic-trading-system-s3-bucket-for-nuxt"
-  acl = "public-read"
-  
+  acl    = "public-read"
+
   cors_rule {
     allowed_origins = ["*"]
     allowed_methods = ["GET"]
     allowed_headers = ["*"]
+  }
+
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
   }
 
   tags = {
@@ -28,7 +33,7 @@ resource "aws_s3_bucket" "artifact" {
 }
 resource "aws_s3_bucket" "automatic-trading-system-valt-secret" {
   bucket = "automatic-trading-system-valt-secret"
-  
+
   cors_rule {
     allowed_origins = ["*"]
     allowed_methods = ["GET"]
@@ -42,7 +47,19 @@ resource "aws_s3_bucket" "automatic-trading-system-valt-secret" {
 
 resource "aws_s3_bucket_policy" "automatic-trading-system" {
   bucket = aws_s3_bucket.automatic-trading-system-s3-bucket.id
-  policy = "${data.aws_iam_policy_document.s3_policy.json}"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Id      = "MYBUCKETPOLICY"
+    Statement = [
+      {
+        Sid       = "PublicReadForGetBucketObjects"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "arn:aws:s3:::automatic-trading-system-s3-bucket-for-nuxt/*"
+      },
+    ]
+  })
 }
 
 
@@ -58,14 +75,14 @@ variable "DB_USERNAME" {}
 variable "DB_PASSWORD" {}
 
 resource "aws_ssm_parameter" "db-username" {
-  name = "db-username"
-  value = var.DB_USERNAME
-  type = "SecureString"
+  name        = "db-username"
+  value       = var.DB_USERNAME
+  type        = "SecureString"
   description = "DB_USERNAME"
 }
 resource "aws_ssm_parameter" "db-password" {
-  name = "db-password"
-  value = var.DB_PASSWORD
-  type = "SecureString"
+  name        = "db-password"
+  value       = var.DB_PASSWORD
+  type        = "SecureString"
   description = "DB_PASSWORD"
 }

@@ -2,7 +2,7 @@
 #    eip      #
 ###############
 resource "aws_eip" "automatic-trading-system-eip" {
-  vpc      = true
+  vpc        = true
   depends_on = [aws_lb.automatic-trading-system-nlb]
 
   tags = {

@@ -2,11 +2,11 @@
 #  RDS  #
 #########
 resource "aws_db_instance" "automatic-trading-system-db" {
-  allocated_storage = 20
-  instance_class    = "db.t3.micro"
-  engine            = "postgres"
-  engine_version    = "12.3"
-  storage_type      = "gp2"
+  allocated_storage       = 20
+  instance_class          = "db.t3.micro"
+  engine                  = "postgres"
+  engine_version          = "12.5"
+  storage_type            = "gp2"
   username                = "hoge"
   password                = "aaaaaaaa"
   backup_retention_period = 7

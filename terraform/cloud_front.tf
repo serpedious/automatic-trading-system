@@ -4,11 +4,11 @@ locals {
 
 resource "aws_cloudfront_distribution" "automatic-trading-system" {
   origin {
-    domain_name = "${aws_s3_bucket.automatic-trading-system-s3-bucket.bucket_regional_domain_name}"
-    origin_id   = "${aws_s3_bucket.automatic-trading-system-s3-bucket.id}"
+    domain_name = aws_s3_bucket.automatic-trading-system-s3-bucket.bucket_regional_domain_name
+    origin_id   = aws_s3_bucket.automatic-trading-system-s3-bucket.id
 
     s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path}"
+      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
     }
   }
 
@@ -18,16 +18,18 @@ resource "aws_cloudfront_distribution" "automatic-trading-system" {
 
   logging_config {
     include_cookies = false
-    bucket          = "${aws_s3_bucket.automatic-trading-system-s3-bucket.bucket_domain_name}"
+    bucket          = aws_s3_bucket.automatic-trading-system-s3-bucket.bucket_domain_name
     prefix          = "prefix"
   }
 
-  aliases = ["serpedious.link"]
+  aliases = ["serpedious.link", "*.serpedious.link"]
+
+  default_root_object = "index.html"
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${aws_s3_bucket.automatic-trading-system-s3-bucket.id}"
+    target_origin_id = aws_s3_bucket.automatic-trading-system-s3-bucket.id
 
     forwarded_values {
       query_string = false
@@ -37,13 +39,13 @@ resource "aws_cloudfront_distribution" "automatic-trading-system" {
       }
     }
 
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
   }
 
-  price_class = "PriceClass_200"
+  price_class = "PriceClass_All"
 
   restrictions {
     geo_restriction {
@@ -55,9 +57,23 @@ resource "aws_cloudfront_distribution" "automatic-trading-system" {
     Environment = "dev"
   }
 
+  custom_error_response {
+    error_caching_min_ttl = 10
+    error_code            = 403
+    response_code         = 200
+    response_page_path    = "/"
+  }
+  custom_error_response {
+    error_caching_min_ttl = 10
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/"
+  }
+
   viewer_certificate {
-    acm_certificate_arn = "arn:aws:acm:us-east-1:606124585607:certificate/54581b7b-f960-4e4c-a203-059fdb30ce6a"
-    ssl_support_method  = "vip"
+    acm_certificate_arn      = "arn:aws:acm:us-east-1:606124585607:certificate/54581b7b-f960-4e4c-a203-059fdb30ce6a"
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2019"
   }
 }
 

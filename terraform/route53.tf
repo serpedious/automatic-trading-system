@@ -12,8 +12,8 @@ resource "aws_route53_record" "automatic-trading-system-host-zone-record" {
   type    = "A"
 
   alias {
-    name                   = aws_lb.automatic-trading-system-nlb.dns_name
-    zone_id                = aws_lb.automatic-trading-system-nlb.zone_id
-    evaluate_target_health = true
+    evaluate_target_health = false
+    name                   = "d111pd78fvr7hz.cloudfront.net"
+    zone_id                = "Z2FDTNDATAQYW2"
   }
 }
