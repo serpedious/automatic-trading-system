@@ -53,7 +53,7 @@ jobs:
           working_directory: front
       - aws-s3/sync:
           from: front/dist
-          to: s3://automatic-trading-system-front/
+          to: s3://automatic-trading-system-s3-bucket-for-nuxt/
           overwrite: true
 
   test_server:

@@ -1,6 +1,6 @@
 [
   {
-    "name": "automatic-trading-system",
+    "name": "automatic-trading-system-api",
     "image": "606124585607.dkr.ecr.ap-northeast-1.amazonaws.com/prod-auto:f82506d",
     "essential": true,
     "executionRoleArn": "arn:aws:iam::606124585607:role/ecsTaskExecutionRole",
@@ -13,7 +13,7 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "/ecs/automatic-trading-system-api-task",
+        "awslogs-group": "/ecs/automatic-trading-system-api",
         "awslogs-region": "ap-northeast-1",
         "awslogs-stream-prefix": "ecs"
       }
@@ -30,7 +30,7 @@
         "containerPort": 80
       }
     ],
-    "family": "automatic-trading-system-api-task",
+    "family": "automatic-trading-system-api",
     "requiresCompatibilities": [
       "FARGATE"
     ],

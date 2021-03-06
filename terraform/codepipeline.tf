@@ -2,34 +2,17 @@
 # CodePipeline #
 ################
 
+resource "aws_codecommit_repository" "automatic_api_repo" {
+  repository_name = "automatic_api_repo"
+  description     = "automatic_api_repo"
+}
 #__________ CoreBuild __________#
 data "aws_iam_policy_document" "codebuild" {
   statement {
     effect    = "Allow"
     resources = ["*"]
 
-    actions = [
-      "s3:PutObject",
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "ecr:GetAuthorizationToken",
-      "ecr:BatchCheckLayerAvailability",
-      "ecr:GetDownloadUrlForLayer",
-      "ecr:GetRepositoryPolicy",
-      "ecr:DescribeRepositories",
-      "ecr:ListImages",
-      "ecr:DescribeImages",
-      "ecr:BatchGetImage",
-      "ecr:InitiateLayerUpload",
-      "ecr:UploadLayerPart",
-      "ecr:CompleteLayerUpload",
-      "ecr:PutImage",
-      "ssm:GetParameters",
-      "kms:Decrypt"
-    ]
+    actions = ["*"]
   }
 }
 module "codebuild_role" {
@@ -64,21 +47,7 @@ data "aws_iam_policy_document" "codepipeline" {
     effect    = "Allow"
     resources = ["*"]
 
-    actions = [
-      "s3:PutObject",
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-      "s3:GetBucketVersioning",
-      "codebuild:BatchGetBuilds",
-      "codebuild:StartBuild",
-      "ecs:DescribeServices",
-      "ecs:DescribeTaskDefinition",
-      "ecs:DescribeTasks",
-      "ecs:ListTasks",
-      "ecs:RegisterTaskDefinition",
-      "ecs:UpdateService",
-      "iam:PassRole",
-    ]
+    actions = ["*"]
   }
 }
 module "codepipeline_role" {
@@ -86,10 +55,6 @@ module "codepipeline_role" {
   name       = "codepipeline"
   identifier = "codepipeline.amazonaws.com"
   policy     = data.aws_iam_policy_document.codepipeline.json
-}
-resource "aws_codecommit_repository" "automatic_api_repo" {
-  repository_name = "automatic_api_repo"
-  description     = "automatic_api_repo"
 }
 resource "aws_codepipeline" "codepipeline" {
   name     = "codepipeline"
@@ -178,7 +143,7 @@ resource "aws_codepipeline" "codepipeline" {
       configuration = {
         ClusterName = aws_ecs_cluster.automatic-trading-system-ecs-cluster.name
         ServiceName = aws_ecs_service.automatic-trading-system-api-ecs-service.name
-        FileName    = "api_imagedefinitions.json"
+        FileName    = "imagedefinitions.json"
       }
     }
   }

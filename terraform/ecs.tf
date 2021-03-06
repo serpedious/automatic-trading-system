@@ -5,8 +5,8 @@ resource "aws_ecs_cluster" "automatic-trading-system-ecs-cluster" {
   name = "automatic-trading-system-ecs-cluster"
 }
 
-resource "aws_ecs_task_definition" "automatic-trading-system-api-task" {
-  family                   = "automatic-trading-system-api-task"
+resource "aws_ecs_task_definition" "automatic-trading-system-api" {
+  family                   = "automatic-trading-system-api"
   cpu                      = "256"
   memory                   = "512"
   network_mode             = "awsvpc"
@@ -17,7 +17,7 @@ resource "aws_ecs_task_definition" "automatic-trading-system-api-task" {
 resource "aws_ecs_service" "automatic-trading-system-api-ecs-service" {
   name             = "automatic-trading-system-api-ecs-service"
   cluster          = aws_ecs_cluster.automatic-trading-system-ecs-cluster.arn
-  task_definition  = aws_ecs_task_definition.automatic-trading-system-api-task.arn
+  task_definition  = aws_ecs_task_definition.automatic-trading-system-api.arn
   desired_count    = 1
   launch_type      = "FARGATE"
   platform_version = "1.4.0"
@@ -35,7 +35,7 @@ resource "aws_ecs_service" "automatic-trading-system-api-ecs-service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.automatic-trading-system-nlb-api-tg.arn
-    container_name   = "automatic-trading-system"
+    container_name   = "automatic-trading-system-api"
     container_port   = "8000"
   }
 }
