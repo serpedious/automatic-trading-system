@@ -77,25 +77,25 @@ jobs:
           name: deploy for production
           command: |
             echo -e "Host git-codecommit.*.amazonaws.com\n  User ${IAM_SSH_KEY_ID}\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null" >> ${HOME}/.ssh/config
-            git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/automatic-trading-system main
+            git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/automatic_api_repo main
           working_directory: server
 
 
-workflows:
-  version: 2
-  continuous-deploy:
-    jobs:
-      - test_server
-      - deploy_server:
-          requires:
-            - test_server
-          filters:
-            branches:
-              only: main
-      - test_front
-      - deploy_front:
-          requires:
-            - test_front
-          filters:
-            branches:
-              only: main
+# workflows:
+#   version: 2
+#   continuous-deploy:
+#     jobs:
+#       - test_server
+#       - deploy_server:
+#           requires:
+#             - test_server
+#           filters:
+#             branches:
+#               only: main
+#       - test_front
+#       - deploy_front:
+#           requires:
+#             - test_front
+#           filters:
+#             branches:
+#               only: main

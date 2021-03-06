@@ -87,6 +87,10 @@ module "codepipeline_role" {
   identifier = "codepipeline.amazonaws.com"
   policy     = data.aws_iam_policy_document.codepipeline.json
 }
+resource "aws_codecommit_repository" "automatic_api_repo" {
+  repository_name = "automatic_api_repo"
+  description     = "automatic_api_repo"
+}
 resource "aws_codepipeline" "codepipeline" {
   name     = "codepipeline"
   role_arn = module.codepipeline_role.iam_role_arn
