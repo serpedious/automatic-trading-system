@@ -49,13 +49,12 @@ resource "aws_s3_bucket_policy" "automatic-trading-system" {
   bucket = aws_s3_bucket.automatic-trading-system-s3-bucket.id
   policy = jsonencode({
     Version = "2012-10-17"
-    Id      = "MYBUCKETPOLICY"
     Statement = [
       {
-        Sid       = "PublicReadForGetBucketObjects"
+        Sid       = "*"
         Effect    = "Allow"
         Principal = "*"
-        Action    = "s3:GetObject"
+        Action    = "s3:*"
         Resource  = "arn:aws:s3:::automatic-trading-system-s3-bucket-for-nuxt/*"
       },
     ]
