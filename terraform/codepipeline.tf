@@ -97,17 +97,15 @@ resource "aws_codepipeline" "codepipeline" {
     action {
       name             = "Source"
       category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
+      owner            = "AWS"
+      provider         = "CodeCommit"
       version          = 1
       output_artifacts = ["Source"]
 
       configuration = {
-        Owner                = var.GITHUB_USER
-        Repo                 = var.GITHUB_REPO
-        Branch               = var.GITHUB_BRANCH
+        RepositoryName       = "automatic-trading-system"
+        BranchName           = "main"
         PollForSourceChanges = false
-        OAuthToken           = var.GITHUB_TOKEN
       }
     }
   }
@@ -143,7 +141,21 @@ resource "aws_codepipeline" "codepipeline" {
       output_artifacts = ["Build"]
 
       configuration = {
-        ProjectName = aws_codebuild_project.codebuild.id
+        EnvironmentVariables = jsonencode(
+          [
+            {
+              name  = "AWS_DEFAULT_REGION"
+              type  = "PLAINTEXT"
+              value = "ap-northeast-1"
+            },
+            {
+              name  = "AWS_ACCOUNT_ID"
+              type  = "PLAINTEXT"
+              value = "606124585607"
+            },
+          ]
+        )
+        ProjectName = "automatic-system"
       }
     }
   }
@@ -163,20 +175,6 @@ resource "aws_codepipeline" "codepipeline" {
         ClusterName = aws_ecs_cluster.automatic-trading-system-ecs-cluster.name
         ServiceName = aws_ecs_service.automatic-trading-system-api-ecs-service.name
         FileName    = "api_imagedefinitions.json"
-      }
-    }
-    action {
-      name            = "Deploy-FRONT"
-      category        = "Deploy"
-      owner           = "AWS"
-      provider        = "ECS"
-      version         = 1
-      input_artifacts = ["Build"]
-
-      configuration = {
-        ClusterName = aws_ecs_cluster.automatic-trading-system-ecs-cluster.name
-        ServiceName = aws_ecs_service.automatic-trading-system-api-ecs-service.name
-        FileName    = "front_imagedefinitions.json"
       }
     }
   }

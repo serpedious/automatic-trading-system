@@ -5,6 +5,24 @@
 resource "aws_apigatewayv2_api" "automatic-trading-system-api-gateway" {
   name          = "automatic-trading-system-http-api"
   protocol_type = "HTTP"
+
+  cors_configuration {
+    allow_credentials = false
+    allow_headers = [
+      "'content-type,x-amz-date,authorization,x-api-key,x-amz-security-token,application/json,text/plain,*/*'",
+      "'multipart/form-data,application/x-www-form-urlencoded'",
+    ]
+    allow_methods = [
+      "*",
+    ]
+    allow_origins = [
+      "*",
+    ]
+    expose_headers = [
+      "'*'",
+    ]
+    max_age = 0
+  }
 }
 
 # resource "aws_apigatewayv2_api_mapping" "automatic-trading-system-api-gateway" {
