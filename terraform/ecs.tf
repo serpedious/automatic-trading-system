@@ -20,7 +20,7 @@ resource "aws_ecs_service" "automatic-trading-system-api-ecs-service" {
   task_definition  = aws_ecs_task_definition.automatic-trading-system-api-task.arn
   desired_count    = 1
   launch_type      = "FARGATE"
-  platform_version = "1.3.0"
+  platform_version = "1.4.0"
 
   network_configuration {
     assign_public_ip = true
@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "ecs_task_execution" {
 
   statement {
     effect    = "Allow"
-    actions   = ["ssm:GetParameters", "kms:Decrypt"]
+    actions   = ["s3:GetObject", "s3:GetBucketLocation"]
     resources = ["*"]
   }
 }

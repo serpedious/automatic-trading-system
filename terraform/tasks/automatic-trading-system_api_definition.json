@@ -1,15 +1,42 @@
 [
   {
     "name": "automatic-trading-system",
-    "image": "service-first",
-    "cpu": 10,
-    "memory": 512,
+    "image": "606124585607.dkr.ecr.ap-northeast-1.amazonaws.com/prod-auto:f82506d",
     "essential": true,
+    "executionRoleArn": "arn:aws:iam::606124585607:role/ecsTaskExecutionRole",
+    "environmentFiles": [
+      {
+        "value": "arn:aws:s3:::automatic-golang-api-secret/golang.env",
+        "type": "s3"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/automatic-trading-system-api-task",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
     "portMappings": [
-    {
-        "containerPort": 8000,
-        "hostPort": 8000
-    }
-    ]
+      {
+        "hostPort": 8000,
+        "protocol": "tcp",
+        "containerPort": 8000
+      },
+      {
+        "hostPort": 80,
+        "protocol": "tcp",
+        "containerPort": 80
+      }
+    ],
+    "family": "automatic-trading-system-api-task",
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "taskRoleArn": "arn:aws:iam::606124585607:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "cpu": 256,
+    "memory": 512
   }
 ]
