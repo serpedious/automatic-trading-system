@@ -9,17 +9,12 @@ resource "aws_apigatewayv2_api" "automatic-trading-system-api-gateway" {
   cors_configuration {
     allow_credentials = false
     allow_headers = [
-      "'*'",
-      "'application/json, text/plain, */*'",
-      "'content-type,x-amz-date,authorization,x-api-key,x-amz-security-token'",
+      "*",
     ]
     allow_methods = [
       "*",
     ]
     allow_origins = [
-      "*",
-    ]
-    expose_headers = [
       "*",
     ]
     max_age = 0

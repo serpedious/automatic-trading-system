@@ -28,17 +28,12 @@ resource "aws_cloudfront_distribution" "automatic-trading-system" {
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = aws_s3_bucket.automatic-trading-system-s3-bucket.id
 
     forwarded_values {
       query_string = false
       headers = [
-        "Accept",
-        "Accept-Charset",
-        "Access-Control-Request-Headers",
-        "Access-Control-Request-Method",
-        "Authorization",
         "Origin",
       ]
 
