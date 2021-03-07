@@ -2,13 +2,16 @@
 #  RDS  #
 #########
 resource "aws_db_instance" "automatic-trading-system-db" {
+  identifier = "automatic-trading-system-db"
+  port = 5432
   allocated_storage       = 20
   instance_class          = "db.t3.micro"
   engine                  = "postgres"
   engine_version          = "12.5"
   storage_type            = "gp2"
-  username                = "hoge"
-  password                = "aaaaaaaa"
+  name                    = "automatic_db"
+  username                = "serpedious"
+  password                = "serpedious"
   backup_retention_period = 7
   copy_tags_to_snapshot   = true
   max_allocated_storage   = 200

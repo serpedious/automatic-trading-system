@@ -33,6 +33,14 @@ resource "aws_cloudfront_distribution" "automatic-trading-system" {
 
     forwarded_values {
       query_string = false
+      headers = [
+        "Accept",
+        "Accept-Charset",
+        "Access-Control-Request-Headers",
+        "Access-Control-Request-Method",
+        "Authorization",
+        "Origin",
+      ]
 
       cookies {
         forward = "none"

@@ -9,8 +9,9 @@ resource "aws_apigatewayv2_api" "automatic-trading-system-api-gateway" {
   cors_configuration {
     allow_credentials = false
     allow_headers = [
-      "'content-type,x-amz-date,authorization,x-api-key,x-amz-security-token,application/json,text/plain,*/*'",
-      "'multipart/form-data,application/x-www-form-urlencoded'",
+      "'*'",
+      "'application/json, text/plain, */*'",
+      "'content-type,x-amz-date,authorization,x-api-key,x-amz-security-token'",
     ]
     allow_methods = [
       "*",
@@ -19,7 +20,7 @@ resource "aws_apigatewayv2_api" "automatic-trading-system-api-gateway" {
       "*",
     ]
     expose_headers = [
-      "'*'",
+      "*",
     ]
     max_age = 0
   }
