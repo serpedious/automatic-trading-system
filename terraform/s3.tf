@@ -15,10 +15,6 @@ resource "aws_s3_bucket" "automatic-trading-system-s3-bucket" {
       "DELETE",
     ]
     allowed_headers = ["*"]
-    expose_headers = [
-      "ETag",
-      "x-amz-meta-custom-header",
-    ]
   }
 
   website {
@@ -43,12 +39,6 @@ resource "aws_s3_bucket" "artifact" {
 }
 resource "aws_s3_bucket" "automatic-trading-system-valt-secret" {
   bucket = "automatic-trading-system-valt-secret"
-
-  cors_rule {
-    allowed_origins = ["*"]
-    allowed_methods = ["GET", "POST"]
-    allowed_headers = ["*"]
-  }
 
   tags = {
     Name = "automatic-trading-system-s3-bucket-for-nuxt"
