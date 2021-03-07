@@ -2,6 +2,7 @@
 #  ECR  #
 #########
 
+
 resource "aws_ecr_repository" "automatic-trading-system-api" {
   name = "automatic-trading-system-api"
 }
