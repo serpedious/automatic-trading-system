@@ -14,6 +14,10 @@ resource "aws_s3_bucket" "automatic-trading-system-s3-bucket" {
       "POST",
       "DELETE",
     ]
+    expose_headers = [
+      "ETag",
+      "x-amz-meta-custom-header",
+    ]
     allowed_headers = ["*"]
   }
 
