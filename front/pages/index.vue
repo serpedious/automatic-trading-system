@@ -6,7 +6,7 @@
         front
       </h1>
       <h2 class="subtitle">
-        automatic-trading-front
+        automatic-trading-front-test-page
       </h2>
       <h1>{{ msg }}</h1>
       <h2>Essential Links</h2>

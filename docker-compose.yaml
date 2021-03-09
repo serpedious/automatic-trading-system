@@ -2,15 +2,17 @@ version: '3'
 
 services:
   client:
-    build: ./front
+    build:
+      context: ./front
     ports:
       - 3000:3000
     volumes:
       - ./front:/app
-    command: npm run dev
+    command: yarn run dev
 
   server:
-    build: ./server
+    build:
+      context: ./server
     ports:
       - 8000:8000
     volumes:
@@ -20,7 +22,7 @@ services:
     image: postgres:10-alpine
     container_name: postgres_db
     ports: 
-      - "5432:5432"
+      - "5431:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
