@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+<v-app>
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -7,8 +7,11 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
-            Dashboard
+            Application
           </v-list-item-title>
+          <v-list-item-subtitle>
+            subtext
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -40,10 +43,6 @@
 
       <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
-
-    <v-main>
-      <router-view></router-view>
-    </v-main>
   </v-app>
 </template>
 
@@ -52,23 +51,10 @@
     data: () => ({ 
       drawer: null,
       items: [
-        { title: 'Chart', icon: 'mdi-view-dashboard', to: '/dashboard/chart' },
-        { title: 'Memo', icon: 'mdi-image', to: '/dashboard/memo' },
-        { title: 'CSV', icon: 'mdi-help-box', to: '/dashboard/csv' },
-          { title: 'Alert', icon: 'mdi-view-dashboard', to: '/dashboard/alert' }
+        { title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/' },
+        { title: 'Memo', icon: 'mdi-image', to: '/auth/signin' },
+        { title: 'About', icon: 'mdi-help-box' },
       ],
     }),
   }
 </script>
-
-<style>
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 60px;
-  color: rgb(41, 38, 38);
-  letter-spacing: 1px;
-}
-</style>
-
