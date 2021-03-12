@@ -1,22 +1,18 @@
 <template>
-<section class="container">
-  <div class="signup">
-    <h2>Sign up</h2>
-    <p>{{ email }}</p>
-    <input type="text" placeholder="Email" v-model="email" required>
-    <input type="password" placeholder="Password" v-model="password" required>
-    <button @click="apiSignup">Register</button>
-    <p>Do you have an account?
-      <router-link to="/auth/signin">sign in now!!</router-link>
-    </p>
-    <p>Do you want to confirm your balance?
-      <router-link to="/cryptocurrency/balance">Let's try to see your balance</router-link>
-    </p>
-    <p>Do you want to confirm ticker?
-      <router-link to="/cryptocurrency/ticker">Let's try to see ticker infomation</router-link>
-    </p>
+  <div class="signup-container">
+    <section class="container">
+      <div class="signup">
+        <h2>Sign up</h2>
+        <p>{{ email }}</p>
+        <input type="text" placeholder="Email" v-model="email" required>
+        <input type="password" placeholder="Password" v-model="password" required>
+        <button @click="apiSignup">Register</button>
+        <p>Do you have an account?
+          <router-link to="/auth/signin">sign in now!!</router-link>
+        </p>
+      </div>
+    </section>
   </div>
-</section>
 </template>
 
 <script>
@@ -43,8 +39,16 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 h1, h2 {
   font-weight: normal;
+  color: #eee;
 }
 ul {
   list-style-type: none;
@@ -71,5 +75,11 @@ input {
 button {
   margin: 10px 0;
   padding: 10px;
+}
+.signup-container {
+  min-height: 100%;
+  width: 100%;
+  background-color: #2d3a4b;
+  overflow: hidden;
 }
 </style>

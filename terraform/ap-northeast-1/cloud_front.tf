@@ -31,6 +31,11 @@ resource "aws_cloudfront_distribution" "automatic-trading-system" {
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = aws_s3_bucket.automatic-trading-system-s3-bucket.id
 
+    lambda_function_association {
+      event_type   = "viewer-request"
+      include_body = false
+      lambda_arn   = "arn:aws:lambda:us-east-1:606124585607:function:basic_authentication_edge:2"
+    }
     forwarded_values {
       query_string = false
       headers = [

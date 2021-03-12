@@ -6,6 +6,7 @@
       <p>back to home?
         <router-link to="/">home</router-link>
       </p>
+      <router-link to="/main/dashboard">dashboard</router-link>
       <button @click="addCount">カウントアップ</button>
     </div>
   </section>
@@ -23,3 +24,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>
