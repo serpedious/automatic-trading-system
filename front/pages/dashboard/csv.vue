@@ -6,7 +6,7 @@
       <p>back to home?
         <router-link to="/">home</router-link>
       </p>
-      <router-link to="/main/dashboard">dashboard</router-link>
+      <router-link to="/dashboard">dashboard</router-link>
       <button @click="addCount">カウントアップ</button>
     </div>
   </section>
