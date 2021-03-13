@@ -1,64 +1,104 @@
 <template>
-  <section class="container">
-    <div class='ticker'>
-      <h1>{{ msg }}</h1>
-      <p>{{ ticker }}</p>
-      <button @click="apiTicker">show ticker</button>
-      <button @click="apiTickerHide">hide ticker</button>
-      <p>You don't have an account?
-      <router-link to="/">go back to home</router-link>
-      </p>
-    </div>
-  </section>
+  <div class="home">
+    <v-text-field
+     v-model="newTaskTitle"
+     @click:append='addTask'
+     @keyup.enter="addTask"
+      class="pa-3"
+      outlined
+      label="Add Memo"
+      append-icon="mdi-plus-circle"
+      hide-details
+      clearable
+    ></v-text-field>
+
+    <v-list
+      class="pt-0"
+      flat
+    >
+      <div
+        v-for="task in tasks"
+        :key="task.id"
+      >
+      <v-list-item
+        @click="doneTask(task.id)"
+        :class="{ 'blue-grey lighten-4' : task.done }"
+      >
+        <template v-slot:default>
+          <v-list-item-action>
+            <v-checkbox
+              :input-value="task.done"
+              color="primary"
+            ></v-checkbox>
+          </v-list-item-action>
+
+          <v-list-item-content>
+            <v-list-item-title
+              :class="{ 'text-decoration-line-through' : task.done }"
+            >
+              {{ task.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+           <v-list-item-action>
+          <v-btn
+            @click.stop="deleteTask(task.id)"
+            icon
+          >
+            <v-icon color="grey">mdi-delete-circle</v-icon>
+          </v-btn>
+          </v-list-item-action>
+
+        </template>
+
+       </v-list-item>
+       <v-divider></v-divider>
+      </div>
+    </v-list>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
-  name: 'Ticker',
-  data () {
+  name: 'Home',
+  data() {
     return {
-      msg: 'This is ticker',
-      ticker: 'confirm ticker infomation'
+      newTaskTitle: '',
+      tasks: [
+        // {
+        //   id: 1,
+        //   title: 'Wake up',
+        //   done: false
+        // },
+        // {
+        //   id: 2,
+        //   title: 'Get bananas',
+        //   done: false
+        // },
+        // {
+        //   id: 3,
+        //   title: 'Eat bananas',
+        //   done: false
+        // }
+      ]
     }
   },
   methods: {
-    apiTicker: async function () {
-      let res = await axios.get(process.env.API_BASE_URL + '/ticker')
-      this.ticker = res.data
+    addTask() {
+      let newTask = {
+        id: Date.now(),
+        title: this.newTaskTitle,
+        done: false
+      }
+      this.tasks.push(newTask)
+      this.newTaskTitle = ''
     },
-    apiTickerHide: async function () {
-      this.ticker = 'confirm ticker infomation'
+    doneTask(id) {
+      let task = this.tasks.filter(task => task.id === id)[0]
+      task.done = !task.done
+    },
+    deleteTask(id) {
+      this.tasks = this.tasks.filter(task => task.id !== id)
     }
   }
 }
 </script>
-
-<!-- Add 'scoped' attribute to limit CSS to this component only -->
-<style scoped>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-button {
-  margin: 10px 0;
-  padding: 10px;
-}
-</style>

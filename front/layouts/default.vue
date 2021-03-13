@@ -9,6 +9,9 @@
           <v-list-item-title class="title">
             Dashboard
           </v-list-item-title>
+          <v-list-item-subtitle>
+          chose items
+        </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -35,10 +38,56 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar
+      app
+      color="black"
+      dark
+    >
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
+        ></v-img>
+      </template>
+
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>Automatic Trading system</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-menu
+        bottom
+        left
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            color="blue"
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-main>
@@ -52,10 +101,10 @@
     data: () => ({ 
       drawer: null,
       items: [
-        { title: 'Chart', icon: 'mdi-view-dashboard', to: '/dashboard/chart' },
-        { title: 'Memo', icon: 'mdi-image', to: '/dashboard/memo' },
-        { title: 'CSV', icon: 'mdi-help-box', to: '/dashboard/csv' },
-          { title: 'Alert', icon: 'mdi-view-dashboard', to: '/dashboard/alert' }
+        { title: 'Chart', icon: 'mdi-chart-line', to: '/dashboard/chart' },
+        { title: 'Memo', icon: 'mdi-format-list-checks', to: '/dashboard/memo' },
+        { title: 'CSV', icon: 'mdi-file-delimited-outline', to: '/dashboard/csv' },
+        { title: 'Alert', icon: 'mdi-alert-circle', to: '/dashboard/alert' }
       ],
     }),
   }
