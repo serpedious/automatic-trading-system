@@ -1,6 +1,8 @@
 <template>
-  <v-app id="inspire">
-    <Header/>
+  <v-app id="inspire" style="background-color: #ECEFF1;">
+    <div v-if="this.$route.path.match(/dashboard\/*/)">
+      <Header/>
+    </div>
 
     <v-main>
       <router-view></router-view>

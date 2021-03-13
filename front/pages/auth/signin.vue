@@ -37,7 +37,7 @@ export default {
             password: this.password
         });
         this.token = res.data.token
-        this.$router.push("/");
+        this.$router.push("/dashboard");
       }
   }
 }

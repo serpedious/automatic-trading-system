@@ -3,20 +3,7 @@
     <section class="container">
       <div>
         <app-logo/>
-        <h1 class="title">
-          Automatic Trading System
-        </h1>
-        <div class="links">
-          <p
-            class="button--green"
-            target="_blank">
-            <router-link to="/auth/signup">Signup</router-link>
-          </p>
-          <a
-            href="https://github.com/serpedious/automatic-trading-system"
-            target="_blank"
-            class="button--green">GitHub</a>
-        </div>
+        <h1>This is dashboard index</h1>
       </div>
     </section>
   </div>
@@ -48,20 +35,6 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 60px;
-  color: #eee;
-  letter-spacing: 1px;
-}
-
-.links {
-  padding-top: 15px;
-  color: #42b983;
 }
 
 .home-container {
