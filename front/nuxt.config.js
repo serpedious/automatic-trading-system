@@ -43,6 +43,18 @@ module.exports = {
     }
   },
   
+  generate: {
+    routes: [
+      '/auth/signin',
+      '/auth/signup',
+      '/dashboard',
+      '/dashboard/chart',
+      '/dashboard/memo',
+      '/dashboard/csv',
+      '/dashboard/alert',
+    ]
+  },
+  
   server: {
     host: '0.0.0.0'
   }
