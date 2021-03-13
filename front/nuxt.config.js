@@ -51,7 +51,7 @@ module.exports = {
       '/dashboard/chart',
       '/dashboard/memo',
       '/dashboard/csv',
-      '/dashboard/alert',
+      '/dashboard/alert'
     ]
   },
   
