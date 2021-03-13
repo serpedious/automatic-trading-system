@@ -8,6 +8,7 @@
           <button @click="apiSignin">Signin</button>
           <p>You don't have an account?
             <router-link to="/auth/signup">create account now!!</router-link>
+            <router-link to="/dashboard">dashboard!</router-link>
           </p>
           <router-link to="/">Back to home</router-link>
           <!-- <div class="tips">

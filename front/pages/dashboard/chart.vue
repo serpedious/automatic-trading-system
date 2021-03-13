@@ -15,7 +15,7 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'Balance',
+  name: 'Chart',
   data () {
     return {
       msg: 'This is your balance',

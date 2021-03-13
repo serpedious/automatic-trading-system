@@ -59,7 +59,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'Memo',
   data() {
     return {
       newTaskTitle: '',
