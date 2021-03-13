@@ -123,7 +123,42 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,12 +183,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,17 +246,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
-  &lt;section class="container"&gt;
-    &lt;div class="signin"&gt;
-        &lt;h2&gt;Sign in&lt;/h2&gt;
-        &lt;input type="text" placeholder="email" v-model="email"&gt;
-        &lt;input type="password" placeholder="Password" v-model="password"&gt;
-        &lt;button @click="apiSignin"&gt;Signin&lt;/button&gt;
-        &lt;p&gt;You don't have an account?
+  &lt;div class="signin-container"&gt;
+    &lt;section class="container"&gt;
+      &lt;div class="signin"&gt;
+          &lt;h2&gt;Sign in&lt;/h2&gt;
+          &lt;input type="text" placeholder="Email" v-model="email"&gt;
+          &lt;input type="password" placeholder="Password" v-model="password"&gt;
+          &lt;button @click="apiSignin"&gt;Signin&lt;/button&gt;
+          &lt;p&gt;You don't have an account?
             &lt;router-link to="/auth/signup"&gt;create account now!!&lt;/router-link&gt;
-        &lt;/p&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
+          &lt;/p&gt;
+          &lt;router-link to="/"&gt;Back to home&lt;/router-link&gt;
+          &lt;!-- &lt;div class="tips"&gt;
+            &lt;span style="margin-right:20px;"&gt;username: admin&lt;/span&gt;
+            &lt;span&gt; password: any&lt;/span&gt;
+          &lt;/div&gt; --&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
 &lt;/template&gt;
 &nbsp;
 &lt;script&gt;
@@ -209,7 +272,9 @@ export default {
   name: 'Signin',
 <span class="fstat-no" title="function not covered" >  data: function () {</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
-      token: ''
+      token: '',
+      email: '',
+      password: ''
     }
   },
   methods: {
@@ -219,15 +284,23 @@ export default {
             password: this.password
         });
 <span class="cstat-no" title="statement not covered" >        this.token = res.data.token</span>
-<span class="cstat-no" title="statement not covered" >        this.$router.push("/users");</span>
+<span class="cstat-no" title="statement not covered" >        this.$router.push("/dashboard");</span>
       }
   }
 }
 &lt;/script&gt;
 &nbsp;
 &lt;style scoped&gt;
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 h1, h2 {
   font-weight: normal;
+  color: #eee;
 }
 ul {
   list-style-type: none;
@@ -255,6 +328,17 @@ button {
   margin: 10px 0;
   padding: 10px;
 }
+.signin-container {
+  min-height: 100%;
+  width: 100%;
+  background-color: #2d3a4b;
+  overflow: hidden;
+}
+.tips {
+  font-size: 14px;
+  color: #eee;
+  margin-bottom: 10px
+} 
 &lt;/style&gt;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -262,7 +346,7 @@ button {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Feb 26 2021 17:28:01 GMT+0900 (Japan Standard Time)
+                at Sat Mar 13 2021 20:04:18 GMT+0900 (Japan Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

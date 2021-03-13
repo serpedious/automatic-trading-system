@@ -32,11 +32,11 @@ jobs:
       - checkout
       - run:
           name: install
-          command: npm install
+          command: yarn install
           working_directory: front
       - run:
           name: jest test
-          command: npm run test
+          command: yarn run test
           working_directory: front
       - slack/status:
           success_message: ':circleci-pass: $CIRCLE_BRANCH front test is success!\n:github_octocat: User：$CIRCLE_USERNAME'
@@ -50,11 +50,11 @@ jobs:
       - checkout
       - run:
           name: install
-          command: npm install
+          command: yarn install
           working_directory: front
       - run:
           name: build
-          command: npm run generate
+          command: yarn nuxt generate
           working_directory: front
       - aws-s3/sync:
           from: front/dist

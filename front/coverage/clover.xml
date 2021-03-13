@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1614328081500" clover="3.2.0">
-  <project timestamp="1614328081500" name="All files">
-    <metrics statements="29" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="15" coveredmethods="0" elements="44" coveredelements="0" complexity="0" loc="29" ncloc="29" packages="4" files="6" classes="6"/>
+<coverage generated="1615633458377" clover="3.2.0">
+  <project timestamp="1615633458377" name="All files">
+    <metrics statements="27" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="16" coveredmethods="0" elements="43" coveredelements="0" complexity="0" loc="27" ncloc="27" packages="4" files="7" classes="7"/>
+    <package name="components.organisms">
+      <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="Header.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/components/organisms/Header.vue">
+        <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="97" count="0" type="stmt"/>
+      </file>
+    </package>
     <package name="pages">
-      <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="index.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/index.vue">
-        <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="33" count="0" type="stmt"/>
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="26" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
       </file>
     </package>
     <package name="pages.auth">
       <metrics statements="10" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
       <file name="signin.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/auth/signin.vue">
         <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
       </file>
       <file name="signup.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/auth/signup.vue">
         <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="19" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="pages.cryptocurrency">
-      <metrics statements="10" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
-      <file name="balance.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/cryptocurrency/balance.vue">
+    <package name="pages.dashboard">
+      <metrics statements="14" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="0"/>
+      <file name="chart.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/dashboard/chart.vue">
         <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="16" count="0" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
@@ -44,21 +46,20 @@
         <line num="28" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
       </file>
-      <file name="ticker.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/cryptocurrency/ticker.vue">
-        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="pages.users">
-      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="index.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/users/index.vue">
-        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="17" count="0" type="stmt"/>
+      <file name="index.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/dashboard/index.vue">
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="13" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
+      </file>
+      <file name="memo.vue" path="/Users/serpedious/go/src/github.com/serpedious/automatic-trading-system/front/pages/dashboard/memo.vue">
+        <metrics statements="7" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
       </file>
     </package>
   </project>
