@@ -75,7 +75,7 @@
           <v-list-item
             v-for="(item, i) in items"
             :key="i"
-          >
+          > 
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -89,7 +89,7 @@ export default {
   data: () => ({ 
     drawer: null,
     items: [
-      { title: 'Account', icon: 'mdi-chart-line', to: '/dashboard/chart' },
+      { title: 'Account', icon: 'mdi-chart-line', to: '' },
       { title: 'Github', icon: 'mdi-currency-usd', to: '' },
     ],
     categories: [
