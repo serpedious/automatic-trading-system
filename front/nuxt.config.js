@@ -28,6 +28,9 @@ module.exports = {
   ],
  
   build: {
+    transpile: [
+      "vee-validate/dist/rules"
+    ],
     /*
     ** Run ESLint on save
     */

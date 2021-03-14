@@ -1400,7 +1400,7 @@
 
 "@nuxtjs/vuetify@^1.11.3":
   version "1.11.3"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/vuetify/-/vuetify-1.11.3.tgz#61d4a38436ebf87d16ff8e029049220124421d78"
+  resolved "https://registry.npmjs.org/@nuxtjs/vuetify/-/vuetify-1.11.3.tgz"
   integrity sha512-VHfw0PMgOMRxy8gmhfLzMLicAN8XRcXI4M2/JoiuyVo0rmlW3br5oJ3Q7j/usDOsKOhO2/ieFzLbQNqF7kzdBQ==
   dependencies:
     deepmerge "^4.2.2"
@@ -2706,7 +2706,7 @@ caller-path@^2.0.0:
 
 callsite@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/callsite/download/callsite-1.0.0.tgz#280398e5d664bd74038b6f0905153e6e8af1bc20"
+  resolved "https://registry.npmjs.org/callsite/-/callsite-1.0.0.tgz"
   integrity sha1-KAOY5dZkvXQDi28JBRU+borxvCA=
 
 callsites@^0.2.0:
@@ -3596,8 +3596,8 @@ debug@^4.1.0, debug@^4.1.1:
 
 decache@^4.6.0:
   version "4.6.0"
-  resolved "https://registry.npm.taobao.org/decache/download/decache-4.6.0.tgz#87026bc6e696759e82d57a3841c4e251a30356e8"
-  integrity sha1-hwJrxuaWdZ6C1Xo4QcTiUaMDVug=
+  resolved "https://registry.npmjs.org/decache/-/decache-4.6.0.tgz"
+  integrity sha512-PppOuLiz+DFeaUvFXEYZjLxAkKiMYH/do/b/MxpDe/8AgKBi5GhZxridoVIbBq72GDbL36e4p0Ce2jTGUwwU+w==
   dependencies:
     callsite "^1.0.0"
 
@@ -5218,8 +5218,8 @@ inquirer@^7.3.3:
 
 interpret@^1.0.0:
   version "1.4.0"
-  resolved "https://registry.npm.taobao.org/interpret/download/interpret-1.4.0.tgz#665ab8bc4da27a774a40584e812e3e0fa45b1a1e"
-  integrity sha1-Zlq4vE2iendKQFhOgS4+D6RbGh4=
+  resolved "https://registry.npmjs.org/interpret/-/interpret-1.4.0.tgz"
+  integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 invariant@^2.2.2:
   version "2.2.4"
@@ -6888,8 +6888,8 @@ nth-check@^1.0.2:
 
 null-loader@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npm.taobao.org/null-loader/download/null-loader-3.0.0.tgz#3e2b6c663c5bda8c73a54357d8fa0708dc61b245"
-  integrity sha1-PitsZjxb2oxzpUNX2PoHCNxhskU=
+  resolved "https://registry.npmjs.org/null-loader/-/null-loader-3.0.0.tgz"
+  integrity sha512-hf5sNLl8xdRho4UPBOOeoIwT3WhjYcMUQm0zj44EhD6UscMAz72o2udpoDFBgykucdEDGIcd6SXbc/G6zssbzw==
   dependencies:
     loader-utils "^1.2.3"
     schema-utils "^1.0.0"
@@ -8389,7 +8389,7 @@ readdirp@~3.5.0:
 
 rechoir@^0.6.2:
   version "0.6.2"
-  resolved "https://registry.npm.taobao.org/rechoir/download/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
+  resolved "https://registry.npmjs.org/rechoir/-/rechoir-0.6.2.tgz"
   integrity sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
   dependencies:
     resolve "^1.1.6"
@@ -8738,7 +8738,7 @@ sane@^4.0.3:
 
 sass-loader@^10.0.0, sass-loader@^10.1.1:
   version "10.1.1"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-10.1.1.tgz#4ddd5a3d7638e7949065dd6e9c7c04037f7e663d"
+  resolved "https://registry.npmjs.org/sass-loader/-/sass-loader-10.1.1.tgz"
   integrity sha512-W6gVDXAd5hR/WHsPicvZdjAWHBcEJ44UahgxcIE196fW2ong0ZHMPO1kZuI5q0VlvMQZh32gpv69PLWQm70qrw==
   dependencies:
     klona "^2.0.4"
@@ -8749,8 +8749,8 @@ sass-loader@^10.0.0, sass-loader@^10.1.1:
 
 sass@^1.32.0, sass@^1.32.4:
   version "1.32.8"
-  resolved "https://registry.npm.taobao.org/sass/download/sass-1.32.8.tgz#f16a9abd8dc530add8834e506878a2808c037bdc"
-  integrity sha1-8WqavY3FMK3Yg05QaHiigIwDe9w=
+  resolved "https://registry.npmjs.org/sass/-/sass-1.32.8.tgz"
+  integrity sha512-Sl6mIeGpzjIUZqvKnKETfMf0iDAswD9TNlv13A7aAF3XZlRPMq4VvJWBC2N2DXbp94MQVdNSFG6LfF/iOXrPHQ==
   dependencies:
     chokidar ">=2.0.0 <4.0.0"
 
@@ -8946,8 +8946,8 @@ shell-quote@^1.6.1:
 
 shelljs@^0.8.3:
   version "0.8.4"
-  resolved "https://registry.npm.taobao.org/shelljs/download/shelljs-0.8.4.tgz#de7684feeb767f8716b326078a8a00875890e3c2"
-  integrity sha1-3naE/ut2f4cWsyYHiooAh1iQ48I=
+  resolved "https://registry.npmjs.org/shelljs/-/shelljs-0.8.4.tgz"
+  integrity sha512-7gk3UZ9kOfPLIAbslLzyWeGiEqx9e3rxwZM0KE6EL8GlGwjym9Mrlx5/p33bWTu9YG6vcS4MBxYZDHYr5lr8BQ==
   dependencies:
     glob "^7.0.0"
     interpret "^1.0.0"
@@ -9999,10 +9999,10 @@ vary@^1.1.2, vary@~1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vee-validate@^3.4.5:
-  version "3.4.5"
-  resolved "https://registry.npmjs.org/vee-validate/-/vee-validate-3.4.5.tgz"
-  integrity sha512-ZEcLqOAZzSkMhDvPcTx0xcwVOijFnMW9J+BA20j+rDmo24T8RCCqVQyRwwrDrcWJZV2dRYl/yYNa2GB6UCoBvg==
+vee-validate@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/vee-validate/-/vee-validate-4.2.2.tgz"
+  integrity sha512-YSs9YtmrdeipBLfM0xt/rvWHWqAbFe5L//baFFPPJbeMTBYBnV+YV77l8gG74xSZtpCu25o4Loyszntd6R17/w==
 
 vendors@^1.0.0:
   version "1.0.4"
@@ -10025,8 +10025,8 @@ vm-browserify@^1.0.1:
 
 vue-cli-plugin-vuetify@~2.2.2:
   version "2.2.2"
-  resolved "https://registry.npm.taobao.org/vue-cli-plugin-vuetify/download/vue-cli-plugin-vuetify-2.2.2.tgz#4b29854ad199d811941b8ca894ca34593127e0bf"
-  integrity sha1-SymFStGZ2BGUG4yolMo0WTEn4L8=
+  resolved "https://registry.npmjs.org/vue-cli-plugin-vuetify/-/vue-cli-plugin-vuetify-2.2.2.tgz"
+  integrity sha512-e0p9fuc7YDDUjTi8Uw5XNEwfTZmY+5+kZ22k9ZGsWtDOtWt1dW/oZt3aZtSLrhzEPSimkOWNBD7KZOB3fxNEGA==
   dependencies:
     null-loader "^3.0.0"
     semver "^7.1.2"
@@ -10141,8 +10141,8 @@ vue@^2.6.12:
 
 vuetify-loader@^1.6.0, vuetify-loader@^1.7.0:
   version "1.7.2"
-  resolved "https://registry.npm.taobao.org/vuetify-loader/download/vuetify-loader-1.7.2.tgz?cache=0&sync_timestamp=1612538127049&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvuetify-loader%2Fdownload%2Fvuetify-loader-1.7.2.tgz#5cdc45309496cf3a5fe431fd7611706ffa4aa8c8"
-  integrity sha1-XNxFMJSWzzpf5DH9dhFwb/pKqMg=
+  resolved "https://registry.npmjs.org/vuetify-loader/-/vuetify-loader-1.7.2.tgz"
+  integrity sha512-2GSo4KvRAOThBsj8mvtIEeIoyBAZx38GDfh8D90e/or7Hzx4813krJKvcQAllyLO/Ln0eQWrq2IuvBXnZ55cSA==
   dependencies:
     decache "^4.6.0"
     file-loader "^6.2.0"
@@ -10150,8 +10150,8 @@ vuetify-loader@^1.6.0, vuetify-loader@^1.7.0:
 
 vuetify@^2.4.0, vuetify@^2.4.2:
   version "2.4.6"
-  resolved "https://registry.npm.taobao.org/vuetify/download/vuetify-2.4.6.tgz#127b37bd36c7a63f61615e0cd6f97e8b203e7a07"
-  integrity sha1-Ens3vTbHpj9hYV4M1vl+iyA+egc=
+  resolved "https://registry.npmjs.org/vuetify/-/vuetify-2.4.6.tgz"
+  integrity sha512-oqAWKAin07ip/QuT/p4bL1LegE3MYPbfojrOcj80RATZDSnJyco2PZD8QuIzd0RhYfdAuSTkY8elvHsLu90RuQ==
 
 vuex@^3.6.2:
   version "3.6.2"
