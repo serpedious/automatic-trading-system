@@ -12,10 +12,6 @@
             target="_blank">
             <router-link to="/auth/signup">Signup</router-link>
           </p>
-          <a
-            href="https://github.com/serpedious/automatic-trading-system"
-            target="_blank"
-            class="button--green">GitHub</a>
         </div>
       </div>
     </section>
