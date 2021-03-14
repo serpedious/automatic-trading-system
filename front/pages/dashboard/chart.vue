@@ -1,48 +1,62 @@
 <template>
-  <section class="container">
-    <div>
-      <h1>{{ msg }}</h1>
-      <p>{{ deposit }}</p>
-      <button @click="apiBalance">show balance</button>
-      <button @click="apiBalanceHide">hide balance</button>
-      <p>You don't have an account?
-        <router-link to="/">go back to home</router-link>
-      </p>
-    </div>
-  </section>
+  <div class="home">
+    <v-simple-table dense>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">
+              Name
+            </th>
+            <!-- <th class="text-left">
+              Buy
+            </th>
+            <th class="text-left">
+              Sell
+            </th> -->
+            <th class="text-left">
+              Balance
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="balance of balancelists" v-bind:key="balance.amount"
+          >
+            <td>{{ balance.currency_code }}</td>
+            <!-- <td>{{ item.buy }}</td>
+            <td>{{ item.sell }}</td> -->
+            <td>{{ balance.amount }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+    <button @click="apiBalance">show balance</button>
+    <button @click="apiBalanceHide">hide balance</button>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
-  name: 'Chart',
-  data () {
+  name: 'Memo',
+  data() {
     return {
-      msg: 'This is your balance',
-      deposit: 'confirm your balance'
+      balancelists: [],
     }
   },
   methods: {
     apiBalance: async function () {
       let res = await axios.get(process.env.API_BASE_URL + '/balance')
-      this.deposit = res.data
+      this.balancelists = res.data
     },
     apiBalanceHide: async function () {
-      this.deposit = 'confirm your balance'
+      this.balancelists = ''
     }
   }
 }
 </script>
 
-<!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 h1, h2 {
   font-weight: normal;
 }

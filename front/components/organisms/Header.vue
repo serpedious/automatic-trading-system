@@ -10,7 +10,7 @@
             Dashboard
           </v-list-item-title>
           <v-list-item-subtitle>
-          chose items
+          chose categories
         </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -22,17 +22,17 @@
         nav
       >
         <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          :to="item.to"
+          v-for="category in categories"
+          :key="category.title"
+          :to="category.to"
           link
         >
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>{{ category.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title>{{ category.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -55,14 +55,6 @@
       <v-toolbar-title>Automatic Trading system</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
 
       <v-menu
         bottom
@@ -97,10 +89,16 @@ export default {
   data: () => ({ 
     drawer: null,
     items: [
+      { title: 'Account', icon: 'mdi-chart-line', to: '/dashboard/chart' },
+      { title: 'Github', icon: 'mdi-currency-usd', to: '' },
+    ],
+    categories: [
       { title: 'Chart', icon: 'mdi-chart-line', to: '/dashboard/chart' },
+      { title: 'Profit', icon: 'mdi-currency-usd', to: '/dashboard/profit' },
+      { title: 'Compare', icon: 'mdi-arrow-left-right', to: '/dashboard/compare' },
       { title: 'Memo', icon: 'mdi-format-list-checks', to: '/dashboard/memo' },
-      { title: 'CSV', icon: 'mdi-file-delimited-outline', to: '/dashboard/csv' },
-      { title: 'Alert', icon: 'mdi-alert-circle', to: '/dashboard/alert' }
+      { title: 'Alert', icon: 'mdi-bell-outline', to: '/dashboard/alert' },
+      { title: 'CSV', icon: 'mdi-file-delimited-outline', to: '/dashboard/csv' }
     ],
   }),
 }
