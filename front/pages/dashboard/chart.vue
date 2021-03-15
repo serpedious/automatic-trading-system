@@ -8,13 +8,16 @@
               Name
             </th>
             <!-- <th class="text-left">
-              Buy
+              Bid
             </th>
             <th class="text-left">
-              Sell
+              Ask
             </th> -->
             <th class="text-left">
               Balance
+            </th>
+            <th class="text-left">
+              Transation
             </th>
           </tr>
         </thead>
@@ -26,6 +29,22 @@
             <!-- <td>{{ item.buy }}</td>
             <td>{{ item.sell }}</td> -->
             <td>{{ balance.amount }}</td>
+            <td>
+              <v-btn
+                depressed
+                color="primary"
+                x-small
+              >
+                BID
+              </v-btn>
+              <v-btn
+                depressed
+                color="error"
+                x-small
+              >
+                ASK
+              </v-btn>
+            </td>
           </tr>
         </tbody>
       </template>

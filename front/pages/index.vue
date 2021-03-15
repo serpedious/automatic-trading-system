@@ -3,16 +3,19 @@
     <section class="container">
       <div>
         <app-logo/>
-        <h1 class="title">
+        <h1>
           Automatic Trading System
         </h1>
-        <div class="links">
-          <p
-            class="button--green"
-            target="_blank">
-            <router-link to="/auth/signup">Signup</router-link>
-          </p>
-        </div>
+        <div class="text-center">
+        <v-btn
+          :to="'/auth/signin'"
+          color="primary"
+          dark
+          class="ma-10"
+        >
+        GET STARTED
+        </v-btn>
+      </div>
       </div>
     </section>
   </div>

@@ -1,21 +1,39 @@
 <template>
   <div class="signin-container">
     <section class="container">
-      <div class="signin">
-          <h2>Sign in</h2>
-          <input type="text" placeholder="Email" v-model="email">
-          <input type="password" placeholder="Password" v-model="password">
-          <button @click="apiSignin">Signin</button>
-          <p>You don't have an account?
-            <router-link to="/auth/signup">create account now!!</router-link>
-            <router-link to="/dashboard">dashboard!</router-link>
-          </p>
-          <router-link to="/">Back to home</router-link>
-          <!-- <div class="tips">
-            <span style="margin-right:20px;">username: admin</span>
-            <span> password: any</span>
-          </div> -->
-      </div>
+      <v-card class="mx-auto mt-5 pa-5" width="400px">
+        <v-card-title class="pb-10">
+          <h2>Signin</h2>
+        </v-card-title>
+        <v-card-text>
+          <form>
+            <v-text-field
+              v-model="email"
+              label="E-mail"
+              required
+              @input="$v.email.$touch()"
+              @blur="$v.email.$touch()"
+            ></v-text-field>
+            <v-text-field
+              v-model="password"
+              :counter="10"
+              label="password"
+              required
+              @input="$v.password.$touch()"
+              @blur="$v.password.$touch()"
+            ></v-text-field>
+            <v-btn
+              class="mt-5"
+              @click="apiSignin"
+            >
+              submit
+            </v-btn>
+            <p>You don't have an account?
+              <router-link to="/auth/signup">create account now!!</router-link>
+            </p>
+          </form>
+        </v-card-text>
+      </v-card>
     </section>
   </div>
 </template>
@@ -52,45 +70,19 @@ export default {
   align-items: center;
   text-align: center;
 }
-h1, h2 {
-  font-weight: normal;
-  color: #eee;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-.signin {
-  margin-top: 20px;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center
-}
-input {
-  margin: 10px 0;
-  padding: 10px;
-}
-button {
-  margin: 10px 0;
-  padding: 10px;
-}
 .signin-container {
   min-height: 100%;
   width: 100%;
   background-color: #2d3a4b;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #2d3a4b;
 }
-.tips {
-  font-size: 14px;
-  color: #eee;
-  margin-bottom: 10px
-} 
+p {
+  padding-top: 30px;
+}
 </style>

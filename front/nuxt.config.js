@@ -26,11 +26,10 @@ module.exports = {
   buildModules: [
     '@nuxtjs/vuetify'
   ],
+
+  plugins: ['@/plugins/vuelidate'],
  
   build: {
-    transpile: [
-      "vee-validate/dist/rules"
-    ],
     /*
     ** Run ESLint on save
     */
