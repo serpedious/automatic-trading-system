@@ -1,54 +1,52 @@
 <template>
-  <div class="user-container">
-    <section class="container">
-      <v-card class="mx-auto mt-5 pt-5" width="400px">
-        <v-card-title class="pb-10">
-          <h2>Edit Profile</h2>
-        </v-card-title>
-        <v-card-text>
-          <form>
-            <v-text-field
-              v-model="email"
-              :error-messages="emailErrors"
-              label="E-mail"
-              required
-              @input="$v.email.$touch()"
-              @blur="$v.email.$touch()"
-            ></v-text-field>
-            <v-text-field
-              v-model="password"
-              :error-messages="passwordErrors"
-              :counter="10"
-              label="password"
-              required
-              @input="$v.password.$touch()"
-              @blur="$v.password.$touch()"
-            ></v-text-field>
-            <v-checkbox
-              v-model="checkbox"
-              :error-messages="checkboxErrors"
-              label="Do you agree?"
-              required
-              @change="$v.checkbox.$touch()"
-              @blur="$v.checkbox.$touch()"
-            ></v-checkbox>
-            <v-btn
-              @click="submit"
-              class="ma-4"
-            >
-              submit
-            </v-btn>
-            <v-btn 
-              @click="clear"
-              class="ma-4"
-            >
-              clear
-            </v-btn>
-          </form>
-        </v-card-text>
-      </v-card>
-    </section>
-  </div>
+  <section class="container">
+    <v-card class="mx-auto mt-5 pt-5" width="400px">
+      <v-card-title class="pb-10">
+        <h2>Edit Profile</h2>
+      </v-card-title>
+      <v-card-text>
+        <form>
+          <v-text-field
+            v-model="email"
+            :error-messages="emailErrors"
+            label="E-mail"
+            required
+            @input="$v.email.$touch()"
+            @blur="$v.email.$touch()"
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :error-messages="passwordErrors"
+            :counter="10"
+            label="password"
+            required
+            @input="$v.password.$touch()"
+            @blur="$v.password.$touch()"
+          ></v-text-field>
+          <v-checkbox
+            v-model="checkbox"
+            :error-messages="checkboxErrors"
+            label="Do you agree?"
+            required
+            @change="$v.checkbox.$touch()"
+            @blur="$v.checkbox.$touch()"
+          ></v-checkbox>
+          <v-btn
+            @click="submit"
+            class="ma-4"
+          >
+            submit
+          </v-btn>
+          <v-btn 
+            @click="clear"
+            class="ma-4"
+          >
+            clear
+          </v-btn>
+        </form>
+      </v-card-text>
+    </v-card>
+  </section>
 </template>
 
 <script>
@@ -122,20 +120,11 @@ export default {
 
 <style scoped>
 .container {
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
-.user-container {
-  min-height: 100%;
-  width: 100%;
-  overflow: hidden;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+
 </style>

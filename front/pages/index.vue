@@ -9,7 +9,7 @@
         <div class="text-center">
         <v-btn
           :to="'/auth/signin'"
-          color="primary"
+          color="black"
           dark
           class="ma-10"
         >
