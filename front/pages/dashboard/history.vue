@@ -1,7 +1,9 @@
 <template>
   <div>
+    <div class="pa-10">
+      <TabProfit/>
+    </div>
     <TableHistory/>
-    <TabProfit/>
   </div>
 </template>
 

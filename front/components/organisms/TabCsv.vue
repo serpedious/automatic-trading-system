@@ -56,7 +56,7 @@
 
 <style scoped>
 .container {
-  min-height: 50vh;
+  min-height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;

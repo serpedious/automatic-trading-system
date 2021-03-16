@@ -24,9 +24,7 @@
         v-for="item in items"
         :key="item.tab"
       >
-        <v-card flat color="">
-          <v-card-text >{{ item.content }}</v-card-text>
-        </v-card>
+       <TableAlert/>
       </v-tab-item>
     </v-tabs-items>
   </v-card>
@@ -34,8 +32,12 @@
 </template>
 
 <script>
+import TableAlert from '~/components/organisms/TableAlert.vue'
   export default {
     name: 'Csv',
+    components: {
+      TableAlert,
+    },
     data () {
       return {
         tab: null,
@@ -50,7 +52,7 @@
 
 <style scoped>
 .container {
-  min-height: 50vh;
+  min-height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;

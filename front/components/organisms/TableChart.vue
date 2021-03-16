@@ -49,8 +49,20 @@
         </tbody>
       </template>
     </v-simple-table>
-    <button @click="apiBalance">show balance</button>
-    <button @click="apiBalanceHide">hide balance</button>
+    <v-btn
+      @click="apiBalance"
+      depressed
+      color="primary"
+    >
+      SHOW
+    </v-btn>
+    <v-btn
+      depressed
+      color="grey"
+      @click="apiBalanceHide"
+    >
+      CLOSE
+    </v-btn>
   </div>
 </template>
 
