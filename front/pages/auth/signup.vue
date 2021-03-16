@@ -23,19 +23,19 @@
               @blur="$v.password.$touch()"
             ></v-text-field>
             <v-btn
-              class="mt-5"
+              class="ma-3"
               @click="apiSignup"
             >
               create
             </v-btn>
             <v-btn
-              class="mt-5"
+              class="ma-3"
               :to="'/dashboard'"
             >
               dashboard
             </v-btn>
-            <p>You don't have an account?
-              <router-link to="/auth/signin">create account now!!</router-link>
+            <p>You already have an account?
+              <router-link to="/auth/signin">signin here</router-link>
             </p>
           </form>
         </v-card-text>
@@ -78,7 +78,6 @@ export default {
 .signup-container {
   min-height: 100%;
   width: 100%;
-  background-color: #2d3a4b;
   overflow: hidden;
 }
 p {

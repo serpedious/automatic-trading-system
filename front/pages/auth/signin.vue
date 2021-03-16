@@ -29,7 +29,7 @@
               submit
             </v-btn>
             <p>You don't have an account?
-              <router-link to="/auth/signup">create account now!!</router-link>
+              <router-link to="/auth/signup">create account now</router-link>
             </p>
           </form>
         </v-card-text>
@@ -73,14 +73,12 @@ export default {
 .signin-container {
   min-height: 100%;
   width: 100%;
-  background-color: #2d3a4b;
   overflow: hidden;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #2d3a4b;
 }
 p {
   padding-top: 30px;

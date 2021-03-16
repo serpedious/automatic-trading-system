@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 'Profit',
+  name: 'History',
   data () {
       return {
         desserts: [

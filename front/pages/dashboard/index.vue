@@ -3,7 +3,7 @@
     <section class="container">
       <div>
         <app-logo/>
-        <h1>This is dashboard index</h1>
+        <h1>Automatic Trading System</h1>
       </div>
     </section>
   </div>
@@ -40,7 +40,6 @@ export default {
 .home-container {
   min-height: 100%;
   width: 100%;
-  background-color: #2d3a4b;
   overflow: hidden;
 }
 </style>

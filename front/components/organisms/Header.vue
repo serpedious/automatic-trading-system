@@ -96,7 +96,7 @@ export default {
     ],
     categories: [
       { title: 'Chart', icon: 'mdi-chart-line', to: '/dashboard/chart' },
-      { title: 'Profit', icon: 'mdi-currency-usd', to: '/dashboard/profit' },
+      { title: 'History', icon: 'mdi-history', to: '/dashboard/history' },
       { title: 'Compare', icon: 'mdi-arrow-left-right', to: '/dashboard/compare' },
       { title: 'Memo', icon: 'mdi-format-list-checks', to: '/dashboard/memo' },
       { title: 'Alert', icon: 'mdi-bell-outline', to: '/dashboard/alert' },
