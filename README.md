@@ -6,7 +6,20 @@
 - command "docker-compose up"
 
 
-
-
 ### when you enter into postgres container
 docker-compose exec db psql -U postgres test_db
+
+### activate aws resource when you deploy
+- CloudFront
+- RDS
+- ECS Service
+
+above resources cost so much. In usual I stop them.
+
+
+### Trouble shooting
+- It is possible CloudFront ID would change.
+so you have to check ID specified at lambda function
+
+- It is possible it is different from correct S3 domain
+in CloudFront
