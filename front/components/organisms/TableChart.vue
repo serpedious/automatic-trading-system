@@ -1,5 +1,8 @@
 <template>
-  <div class="home">
+ <v-card class="mt-3 mr-3 pa-4">
+    <v-card-title class="pb-5">
+      <h3>Chart</h3>
+    </v-card-title>
     <v-simple-table dense>
       <template v-slot:default>
         <thead>
@@ -23,7 +26,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="balance of balancelists" v-bind:key="balance.amount"
+            v-for="balance of balancelists" :key="balance.currency_code"
           >
             <td>{{ balance.currency_code }}</td>
             <!-- <td>{{ item.buy }}</td>
@@ -50,6 +53,7 @@
       </template>
     </v-simple-table>
     <v-btn
+      class="ma-2"
       @click="apiBalance"
       depressed
       color="primary"
@@ -57,19 +61,20 @@
       SHOW
     </v-btn>
     <v-btn
+      class="ma-2"
       depressed
       color="grey"
       @click="apiBalanceHide"
     >
       CLOSE
     </v-btn>
-  </div>
+ </v-card>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
-  name: 'Memo',
+  name: 'TableChart',
   data() {
     return {
       balancelists: [],
@@ -86,24 +91,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-button {
-  margin: 10px 0;
-  padding: 10px;
-}
-</style>

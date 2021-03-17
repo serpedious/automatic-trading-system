@@ -1,9 +1,11 @@
 <template>
-  <v-card class="mx-auto mt-5 pa-5" width="400px">
+  <v-card class="mx-auto mt-2 pa-4" width="400px">
     <v-card-title class="pb-5">
       <h3>Profit</h3>
     </v-card-title>
     <v-tabs
+      centered
+      fixed-tabs
       v-model="tab"
       background-color="primary"
       dark
@@ -50,7 +52,6 @@
 
 <style scoped>
 .container {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,4 +1,9 @@
 <template>
+<section class="container">
+ <v-card class="mx-auto mt-2 pa-4" width="800px">
+    <v-card-title class="pb-5">
+      <h3>Compare</h3>
+    </v-card-title>
  <v-simple-table dense>
     <template v-slot:default>
       <thead>
@@ -34,6 +39,8 @@
       </tbody>
     </template>
   </v-simple-table>
+ </v-card>
+</section>
 </template>
 
 <script>
@@ -92,7 +99,7 @@ export default {
 
 <style scoped>
 .container {
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;

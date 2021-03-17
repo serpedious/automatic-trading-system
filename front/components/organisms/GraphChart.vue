@@ -1,9 +1,9 @@
 <template>
   <v-card
-    class="mx-auto text-center"
+    class="text-center mt-3 ml-3"
     color="green"
     dark
-    max-width="600"
+    max-width="800"
   >
     <v-card-text>
       <v-sheet color="rgba(0, 0, 0, .12)">
@@ -59,11 +59,4 @@
 </script>
 
 <style scoped>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 </style>

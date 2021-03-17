@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="pa-10">
+    <div class="pa-4">
       <TabProfit/>
     </div>
     <TableHistory/>

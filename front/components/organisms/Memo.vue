@@ -1,4 +1,9 @@
 <template>
+<section class="container">
+    <v-card class="mx-auto mt-5 pa-5" width="800px">
+      <v-card-title class="pb-5">
+        <h3>Memo</h3>
+      </v-card-title>
   <div class="home">
     <v-text-field
      v-model="newTaskTitle"
@@ -55,6 +60,8 @@
       </div>
     </v-list>
   </div>
+    </v-card>
+</section>
 </template>
 
 <script>
@@ -102,3 +109,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.container {
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>

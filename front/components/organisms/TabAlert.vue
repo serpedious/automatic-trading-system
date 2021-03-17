@@ -1,10 +1,12 @@
 <template>
   <section class="container">
-    <v-card class="mx-auto mt-5 pa-5" width="400px">
+    <v-card class="mx-auto mt-5 pa-5" width="700px">
       <v-card-title class="pb-5">
         <h3>Alert</h3>
       </v-card-title>
     <v-tabs
+      centered
+      fixed-tabs
       v-model="tab"
       background-color="primary"
       dark

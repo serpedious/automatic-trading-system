@@ -1,4 +1,5 @@
 <template>
+    <v-card class="mx-auto pa-5" width="900px">
  <v-simple-table dense>
     <template v-slot:default>
       <thead>
@@ -30,6 +31,7 @@
       </tbody>
     </template>
   </v-simple-table>
+    </v-card>
 </template>
 
 <script>
@@ -92,12 +94,6 @@ export default {
             amount: 100,
             date: '2020/08/23',
           },
-          {
-            name: 'KitKat',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
         ],
       }
     },
@@ -105,11 +101,4 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 </style>

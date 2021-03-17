@@ -1,10 +1,14 @@
 <template>
-  <div>
-    <div class="pa-10">
-      <GraphChart/>
-    </div>
-    <TableChart/>
-  </div>
+  <!-- <v-container> -->
+    <v-row>
+      <v-col md="8">
+        <GraphChart/>
+      </v-col>
+      <v-col md="4">
+      <TableChart/>
+      </v-col>
+    </v-row>
+  <!-- </v-container> -->
 </template>
 
 <script>
@@ -17,7 +21,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>
-

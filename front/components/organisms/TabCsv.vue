@@ -5,6 +5,8 @@
       <h3>CSV</h3>
     </v-card-title>
     <v-tabs
+      centered
+      fixed-tabs
       v-model="tab"
       background-color="primary"
       dark
