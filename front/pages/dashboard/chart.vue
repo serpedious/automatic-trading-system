@@ -1,14 +1,12 @@
 <template>
-  <!-- <v-container> -->
-    <v-row>
-      <v-col md="8">
-        <GraphChart/>
-      </v-col>
-      <v-col md="4">
-      <TableChart/>
-      </v-col>
-    </v-row>
-  <!-- </v-container> -->
+  <v-row>
+    <v-col md="8">
+      <GraphChart/>
+    </v-col>
+    <v-col md="4">
+    <TableChart/>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

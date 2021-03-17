@@ -116,4 +116,3 @@ export default {
   letter-spacing: 1px;
 }
 </style>
-

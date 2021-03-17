@@ -22,7 +22,7 @@
             @blur="$v.password.$touch()"
           ></v-text-field>
           <v-btn
-            class="mt-5"
+            class="ma-5"
             @click="apiSignin"
           >
             submit
@@ -67,8 +67,5 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-p {
-  padding-top: 30px;
 }
 </style>
