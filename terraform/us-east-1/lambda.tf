@@ -26,5 +26,5 @@
 
 # #   source_code_hash = filebase64sha256("lambda_function_payload.zip")
 
-#   runtime = "nodejs6.10"
+  runtime = "nodejs6.10"
 # }

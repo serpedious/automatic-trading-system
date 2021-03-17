@@ -102,17 +102,17 @@ workflows:
   version: 2
   continuous-deploy:
     jobs:
-      # - test_server
+      - test_server
       # - deploy_server:
       #     requires:
       #       - test_server
       #     filters:
       #       branches:
-      #         only: main
+              # only: main
       - test_front
-      - deploy_front:
-          requires:
-            - test_front
-          filters:
-            branches:
-              only: main
+      # - deploy_front:
+      #     requires:
+      #       - test_front
+      #     filters:
+      #       branches:
+      #         only: main
