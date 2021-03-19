@@ -140,3 +140,28 @@ func (api *APIClient) GetTicker(productCode string) (*Ticker, error) {
 	}
 	return &ticker, nil
 }
+
+type Execution struct {
+	ID                     int     `json:"id"`
+	Side                   string  `json:"side"`
+	Price                  float64 `json:"price"`
+	Size                   float64 `json:"size"`
+	ExecDate               string  `json:"exec_date"`
+	ChildOrderID           string  `json:"child_order_id"`
+	Commission             float64 `json:"commission"`
+	ChildOrderAcceptanceID string  `json:"child_order_acceptance_id"`
+}
+
+func (api *APIClient) GetExecution(productCode string) ([]Execution, error) {
+	url := "me/getexecutions"
+	resp, err := api.doRequest("GET", url, map[string]string{"product_code": productCode}, nil)
+	if err != nil {
+		return nil, err
+	}
+	var execution []Execution
+	err = json.Unmarshal(resp, &execution)
+	if err != nil {
+		return nil, err
+	}
+	return execution, nil
+}
