@@ -49,6 +49,34 @@ func execution(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(js))
 }
 
+func listorder(w http.ResponseWriter, r *http.Request) {
+	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	i := "JRF2hogehoge"
+	params := map[string]string{
+		"product_code":              config.Config.ProductCode,
+		"child_order_acceptance_id": i,
+	}
+	listorder_data, _ := apiClient.ListOrder(params)
+	js, _ := json.Marshal(listorder_data)
+	w.Write([]byte(js))
+}
+
+func sendorder(w http.ResponseWriter, r *http.Request) {
+	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	order := &bitflyer.Order{
+		ProductCode:     config.Config.ProductCode,
+		ChildOrderType:  "LIMIT",
+		Side:            "BUY",
+		Price:           6000000,
+		Size:            0.001,
+		MinuteToExpires: 1,
+		TimeInForce:     "GTC",
+	}
+	sendorder_data, _ := apiClient.SendOrder(order)
+	js, _ := json.Marshal(sendorder_data)
+	w.Write([]byte(js))
+}
+
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
 
@@ -75,9 +103,11 @@ func main() {
 	r.Get("/balance", balance)
 	r.Get("/ticker", ticker)
 	r.Get("/execution", execution)
+	r.Get("/listorder", listorder)
 	r.Get("/verify", user.TokenVerifyMiddleWare(user.VerifyEndpoint))
 	r.Post("/signup", user.Signup)
 	r.Post("/signin", user.Signin)
+	r.Post("/sendorder", sendorder)
 
 	log.Println("server..")
 	http.ListenAndServe(":8000", r)
