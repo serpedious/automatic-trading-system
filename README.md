@@ -26,3 +26,6 @@ so you have to check ID specified at lambda function
 
 - It is possible it is different from correct S3 domain
 in CloudFront
+
+### when you add env variable, you need to add it at the file in S3
+- golang env variable
