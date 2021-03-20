@@ -7,7 +7,6 @@ import (
 
 	"github.com/serpedious/automatic-trading-system/server/config"
 	"github.com/serpedious/automatic-trading-system/server/controller"
-	"github.com/serpedious/automatic-trading-system/server/user"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 
 	"github.com/go-chi/chi"
@@ -44,7 +43,7 @@ func main() {
 	r.Get("/ticker", controller.Ticker)
 	r.Get("/execution", controller.GetExecution)
 	r.Get("/listorder", controller.Listorder)
-	r.Get("/verify", user.TokenVerifyMiddleWare(user.VerifyEndpoint))
+	r.Get("/verify", controller.TokenVerifyMiddleWare(controller.VerifyEndpoint))
 	r.Post("/signup", controller.Signup)
 	r.Post("/signin", controller.Signin)
 	r.Post("/sendorder", controller.SendOrder)
