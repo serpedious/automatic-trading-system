@@ -4,7 +4,8 @@ build:
 	go build -o server ./main.go
 
 run:
-	./server
+	go run main.go
+	# ./server
 
 # seed:
 # 	go run ./main.go seed
