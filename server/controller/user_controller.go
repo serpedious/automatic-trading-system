@@ -16,6 +16,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/serpedious/automatic-trading-system/server/tool"
 	"github.com/serpedious/automatic-trading-system/server/user"
+	"github.com/serpedious/automatic-trading-system/server/user/usecase"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -41,6 +42,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("password: ", password)
 
 	Db := tool.NewDb()
+	defer Db.Close()
 
 	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", user.Email)
 	err := row.Scan(&user.ID, &user.Email, &user.Password)
@@ -72,7 +74,9 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	jwt.Token = token
-	defer Db.Close()
+
+	test := usecase.SignIn()
+	fmt.Println(test)
 
 	utils.ResponseByJSON(w, jwt)
 }

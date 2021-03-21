@@ -32,6 +32,6 @@ func NewDb() *sql.DB {
 		if err != nil {
 			log.Fatal(err)
 		}
-		return Db	
+		return Db
 	}
 }
