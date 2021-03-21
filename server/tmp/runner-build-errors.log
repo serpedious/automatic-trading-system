@@ -1,2 +1,0 @@
-controller/user_controller.go:17:2: 
-tool/params.go:18:6: expected 'package', found 'EOF'

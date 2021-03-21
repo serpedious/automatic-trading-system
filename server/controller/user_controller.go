@@ -20,7 +20,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-
 func Signin(w http.ResponseWriter, r *http.Request) {
 	var jwt user.JWT
 	var user user.User
@@ -41,18 +40,10 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	password := user.Password
 	fmt.Println("password: ", password)
 
-	var Db *sql.DB
-	err := godotenv.Load()
-
-	if err != nil {
-		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", tool.HOST, tool.USER, tool.DATABASE, tool.PASSWORD)
-		Db, _ = sql.Open("postgres", dbURI)
-	} else {
-		Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user="+tool.USER+" password="+tool.PASSWORD+" dbname="+tool.DATABASE+" sslmode=disable")
-	}
+	Db := tool.NewDb()
 
 	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", user.Email)
-	err = row.Scan(&user.ID, &user.Email, &user.Password)
+	err := row.Scan(&user.ID, &user.Email, &user.Password)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -146,16 +137,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	sql_query := "INSERT INTO USERS(EMAIL, PASSWORD) VALUES($1, $2) RETURNING id;"
 
-	var Db *sql.DB
-
-	err = godotenv.Load()
-
-	if err != nil {
-		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", tool.HOST, tool.USER, tool.DATABASE, tool.PASSWORD)
-		Db, _ = sql.Open("postgres", dbURI)
-	} else {
-		Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user="+tool.USER+" password="+tool.PASSWORD+" dbname="+tool.DATABASE+" sslmode=disable")
-	}
+	Db := tool.NewDb()
 
 	err = Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
 	if err != nil {
