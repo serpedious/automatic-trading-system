@@ -3,11 +3,17 @@ package tool
 import (
 	// "database/sql"
 	// "log"
-	// "os"
+	"os"
 
 	// _ "github.com/lib/pq"
 )
 
+var (
+	HOST     = os.Getenv("POSTGRES_URL")
+	DATABASE = os.Getenv("POSTGRES_DB")
+	USER     = os.Getenv("POSTGRES_USER")
+	PASSWORD = os.Getenv("PGPASSWORD")
+)
 // var Db *sql.DB
 
 func Connect() {

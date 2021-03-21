@@ -14,19 +14,14 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/joho/godotenv"
+	"github.com/serpedious/automatic-trading-system/server/tool"
 	"github.com/serpedious/automatic-trading-system/server/user"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func Signin(w http.ResponseWriter, r *http.Request) {
-	var (
-		HOST     = os.Getenv("POSTGRES_URL")
-		DATABASE = os.Getenv("POSTGRES_DB")
-		USER     = os.Getenv("POSTGRES_USER")
-		PASSWORD = os.Getenv("PGPASSWORD")
-	)
 
+func Signin(w http.ResponseWriter, r *http.Request) {
 	var jwt user.JWT
 	var user user.User
 	var error utils.Error
@@ -50,10 +45,10 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	err := godotenv.Load()
 
 	if err != nil {
-		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", HOST, USER, DATABASE, PASSWORD)
+		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", tool.HOST, tool.USER, tool.DATABASE, tool.PASSWORD)
 		Db, _ = sql.Open("postgres", dbURI)
 	} else {
-		Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
+		Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user="+tool.USER+" password="+tool.PASSWORD+" dbname="+tool.DATABASE+" sslmode=disable")
 	}
 
 	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", user.Email)
@@ -117,12 +112,6 @@ func CreateToken(user user.User) (string, error) {
 }
 
 func Signup(w http.ResponseWriter, r *http.Request) {
-	var (
-		HOST     = os.Getenv("POSTGRES_URL")
-		DATABASE = os.Getenv("POSTGRES_DB")
-		USER     = os.Getenv("POSTGRES_USER")
-		PASSWORD = os.Getenv("PGPASSWORD")
-	)
 	var user user.User
 	var error utils.Error
 
@@ -162,10 +151,10 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	err = godotenv.Load()
 
 	if err != nil {
-		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", HOST, USER, DATABASE, PASSWORD)
+		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", tool.HOST, tool.USER, tool.DATABASE, tool.PASSWORD)
 		Db, _ = sql.Open("postgres", dbURI)
 	} else {
-		Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
+		Db, _ = sql.Open("postgres", "host=postgres_db port=5432 user="+tool.USER+" password="+tool.PASSWORD+" dbname="+tool.DATABASE+" sslmode=disable")
 	}
 
 	err = Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
@@ -200,7 +189,7 @@ func TokenVerifyMiddleWare(next http.HandlerFunc) http.HandlerFunc {
 
 			token, error := jwt.Parse(authToken, func(token *jwt.Token) (interface{}, error) {
 				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-					return nil, fmt.Errorf("An error has occured")
+					return nil, fmt.Errorf("an error has occured")
 				}
 				return []byte("secret"), nil
 			})
