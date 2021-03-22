@@ -6,14 +6,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 
 	_ "github.com/lib/pq"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/joho/godotenv"
 	"github.com/serpedious/automatic-trading-system/server/tool"
 	"github.com/serpedious/automatic-trading-system/server/user"
 	"github.com/serpedious/automatic-trading-system/server/user/usecase"
@@ -23,29 +21,25 @@ import (
 
 func Signin(w http.ResponseWriter, r *http.Request) {
 	var jwt user.JWT
-	var user user.User
+	var u user.User
 	var error utils.Error
 
-	json.NewDecoder(r.Body).Decode(&user)
+	json.NewDecoder(r.Body).Decode(&u)
 
-	if user.Email == "" {
-		error.Message = "Email is required"
+	v := u.Validate()
+	if v != "" {
+		error.Message = v
 		utils.ErrorInResponse(w, http.StatusBadRequest, error)
 		return
 	}
 
-	if user.Password == "" {
-		error.Message = "Password is required"
-		utils.ErrorInResponse(w, http.StatusBadRequest, error)
-	}
-	password := user.Password
-	fmt.Println("password: ", password)
+	password := u.Password
 
 	Db := tool.NewDb()
 	defer Db.Close()
 
-	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", user.Email)
-	err := row.Scan(&user.ID, &user.Email, &user.Password)
+	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", u.Email)
+	err := row.Scan(&u.ID, &u.Email, &u.Password)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -56,8 +50,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	hasedPassword := user.Password
-	fmt.Println("hasedPassword: ", hasedPassword)
+	hasedPassword := u.Password
 
 	err = bcrypt.CompareHashAndPassword([]byte(hasedPassword), []byte(password))
 
@@ -67,7 +60,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := CreateToken(user)
+	token, err := usecase.CreateToken(u)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,86 +68,49 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	jwt.Token = token
 
-	test := usecase.SignIn()
-	fmt.Println(test)
 
 	utils.ResponseByJSON(w, jwt)
 }
 
-func CreateToken(user user.User) (string, error) {
-	var err error
-
-	_ = godotenv.Load()
-
-	secret := os.Getenv("JWT_SECRET")
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"email": user.Email,
-		"iss":   "__init__",
-	})
-
-	spew.Dump(token)
-	tokenString, err := token.SignedString([]byte(secret))
-
-	fmt.Println("--------------------")
-	fmt.Println("tokenString: ", tokenString)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return tokenString, nil
-}
-
 func Signup(w http.ResponseWriter, r *http.Request) {
-	var user user.User
+	var u user.User
 	var error utils.Error
 
 	fmt.Println(r.Body)
-	json.NewDecoder(r.Body).Decode(&user)
+	json.NewDecoder(r.Body).Decode(&u)
 
-	if user.Email == "" {
-		error.Message = "Email is required"
+	v := u.Validate()
+	if v != "" {
+		error.Message = v
 		utils.ErrorInResponse(w, http.StatusBadRequest, error)
 		return
 	}
 
-	if user.Password == "" {
-		error.Message = "Password is required"
-		utils.ErrorInResponse(w, http.StatusBadRequest, error)
-		return
-	}
 
-	fmt.Println(user)
-	fmt.Println("------------------------")
-	spew.Dump(user)
+	spew.Dump(u)
 
-	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), 10)
+	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("password: ", user.Password)
-	fmt.Println("hash password: ", hash)
 
-	user.Password = string(hash)
-	fmt.Println("converted password: ", user.Password)
-
+	u.Password = string(hash)
 	sql_query := "INSERT INTO USERS(EMAIL, PASSWORD) VALUES($1, $2) RETURNING id;"
 
 	Db := tool.NewDb()
+	defer Db.Close()
 
-	err = Db.QueryRow(sql_query, user.Email, user.Password).Scan(&user.ID)
+	err = Db.QueryRow(sql_query, u.Email, u.Password).Scan(&u.ID)
 	if err != nil {
 		error.Message = "server error"
 		utils.ErrorInResponse(w, http.StatusInternalServerError, error)
 		return
 	}
 
-	user.Password = ""
+	u.Password = ""
 	w.Header().Set("Content-Type", "application/json")
-	defer Db.Close()
 
-	utils.ResponseByJSON(w, user)
+	utils.ResponseByJSON(w, u)
 }
 
 func VerifyEndpoint(w http.ResponseWriter, r *http.Request) {

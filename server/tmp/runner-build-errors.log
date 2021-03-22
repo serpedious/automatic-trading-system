@@ -1,3 +1,0 @@
-# github.com/serpedious/automatic-trading-system/server/controller
-controller/user_controller.go:82:10: undefined: u
-note: module requires Go 1.16
