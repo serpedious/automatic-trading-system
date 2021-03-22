@@ -26,12 +26,11 @@ func NewDb() *sql.DB {
 		dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", HOST, USER, DATABASE, PASSWORD)
 		Db, _ = sql.Open("postgres", dbURI)
 		return Db
-	} else {
-		// dev
-		Db, err := sql.Open("postgres", "host=postgres_db port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
-		if err != nil {
-			log.Fatal(err)
-		}
-		return Db
 	}
+	// dev
+	Db, err := sql.Open("postgres", "host=postgres_db port=5432 user="+USER+" password="+PASSWORD+" dbname="+DATABASE+" sslmode=disable")
+	if err != nil {
+		log.Fatal(err)
+	}
+	return Db
 }

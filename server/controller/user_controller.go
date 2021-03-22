@@ -1,115 +1,69 @@
 package controller
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
 	_ "github.com/lib/pq"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/dgrijalva/jwt-go"
-	"github.com/serpedious/automatic-trading-system/server/tool"
-	"github.com/serpedious/automatic-trading-system/server/user"
 	"github.com/serpedious/automatic-trading-system/server/user/usecase"
 	"github.com/serpedious/automatic-trading-system/server/utils"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func Signin(w http.ResponseWriter, r *http.Request) {
-	var jwt user.JWT
-	var u user.User
+	var u usecase.User
+	err := json.NewDecoder(r.Body).Decode(&u)
+	if err != nil {
+		return
+	}
+	defer r.Body.Close()
+
+	m := u.Validate()
 	var error utils.Error
-
-	json.NewDecoder(r.Body).Decode(&u)
-
-	v := u.Validate()
-	if v != "" {
-		error.Message = v
+	if m != "" {
+		error.Message = m
 		utils.ErrorInResponse(w, http.StatusBadRequest, error)
 		return
 	}
 
-	password := u.Password
-
-	Db := tool.NewDb()
-	defer Db.Close()
-
-	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", u.Email)
-	err := row.Scan(&u.ID, &u.Email, &u.Password)
-
+	jwt, err := u.SignIn()
 	if err != nil {
-		if err == sql.ErrNoRows {
-			error.Message = "no existed user"
-			utils.ErrorInResponse(w, http.StatusBadRequest, error)
-		} else {
-			log.Fatal(err)
-		}
-	}
-
-	hasedPassword := u.Password
-
-	err = bcrypt.CompareHashAndPassword([]byte(hasedPassword), []byte(password))
-
-	if err != nil {
-		error.Message = "This is invalid password"
-		utils.ErrorInResponse(w, http.StatusUnauthorized, error)
+		error.Message = "no existed user or invalid password"
+		utils.ErrorInResponse(w, http.StatusBadRequest, error)
 		return
 	}
 
-	token, err := usecase.CreateToken(u)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	w.WriteHeader(http.StatusOK)
-	jwt.Token = token
-
-
 	utils.ResponseByJSON(w, jwt)
 }
 
 func Signup(w http.ResponseWriter, r *http.Request) {
-	var u user.User
-	var error utils.Error
-
-	fmt.Println(r.Body)
-	json.NewDecoder(r.Body).Decode(&u)
+	var u usecase.User
+	err := json.NewDecoder(r.Body).Decode(&u)
+	if err != nil {
+		return
+	}
+	defer r.Body.Close()
 
 	v := u.Validate()
+	var error utils.Error
 	if v != "" {
 		error.Message = v
 		utils.ErrorInResponse(w, http.StatusBadRequest, error)
 		return
 	}
 
-
-	spew.Dump(u)
-
-	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
+	err = u.SignUp()
 	if err != nil {
-		log.Fatal(err)
-	}
-
-	u.Password = string(hash)
-	sql_query := "INSERT INTO USERS(EMAIL, PASSWORD) VALUES($1, $2) RETURNING id;"
-
-	Db := tool.NewDb()
-	defer Db.Close()
-
-	err = Db.QueryRow(sql_query, u.Email, u.Password).Scan(&u.ID)
-	if err != nil {
-		error.Message = "server error"
+		error.Message = "faied to create user"
 		utils.ErrorInResponse(w, http.StatusInternalServerError, error)
 		return
 	}
 
-	u.Password = ""
 	w.Header().Set("Content-Type", "application/json")
-
 	utils.ResponseByJSON(w, u)
 }
 
