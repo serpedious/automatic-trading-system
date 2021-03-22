@@ -20,6 +20,7 @@ var (
 var Db *sql.DB
 
 func NewDb() *sql.DB {
+	// distinguish whether env-file exsists or not
 	err := godotenv.Load()
 	if err != nil {
 		// prod

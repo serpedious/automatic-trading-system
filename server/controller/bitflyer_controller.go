@@ -9,28 +9,28 @@ import (
 )
 
 func Balance(w http.ResponseWriter, r *http.Request) {
-	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	apiClient := bitflyer.CreateClient()
 	balance_data, _ := apiClient.GetBalance()
 	js, _ := json.Marshal(balance_data)
 	w.Write([]byte(js))
 }
 
 func Ticker(w http.ResponseWriter, r *http.Request) {
-	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	apiClient := bitflyer.CreateClient()
 	ticker_data, _ := apiClient.GetTicker(config.Config.ProductCode)
 	js, _ := json.Marshal(ticker_data)
 	w.Write([]byte(js))
 }
 
 func GetExecution(w http.ResponseWriter, r *http.Request) {
-	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	apiClient := bitflyer.CreateClient()
 	execution_data, _ := apiClient.GetExecution(config.Config.ProductCode)
 	js, _ := json.Marshal(execution_data)
 	w.Write([]byte(js))
 }
 
 func Listorder(w http.ResponseWriter, r *http.Request) {
-	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	apiClient := bitflyer.CreateClient()
 	i := "JRF2hogehoge"
 	params := map[string]string{
 		"product_code":              config.Config.ProductCode,
@@ -42,7 +42,7 @@ func Listorder(w http.ResponseWriter, r *http.Request) {
 }
 
 func SendOrder(w http.ResponseWriter, r *http.Request) {
-	apiClient := bitflyer.New(config.Config.ApiKey, config.Config.ApiSecret)
+	apiClient := bitflyer.CreateClient()
 	order := &bitflyer.Order{
 		ProductCode:     config.Config.ProductCode,
 		ChildOrderType:  "LIMIT",

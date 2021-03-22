@@ -12,6 +12,8 @@ import (
 	"net/url"
 	"strconv"
 	"time"
+
+	"github.com/serpedious/automatic-trading-system/server/config"
 )
 
 const baseURL = "https://api.bitflyer.com/v1/"
@@ -24,6 +26,11 @@ type APIClient struct {
 
 func New(key, secret string) *APIClient {
 	apiClient := &APIClient{key, secret, &http.Client{}}
+	return apiClient
+}
+
+func CreateClient() *APIClient {
+	apiClient := New(config.Config.ApiKey, config.Config.ApiSecret)
 	return apiClient
 }
 
