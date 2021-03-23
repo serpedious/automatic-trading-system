@@ -2,13 +2,11 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 
 	_ "github.com/lib/pq"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/serpedious/automatic-trading-system/server/user/usecase"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 )
@@ -73,39 +71,17 @@ func VerifyEndpoint(w http.ResponseWriter, r *http.Request) {
 
 func TokenVerifyMiddleWare(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-		var errorObject utils.Error
-
 		authHeader := r.Header.Get("Authorization")
 		bearerToken := strings.Split(authHeader, " ")
-		fmt.Println("bearerToken: ", bearerToken)
 
-		if len(bearerToken) == 2 {
-			authToken := bearerToken[1]
-
-			token, error := jwt.Parse(authToken, func(token *jwt.Token) (interface{}, error) {
-				if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-					return nil, fmt.Errorf("an error has occured")
-				}
-				return []byte("secret"), nil
-			})
-
-			if error != nil {
-				errorObject.Message = error.Error()
-				utils.ErrorInResponse(w, http.StatusUnauthorized, errorObject)
-				return
-			}
-
-			if token.Valid {
-				next.ServeHTTP(w, r)
-			} else {
-				errorObject.Message = error.Error()
-				utils.ErrorInResponse(w, http.StatusUnauthorized, errorObject)
-				return
-			}
-		} else {
-			errorObject.Message = "This token is invalid"
+		var err utils.Error
+		_, error := usecase.AuthenticateToken(bearerToken)
+		if error != nil {
+			err.Message = error.Error()
+			utils.ErrorInResponse(w, http.StatusUnauthorized, err)
 			return
 		}
+
+		next.ServeHTTP(w, r)
 	})
 }
