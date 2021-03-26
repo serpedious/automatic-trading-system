@@ -16,7 +16,7 @@ psql -h {rds-endpoint} -U {username} {dbname}
 - CloudFront
 - RDS
 - ECS Service
-- loadbalancer(elactic IP)
+- loadbalancer(Elastic IP)
 - EC2(Verification)
 
 above resources cost so much. In usual I stop them.

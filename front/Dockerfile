@@ -10,4 +10,4 @@ RUN apk update && \
 
 COPY . .
 EXPOSE 3000
-CMD ["npm", "run", "dev"]
+CMD ["yarn", "run", "dev"]
