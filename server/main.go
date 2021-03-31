@@ -39,14 +39,17 @@ func main() {
 		Debug:            true,
 	}).Handler)
 
+	r.Get("/verify", controller.TokenVerifyMiddleWare(controller.VerifyEndpoint))
+	r.Post("/signup", controller.Signup)
+	r.Post("/signin", controller.Signin)
+
+	r.Post("/sendorder", controller.SendOrder)
 	r.Get("/balance", controller.Balance)
 	r.Get("/ticker", controller.Ticker)
 	r.Get("/execution", controller.GetExecution)
 	r.Get("/listorder", controller.Listorder)
-	r.Get("/verify", controller.TokenVerifyMiddleWare(controller.VerifyEndpoint))
-	r.Post("/signup", controller.Signup)
-	r.Post("/signin", controller.Signin)
-	r.Post("/sendorder", controller.SendOrder)
+
+	r.Post("/creatememo", controller.CreateMemo)
 
 	log.Println("server...")
 	http.ListenAndServe(":8000", r)
