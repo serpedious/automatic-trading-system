@@ -50,6 +50,7 @@ func main() {
 	r.Get("/listorder", controller.Listorder)
 
 	r.Post("/creatememo", controller.CreateMemo)
+	r.Put("/donememo", controller.DoneMemo)
 
 	log.Println("server...")
 	http.ListenAndServe(":8000", r)

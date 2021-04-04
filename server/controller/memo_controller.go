@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/serpedious/automatic-trading-system/server/memo/usecase"
@@ -33,4 +34,25 @@ func CreateMemo(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	utils.ResponseByJSON(w, "created")
+}
+
+func DoneMemo(w http.ResponseWriter, r *http.Request) {
+	var m usecase.DoneMemo
+	err := json.NewDecoder(r.Body).Decode(&m)
+	if err != nil {
+		fmt.Println(err)
+		return 
+	}
+	defer r.Body.Close()
+
+	d := m.DoneMemo()
+	var error utils.Error
+	if d != nil {
+		error.Message = "failed to switch done"
+		utils.ErrorInResponse(w, http.StatusBadRequest, error)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	utils.ResponseByJSON(w, "switch status!")
 }
