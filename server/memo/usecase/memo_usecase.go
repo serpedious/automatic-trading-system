@@ -31,7 +31,7 @@ func (m *Memo) InsertMemo() error {
 	Db := tool.NewDb()
 	defer Db.Close()
 
-	err := Db.QueryRow(sql_query, m.User_id, m.Content, false, false).Scan(&m.ID)
+	err := Db.QueryRow(sql_query, 2, m.Content, false, false).Scan(&m.ID)
 	if err != nil {
 		return err
 	}

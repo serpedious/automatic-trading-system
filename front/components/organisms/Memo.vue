@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Memo',
   data() {
@@ -90,20 +91,30 @@ export default {
     }
   },
   methods: {
-    addTask() {
+    addTask: async function() {
       let newTask = {
         id: Date.now(),
         title: this.newTaskTitle,
         done: false
       }
       this.tasks.push(newTask)
+      let res = await axios.post(process.env.API_BASE_URL + "/creatememo", {
+        content: this.newTaskTitle
+      });
       this.newTaskTitle = ''
     },
-    doneTask(id) {
+    doneTask: async function(id) {
+      let res = await axios.put(process.env.API_BASE_URL + "/donememo", {
+        id: 13,
+        done: true
+      });
       let task = this.tasks.filter(task => task.id === id)[0]
       task.done = !task.done
     },
-    deleteTask(id) {
+    deleteTask: async function(id) {
+      let res = await axios.put(process.env.API_BASE_URL + "/deletememo", {
+        id: 11
+      });
       this.tasks = this.tasks.filter(task => task.id !== id)
     }
   }
