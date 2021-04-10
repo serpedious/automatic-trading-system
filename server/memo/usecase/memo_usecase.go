@@ -9,6 +9,7 @@ import (
 
 type Memo struct {
 	ID         int       `json:"id"`
+	User_id    int       `json:"user_id"`
 	Content    string    `json:"content"`
 	Done       bool      `json:"done"`
 	Created_at time.Time `json:"created_at"`
@@ -25,12 +26,12 @@ func (m *Memo) Validate() string {
 }
 
 func (m *Memo) InsertMemo() error {
-	sql_query := "INSERT INTO MEMOS(CONTENT, DONE, USER_ID) VALUES($1, $2, $3) RETURNING id;"
+	sql_query := "INSERT INTO MEMOS(USER_ID, CONTENT, DONE, DELETE) VALUES($1, $2, $3, $4) RETURNING id;"
 
 	Db := tool.NewDb()
 	defer Db.Close()
 
-	err := Db.QueryRow(sql_query, m.Content, true, 1).Scan(&m.ID)
+	err := Db.QueryRow(sql_query, m.User_id, m.Content, false, false).Scan(&m.ID)
 	if err != nil {
 		return err
 	}
@@ -78,6 +79,40 @@ func (m *DoneMemo) UpdateMemoStatus() error {
 
 func (m *DoneMemo) DoneMemo() error {
 	err := m.UpdateMemoStatus()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+type DeleteMemo struct {
+	ID     int  `json:"id"`
+	Delete bool `json:"delete"`
+}
+
+func (m *DeleteMemo) UpdateDelete() error {
+	Db := tool.NewDb()
+	defer Db.Close()
+
+	sql_query := "SELECT delete FROM MEMOS WHERE id = $1;"
+	rows, err := Db.Query(sql_query, m.ID)
+	if err != nil {
+		return err
+	}
+
+	for rows.Next() {
+		var isDelete bool
+		if err := rows.Scan(&isDelete); err != nil {
+			log.Fatal(err)
+		}
+		sql_query := "UPDATE memos SET delete = true WHERE id = $1;"
+		Db.QueryRow(sql_query, m.ID).Scan(&m.ID)
+	}
+	return nil
+}
+
+func (m *DeleteMemo) DeleteMemo() error {
+	err := m.UpdateDelete()
 	if err != nil {
 		return err
 	}

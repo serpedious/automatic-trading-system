@@ -51,6 +51,7 @@ func main() {
 
 	r.Post("/creatememo", controller.CreateMemo)
 	r.Put("/donememo", controller.DoneMemo)
+	r.Put("/deletememo", controller.DeleteMemo)
 
 	log.Println("server...")
 	http.ListenAndServe(":8000", r)

@@ -11,6 +11,7 @@ CREATE TABLE memos (
   user_id int REFERENCES users(id),
   content TEXT,
   done BOOLEAN,
+  delete BOOLEAN,
   created_at DATE NOT NULL DEFAULT now(),
   updated_at DATE NOT NULL DEFAULT now()
 );

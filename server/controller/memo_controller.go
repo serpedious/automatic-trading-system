@@ -41,7 +41,7 @@ func DoneMemo(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&m)
 	if err != nil {
 		fmt.Println(err)
-		return 
+		return
 	}
 	defer r.Body.Close()
 
@@ -56,3 +56,25 @@ func DoneMemo(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	utils.ResponseByJSON(w, "switch status!")
 }
+
+func DeleteMemo(w http.ResponseWriter, r *http.Request) {
+	var m usecase.DeleteMemo
+	err := json.NewDecoder(r.Body).Decode(&m)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer r.Body.Close()
+
+	d := m.DeleteMemo()
+	var error utils.Error
+	if d != nil {
+		error.Message = "failed to delete memo"
+		utils.ErrorInResponse(w, http.StatusBadRequest, error)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	utils.ResponseByJSON(w, "delete memo!")
+}
+
