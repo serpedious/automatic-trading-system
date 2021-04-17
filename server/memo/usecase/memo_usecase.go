@@ -12,6 +12,7 @@ type Memo struct {
 	User_id    int       `json:"user_id"`
 	Content    string    `json:"content"`
 	Done       bool      `json:"done"`
+	Delete     bool      `json:"delete"`
 	Created_at time.Time `json:"created_at"`
 	Updated_at time.Time `json:"updated_at"`
 }
@@ -117,4 +118,39 @@ func (m *DeleteMemo) DeleteMemo() error {
 		return err
 	}
 	return nil
+}
+
+type GetMemo struct {
+	ID      int    `json:"id"`
+	Content string `json:"content"`
+}
+
+func (m *GetMemo) GetAll(userid int) ([]GetMemo, error) {
+	Db := tool.NewDb()
+	defer Db.Close()
+
+	sql_query := "SELECT id, content FROM MEMOS WHERE user_id = $1;"
+	rows, err := Db.Query(sql_query, userid)
+	if err != nil {
+		return nil, err
+	}
+	var memos []GetMemo
+
+	for rows.Next() {
+		var memo Memo
+		if err := rows.Scan(&memo.ID, &memo.Content); err != nil {
+			log.Fatal(err)
+		}
+		memos = append(memos, GetMemo{ID: memo.ID, Content: memo.Content})
+	}
+
+	return memos, nil
+}
+
+func (m *GetMemo) GetAllMemo(userid int) ([]GetMemo, error) {
+	memos, err := m.GetAll(userid)
+	if err != nil {
+		return nil, err
+	}
+	return memos, nil
 }

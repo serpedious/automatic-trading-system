@@ -49,6 +49,7 @@ func main() {
 	r.Get("/execution", controller.GetExecution)
 	r.Get("/listorder", controller.Listorder)
 
+	r.Get("/getallmemos", controller.GetAllMemos)
 	r.Post("/creatememo", controller.CreateMemo)
 	r.Put("/donememo", controller.DoneMemo)
 	r.Put("/deletememo", controller.DeleteMemo)

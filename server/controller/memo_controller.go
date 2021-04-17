@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/serpedious/automatic-trading-system/server/memo/usecase"
 	"github.com/serpedious/automatic-trading-system/server/utils"
@@ -78,3 +79,19 @@ func DeleteMemo(w http.ResponseWriter, r *http.Request) {
 	utils.ResponseByJSON(w, "delete memo!")
 }
 
+func GetAllMemos(w http.ResponseWriter, r *http.Request) {
+	var m usecase.GetMemo
+	Id := r.URL.Query().Get("user_id")
+	userId, _ := strconv.Atoi(Id)
+
+	g, err := m.GetAllMemo(userId)
+	var error utils.Error
+	if err != nil {
+		error.Message = "failed to get memos"
+		utils.ErrorInResponse(w, http.StatusBadRequest, error)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	utils.ResponseByJSON(w, g)
+}
