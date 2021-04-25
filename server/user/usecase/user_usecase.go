@@ -57,7 +57,7 @@ func (u *User) GetUserByEmail() error {
 	Db := tool.NewDb()
 	defer Db.Close()
 
-	row := Db.QueryRow("SELECT * FROM USERS WHERE email=$1;", u.Email)
+	row := Db.QueryRow("SELECT id, email, password FROM USERS WHERE email=$1;", u.Email)
 	err := row.Scan(&u.ID, &u.Email, &u.Password)
 	if err != nil {
 		return err
@@ -93,7 +93,6 @@ func (u *User) SignIn() (string, error) {
 
 	return jwt, nil
 }
-
 
 func (u *User) SignUp() error {
 	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
