@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+	"time"
 
 	_ "github.com/lib/pq"
 
@@ -34,6 +35,17 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	atCookie := &http.Cookie{
+		Name:    "access_token",
+		Path:    "/",
+		Value:   jwt,
+		Secure: true,
+		SameSite: 4,
+		Expires: time.Now().Add(time.Minute * 15),
+	}
+
+	http.SetCookie(w, atCookie)
+
 	w.WriteHeader(http.StatusOK)
 	utils.ResponseByJSON(w, jwt)
 }
@@ -63,6 +75,14 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	utils.ResponseByJSON(w, u)
+}
+
+func SignOut(w http.ResponseWriter, r *http.Request) {
+	c, _ := r.Cookie("access_token")
+	c.MaxAge = -1
+	http.SetCookie(w, c)
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func VerifyEndpoint(w http.ResponseWriter, r *http.Request) {

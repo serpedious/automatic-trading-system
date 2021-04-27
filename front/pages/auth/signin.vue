@@ -38,21 +38,22 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 export default {
   name: 'Signin',
   data: function () {
     return {
       token: '',
       email: '',
-      password: ''
+      password: '',
     }
   },
   methods: {
       apiSignin: async function() {
         let res = await axios.post(process.env.API_BASE_URL + "/signin", {
             email: this.email,
-            password: this.password
-        });
+            password: this.password,
+        }, { withCredentials: true });
         this.token = res.data.token
         this.$router.push("/dashboard");
       }

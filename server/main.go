@@ -32,8 +32,8 @@ func main() {
 			"https://api.serpedious.link:*",
 		},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-		ExposedHeaders:   []string{},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "Set-Cookie"},
+		ExposedHeaders:   []string{"Set-Cookie"},
 		AllowCredentials: true,
 		MaxAge:           300,
 		Debug:            true,
@@ -42,6 +42,7 @@ func main() {
 	r.Get("/verify", controller.TokenVerifyMiddleWare(controller.VerifyEndpoint))
 	r.Post("/signup", controller.Signup)
 	r.Post("/signin", controller.Signin)
+	r.Get("/signout", controller.SignOut)
 
 	r.Post("/sendorder", controller.SendOrder)
 	r.Get("/balance", controller.Balance)
