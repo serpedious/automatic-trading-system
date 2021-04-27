@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
+	"os"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/serpedious/automatic-trading-system/server/memo/usecase"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 )
@@ -79,11 +80,32 @@ func DeleteMemo(w http.ResponseWriter, r *http.Request) {
 	utils.ResponseByJSON(w, "delete memo!")
 }
 
-func GetAllMemos(w http.ResponseWriter, r *http.Request) {
-	var m usecase.GetMemo
-	Id := r.URL.Query().Get("user_id")
-	userId, _ := strconv.Atoi(Id)
+func findUserId(claims map[string]interface{}) interface{} {
+	for key, val := range claims {
+		if key == "user_id" {
+			fmt.Printf("Key: %v, value: %v\n", key, val)
+			return val
+		}
+	}
+	return nil
+}
 
+func GetAllMemos(w http.ResponseWriter, r *http.Request) {
+	// TODO(refactoring)
+	c, _ := r.Cookie("access_token")
+	tknStr := c.Value
+	claims := jwt.MapClaims{}
+	secret := os.Getenv("JWT_SECRET")
+	token, _ := jwt.ParseWithClaims(tknStr, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(secret), nil
+	})
+	fmt.Println(token)
+	Id := findUserId(claims)
+	userIdd := Id.(float64)
+	userId := int(userIdd)
+
+
+	var m usecase.GetMemo
 	g, err := m.GetAllMemo(userId)
 	var error utils.Error
 	if err != nil {

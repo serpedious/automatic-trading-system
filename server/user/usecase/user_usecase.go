@@ -38,6 +38,7 @@ func (u *User) CreateToken() string {
 
 	secret := os.Getenv("JWT_SECRET")
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"user_id": u.ID,
 		"email": u.Email,
 		"iss":   "__init__",
 	})
