@@ -7,10 +7,16 @@ import (
 )
 
 type ConfigList struct {
-	ApiKey      string
-	ApiSecret   string
-	LogFile     string
-	ProductCode string
+	ApiKey             string
+	ApiSecret          string
+	LogFile            string
+	ProductCode        string
+	CoinCheckApiKey    string
+	CoinCheckApiSecret string
+	DMMApiKey          string
+	DMMApiSecret       string
+	SBIApiKey          string
+	SBIApiSecret       string
 }
 
 var Config ConfigList
@@ -23,6 +29,13 @@ func init() {
 		ApiSecret:   os.Getenv("BITFLYER_API_KEY_SECRET"),
 		LogFile:     os.Getenv("LOG_FILE"),
 		ProductCode: os.Getenv("PRODUCT_CODE"),
+
+		CoinCheckApiKey:    os.Getenv("COINCHECK_API_KEY"),
+		CoinCheckApiSecret: os.Getenv("COINCHECK_API_KEY_SECRET"),
+		DMMApiKey:          os.Getenv("DMM_API_KEY"),
+		DMMApiSecret:       os.Getenv("DMM_API_KEY_SECRET"),
+		SBIApiKey:          os.Getenv("SBI_API_KEY"),
+		SBIApiSecret:       os.Getenv("SBI_API_KEY_SECRET"),
 	}
 }
 

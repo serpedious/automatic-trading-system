@@ -55,6 +55,8 @@ func main() {
 	r.Put("/donememo", controller.DoneMemo)
 	r.Put("/deletememo", controller.DeleteMemo)
 
+	r.Get("/compareticker", controller.CompareTicker)
+
 	log.Println("server...")
 	http.ListenAndServe(":8000", r)
 }

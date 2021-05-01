@@ -3,6 +3,7 @@ module github.com/serpedious/automatic-trading-system/server
 go 1.16
 
 require (
+	github.com/Akagi201/coincheckgo v0.0.0-20170919035128-7690f21ea616
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-chi/chi v1.5.1
 	github.com/joho/godotenv v1.3.0

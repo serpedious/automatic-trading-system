@@ -1,3 +1,5 @@
+github.com/Akagi201/coincheckgo v0.0.0-20170919035128-7690f21ea616 h1:wm+zMR7AQlUFgVX6v6tiZvPBRY2tg8ngdIP10gJoqmg=
+github.com/Akagi201/coincheckgo v0.0.0-20170919035128-7690f21ea616/go.mod h1:y7S6QNg4eShuWrqeY3BvU/KiYbL7X7ke19gwSKN0kg0=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/go-chi/chi v1.5.1 h1:kfTK3Cxd/dkMu/rKs5ZceWYp+t5CtiE7vmaTv3LjC6w=
