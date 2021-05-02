@@ -2,20 +2,15 @@ package usecase
 
 import (
 	"log"
-	"time"
 
+	"github.com/serpedious/automatic-trading-system/server/memo"
 	"github.com/serpedious/automatic-trading-system/server/tool"
 )
 
-type Memo struct {
-	ID         int       `json:"id"`
-	User_id    int       `json:"user_id"`
-	Content    string    `json:"content"`
-	Done       bool      `json:"done"`
-	Delete     bool      `json:"delete"`
-	Created_at time.Time `json:"created_at"`
-	Updated_at time.Time `json:"updated_at"`
-}
+type Memo memo.Memo
+type DoneMemo memo.DoneMemo
+type DeleteMemo memo.DeleteMemo
+type GetMemo memo.GetMemo
 
 func (m *Memo) Validate() string {
 	if m.Content == "" {
@@ -45,11 +40,6 @@ func (m *Memo) CreateMemo() error {
 		return err
 	}
 	return nil
-}
-
-type DoneMemo struct {
-	ID   int  `json:"id"`
-	Done bool `json:"done"`
 }
 
 func (m *DoneMemo) UpdateMemoStatus() error {
@@ -86,11 +76,6 @@ func (m *DoneMemo) DoneMemo() error {
 	return nil
 }
 
-type DeleteMemo struct {
-	ID     int  `json:"id"`
-	Delete bool `json:"delete"`
-}
-
 func (m *DeleteMemo) UpdateDelete() error {
 	Db := tool.NewDb()
 	defer Db.Close()
@@ -118,11 +103,6 @@ func (m *DeleteMemo) DeleteMemo() error {
 		return err
 	}
 	return nil
-}
-
-type GetMemo struct {
-	ID      int    `json:"id"`
-	Content string `json:"content"`
 }
 
 func (m *GetMemo) GetAll(userid int) ([]GetMemo, error) {

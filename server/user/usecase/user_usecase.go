@@ -11,11 +11,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type User struct {
-	ID       int    `json:"id"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
+type User user.User
 
 func (u *User) Validate() string {
 	if u.Email == "" && u.Password == "" {
@@ -39,8 +35,8 @@ func (u *User) CreateToken() string {
 	secret := os.Getenv("JWT_SECRET")
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": u.ID,
-		"email": u.Email,
-		"iss":   "__init__",
+		"email":   u.Email,
+		"iss":     "__init__",
 	})
 
 	tokenString, err := token.SignedString([]byte(secret))

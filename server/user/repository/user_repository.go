@@ -1,3 +1,3 @@
 package repository
 
-type UserRepository interface {}
+type UserRepository interface{}
