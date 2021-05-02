@@ -8,7 +8,7 @@ import (
 )
 
 func CompareTicker(w http.ResponseWriter, r *http.Request) {
-	ticker_data := usecase.GetTickerFromCoinCheck()
-	js, _ := json.Marshal(ticker_data)
+	ticker_coincheck := usecase.GetAllTicker()
+	js, _ := json.Marshal(ticker_coincheck)
 	w.Write([]byte(js))
 }
