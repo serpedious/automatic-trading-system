@@ -36,12 +36,12 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	atCookie := &http.Cookie{
-		Name:    "access_token",
-		Path:    "/",
-		Value:   jwt,
-		Secure: true,
+		Name:     "access_token",
+		Path:     "/",
+		Value:    jwt,
+		Secure:   true,
 		SameSite: 4,
-		Expires: time.Now().Add(time.Minute * 15),
+		Expires:  time.Now().Add(time.Minute * 15),
 	}
 
 	http.SetCookie(w, atCookie)
