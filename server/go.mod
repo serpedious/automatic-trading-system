@@ -6,6 +6,7 @@ require (
 	github.com/Akagi201/coincheckgo v0.0.0-20170919035128-7690f21ea616
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-chi/chi v1.5.1
+	github.com/gorilla/websocket v1.4.2
 	github.com/joho/godotenv v1.3.0
 	github.com/lib/pq v1.9.0
 	github.com/rs/cors v1.7.0

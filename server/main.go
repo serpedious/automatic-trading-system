@@ -21,6 +21,8 @@ func hello() int {
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
 
+	go controller.GetRealTimeTicker()
+
 	r := chi.NewRouter()
 
 	r.Use(middleware.Logger)

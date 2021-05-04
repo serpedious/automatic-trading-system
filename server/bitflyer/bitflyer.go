@@ -65,3 +65,15 @@ type Order struct {
 type ResponseSendChildOrder struct {
 	ChildOrderAcceptanceID string `json:"child_order_acceptance_id"`
 }
+
+type JsonRPC2 struct {
+	Version string      `json:"jsonrpc"`
+	Method  string      `json:"method"`
+	Params  interface{} `json:"params"`
+	Result  interface{} `json:"result,omitempty"`
+	Id      *int        `json:"id,omitempty"`
+}
+
+type SubscribeParams struct {
+	Channel string `json:"channel"`
+}

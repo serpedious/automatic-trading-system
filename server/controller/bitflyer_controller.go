@@ -2,12 +2,22 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/bitflyer/usecase"
 	"github.com/serpedious/automatic-trading-system/server/config"
 )
+
+func GetRealTimeTicker() {
+	apiClient := usecase.New(config.Config.ApiKey, config.Config.ApiSecret)
+	tickerChannel := make(chan bitflyer.Ticker)
+	go apiClient.GetRealTimeTicker(config.Config.ProductCode, tickerChannel)
+	for ticker := range tickerChannel {
+		fmt.Println(ticker)
+	}
+}
 
 func Balance(w http.ResponseWriter, r *http.Request) {
 	apiClient := usecase.CreateClient()
