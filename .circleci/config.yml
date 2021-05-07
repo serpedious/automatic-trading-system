@@ -68,7 +68,7 @@ jobs:
   test_server:
     executor: default
     docker:
-      - image: circleci/golang:latest
+      - image: circleci/golang:1.14-node
     working_directory: ~/workspace/server
     steps:
       - checkout
