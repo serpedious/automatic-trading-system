@@ -7,7 +7,7 @@ import (
 	"time"
 
 	// "github.com/mattn/go-sqlite3"
-	s "github.com/mattn/go-sqlite3"
+	// "github.com/mattn/go-sqlite3"
 	"github.com/serpedious/automatic-trading-system/server/config"
 )
 
@@ -22,7 +22,6 @@ func GetCandleTableName(productCode string, duration time.Duration) string {
 }
 
 func init() {
-	fmt.Println(s.Version())
 	var err error
 	DbConnection, err = sql.Open(config.Config.SQLDriver, config.Config.DbName)
 	if err != nil {
