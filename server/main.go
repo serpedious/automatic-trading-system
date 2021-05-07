@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"net/http"
 
+	"github.com/serpedious/automatic-trading-system/server/app/models"
 	"github.com/serpedious/automatic-trading-system/server/config"
 	"github.com/serpedious/automatic-trading-system/server/controller"
 	"github.com/serpedious/automatic-trading-system/server/utils"
@@ -20,7 +22,7 @@ func hello() int {
 
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
-
+	fmt.Println(models.DbConnection)
 	go controller.GetRealTimeTicker()
 
 	r := chi.NewRouter()

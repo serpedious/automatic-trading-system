@@ -13,4 +13,6 @@ terraform/.terraform
 terraform/.tfvars
 terraform/crash.log
 
+stockdata.sql
+
 .DS_Store

@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"time"
 
 	"github.com/joho/godotenv"
 )
@@ -17,12 +18,23 @@ type ConfigList struct {
 	DMMApiSecret       string
 	SBIApiKey          string
 	SBIApiSecret       string
+	TradeDuration      time.Duration
+	Durations          map[string]time.Duration
+	DbName             string
+	SQLDriver          string
+	Port               int
 }
 
 var Config ConfigList
 
 func init() {
 	_ = godotenv.Load()
+
+	durations := map[string]time.Duration{
+		"1s": time.Second,
+		"1m": time.Minute,
+		"1h": time.Hour,
+	}
 
 	Config = ConfigList{
 		ApiKey:      os.Getenv("BITFLYER_API_KEY"),
@@ -36,6 +48,10 @@ func init() {
 		DMMApiSecret:       os.Getenv("DMM_API_KEY_SECRET"),
 		SBIApiKey:          os.Getenv("SBI_API_KEY"),
 		SBIApiSecret:       os.Getenv("SBI_API_KEY_SECRET"),
+		Durations:          durations,
+		TradeDuration:      durations[os.Getenv("TRADE_DURATION")],
+		DbName:             os.Getenv("DB_NAME"),
+		SQLDriver:          os.Getenv("SQL_DRIVER"),
 	}
 }
 
