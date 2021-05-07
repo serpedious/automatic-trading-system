@@ -106,6 +106,22 @@ func (api *APIClient) GetBalance() ([]bitflyer.Balance, error) {
 	return balance, nil
 }
 
+func (t *Ticker) GetMidPrice() float64 {
+	return (t.BestBid + t.BestAsk) / 2
+}
+
+func (t *Ticker) DateTime() time.Time {
+	dateTime, err := time.Parse(time.RFC3339, t.Timestamp)
+	if err != nil {
+		log.Printf("action=DateTime, err=%s", err.Error())
+	}
+	return dateTime
+}
+
+func (t *Ticker) TruncateDateTime(duration time.Duration) time.Time {
+	return t.DateTime().Truncate(duration)
+}
+
 func (api *APIClient) GetTicker(productCode string) (*bitflyer.Ticker, error) {
 	url := "ticker"
 	resp, err := api.doRequest("GET", url, map[string]string{"product_code": productCode}, nil)
@@ -165,7 +181,7 @@ func (api *APIClient) ListOrder(query map[string]string) ([]bitflyer.Order, erro
 	return responseListOrder, nil
 }
 
-func (api *APIClient) GetRealTimeTicker(symbol string, ch chan<- bitflyer.Ticker) {
+func (api *APIClient) GetRealTimeTicker(symbol string, ch chan<- Ticker) {
 	u := url.URL{Scheme: "wss", Host: "ws.lightstream.bitflyer.com", Path: "/json-rpc"}
 	log.Printf("connecting to %s", u.String())
 
@@ -199,7 +215,7 @@ OUTER:
 						if err != nil {
 							continue OUTER
 						}
-						var ticker bitflyer.Ticker
+						var ticker Ticker
 						if err := json.Unmarshal(marshaTic, &ticker); err != nil {
 							continue OUTER
 						}
@@ -209,4 +225,74 @@ OUTER:
 			}
 		}
 	}
+}
+
+type Candle bitflyer.Candle
+
+func NewCandle(productCode string, duration time.Duration, timeDate time.Time, open, close, high, low, volume float64) *Candle {
+	return &Candle{
+		productCode,
+		duration,
+		timeDate,
+		open,
+		close,
+		high,
+		low,
+		volume,
+	}
+}
+
+func (c *Candle) TableName() string {
+	return GetCandleTableName(c.ProductCode, c.Duration)
+}
+
+func (c *Candle) Create() error {
+	cmd := fmt.Sprintf("INSERT INTO %s (time, open, close, high, low, volume) VALUES (?, ?, ?, ?, ?, ?)", c.TableName())
+	_, err := DbConnection.Exec(cmd, c.Time.Format(time.RFC3339), c.Open, c.Close, c.High, c.Low, c.Volume)
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+func (c *Candle) Save() error {
+	cmd := fmt.Sprintf("UPDATE %s SET open = ?, close = ?, high = ?, low = ?, volume = ? WHERE time = ?", c.TableName())
+	_, err := DbConnection.Exec(cmd, c.Open, c.Close, c.High, c.Low, c.Volume, c.Time.Format(time.RFC3339))
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+func GetCandle(productCode string, duration time.Duration, dateTime time.Time) *Candle {
+	tableName := GetCandleTableName(productCode, duration)
+	cmd := fmt.Sprintf("SELECT time, open, close, high, low, volume FROM %s WHERE time = ?", tableName)
+	row := DbConnection.QueryRow(cmd, dateTime.Format(time.RFC3339))
+	var candle Candle
+	err := row.Scan(&candle.Time, &candle.Open, &candle.Close, &candle.High, &candle.Low, &candle.Volume)
+	if err != nil {
+		return nil
+	}
+	return NewCandle(productCode, duration, candle.Time, candle.Open, candle.Close, candle.High, candle.Low, candle.Volume)
+}
+
+func CreateCandleWithDuration(ticker Ticker, productCode string, duration time.Duration) bool {
+	currentCandle := GetCandle(productCode, duration, ticker.TruncateDateTime(duration))
+	price := ticker.GetMidPrice()
+	if currentCandle == nil {
+		candle := NewCandle(productCode, duration, ticker.TruncateDateTime(duration),
+			price, price, price, price, ticker.Volume)
+		candle.Create()
+		return true
+	}
+
+	if currentCandle.High <= price {
+		currentCandle.High = price
+	} else if currentCandle.Low >= price {
+		currentCandle.Low = price
+	}
+	currentCandle.Volume += ticker.Volume
+	currentCandle.Close = price
+	currentCandle.Save()
+	return false
 }

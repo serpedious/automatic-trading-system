@@ -1,8 +1,9 @@
-package controller
+package controllers
 
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
@@ -10,9 +11,24 @@ import (
 	"github.com/serpedious/automatic-trading-system/server/config"
 )
 
+func StreamIngectionData() {
+	var tickerChannl = make(chan usecase.Ticker)
+	apiClient := usecase.New(config.Config.ApiKey, config.Config.ApiSecret)
+	go apiClient.GetRealTimeTicker(config.Config.ProductCode, tickerChannl)
+	for ticker := range tickerChannl {
+		log.Printf("action=StreamIngectionData, %v", ticker)
+		for _, duration := range config.Config.Durations {
+			isCreated := usecase.CreateCandleWithDuration(ticker, ticker.ProductCode, duration)
+			if isCreated && duration == config.Config.TradeDuration {
+				fmt.Println(isCreated)
+			}
+		}
+	}
+}
+
 func GetRealTimeTicker() {
 	apiClient := usecase.New(config.Config.ApiKey, config.Config.ApiSecret)
-	tickerChannel := make(chan bitflyer.Ticker)
+	tickerChannel := make(chan usecase.Ticker)
 	go apiClient.GetRealTimeTicker(config.Config.ProductCode, tickerChannel)
 	for ticker := range tickerChannel {
 		fmt.Println(ticker)

@@ -1,14 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"net/http"
 
-	"github.com/serpedious/automatic-trading-system/server/app/models"
 	"github.com/serpedious/automatic-trading-system/server/config"
-	"github.com/serpedious/automatic-trading-system/server/controller"
+
+	"github.com/serpedious/automatic-trading-system/server/controllers"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 
 	"github.com/go-chi/chi"
@@ -22,8 +21,8 @@ func hello() int {
 
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
-	fmt.Println(models.DbConnection)
-	go controller.GetRealTimeTicker()
+
+	go controllers.StreamIngectionData()
 
 	r := chi.NewRouter()
 
@@ -43,23 +42,23 @@ func main() {
 		Debug:            true,
 	}).Handler)
 
-	r.Get("/verify", controller.TokenVerifyMiddleWare(controller.VerifyEndpoint))
-	r.Post("/signup", controller.Signup)
-	r.Post("/signin", controller.Signin)
-	r.Get("/signout", controller.SignOut)
+	r.Get("/verify", controllers.TokenVerifyMiddleWare(controllers.VerifyEndpoint))
+	r.Post("/signup", controllers.Signup)
+	r.Post("/signin", controllers.Signin)
+	r.Get("/signout", controllers.SignOut)
 
-	r.Post("/sendorder", controller.SendOrder)
-	r.Get("/balance", controller.Balance)
-	r.Get("/ticker", controller.Ticker)
-	r.Get("/execution", controller.GetExecution)
-	r.Get("/listorder", controller.Listorder)
+	r.Post("/sendorder", controllers.SendOrder)
+	r.Get("/balance", controllers.Balance)
+	r.Get("/ticker", controllers.Ticker)
+	r.Get("/execution", controllers.GetExecution)
+	r.Get("/listorder", controllers.Listorder)
 
-	r.Get("/getallmemos", controller.GetAllMemos)
-	r.Post("/creatememo", controller.CreateMemo)
-	r.Put("/donememo", controller.DoneMemo)
-	r.Put("/deletememo", controller.DeleteMemo)
+	r.Get("/getallmemos", controllers.GetAllMemos)
+	r.Post("/creatememo", controllers.CreateMemo)
+	r.Put("/donememo", controllers.DoneMemo)
+	r.Put("/deletememo", controllers.DeleteMemo)
 
-	r.Get("/compareticker", controller.CompareTicker)
+	r.Get("/compareticker", controllers.CompareTicker)
 
 	log.Println("server...")
 	http.ListenAndServe(":8000", r)

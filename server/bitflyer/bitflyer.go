@@ -1,5 +1,7 @@
 package bitflyer
 
+import "time"
+
 const BaseURL = "https://api.bitflyer.com/v1/"
 
 type Balance struct {
@@ -76,4 +78,15 @@ type JsonRPC2 struct {
 
 type SubscribeParams struct {
 	Channel string `json:"channel"`
+}
+
+type Candle struct {
+	ProductCode string
+	Duration    time.Duration
+	Time        time.Time
+	Open        float64
+	Close       float64
+	High        float64
+	Low         float64
+	Volume      float64
 }

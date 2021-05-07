@@ -1,4 +1,4 @@
-package models
+package usecase
 
 import (
 	"database/sql"
@@ -16,7 +16,7 @@ const (
 
 var DbConnection *sql.DB
 
-func GetCandleName(productCode string, duration time.Duration) string {
+func GetCandleTableName(productCode string, duration time.Duration) string {
 	return fmt.Sprintf("%s_%s", productCode, duration)
 }
 
@@ -37,7 +37,7 @@ func init() {
 	DbConnection.Exec(cmd)
 
 	for _, duration := range config.Config.Durations {
-		tableName := GetCandleName(config.Config.ProductCode, duration)
+		tableName := GetCandleTableName(config.Config.ProductCode, duration)
 		c := fmt.Sprintf(`
 		    CREATE TABLE IF NOT EXISTS %s (
 			time DATETIME PRIMARY KEY NOT NULL,
