@@ -6,8 +6,7 @@ import (
 	"log"
 	"time"
 
-	// "github.com/mattn/go-sqlite3"
-	// "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
 	"github.com/serpedious/automatic-trading-system/server/config"
 )
 
