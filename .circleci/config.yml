@@ -72,7 +72,7 @@ jobs:
     working_directory: ~/workspace/server
     steps:
       - checkout
-       run:
+      - run:
           name: get gcc
           command: apk add --update gcc musl-dev
           working_directory: server
