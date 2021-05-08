@@ -22,7 +22,7 @@ func GetCandleTableName(productCode string, duration time.Duration) string {
 
 func init() {
 	var err error
-	DbConnection, err = sql.Open(config.Config.SQLDriver, config.Config.DbName)
+	DbConnection, err = sql.Open("sqlite3", config.Config.DbName)
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -73,10 +73,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: get gcc
-          command: apk add --update gcc musl-dev
-          working_directory: server
-      - run:
           name: test golang api
           command: go test -run ''
           working_directory: server
