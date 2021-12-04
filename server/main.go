@@ -59,6 +59,7 @@ func main() {
 	r.Put("/deletememo", controllers.DeleteMemo)
 
 	r.Get("/compareticker", controllers.CompareTicker)
+	r.Get("/api/candle/", controllers.ApiMakeHandler(controllers.ApiCandleHandler))
 
 	log.Println("server...")
 	http.ListenAndServe(":8000", r)

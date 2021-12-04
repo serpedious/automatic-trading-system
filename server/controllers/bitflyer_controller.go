@@ -5,10 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"regexp"
+	"strconv"
 
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/bitflyer/usecase"
 	"github.com/serpedious/automatic-trading-system/server/config"
+	"github.com/serpedious/automatic-trading-system/server/utils"
 )
 
 func StreamIngectionData() {
@@ -82,4 +85,44 @@ func SendOrder(w http.ResponseWriter, r *http.Request) {
 	sendorder_data, _ := apiClient.SendOrder(order)
 	js, _ := json.Marshal(sendorder_data)
 	w.Write([]byte(js))
+}
+
+var apiValidPath = regexp.MustCompile("^/api/candle/$")
+
+func ApiMakeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		m := apiValidPath.FindStringSubmatch(r.URL.Path)
+		if len(m) == 0 {
+			utils.APIError(w, "Not found", http.StatusNotFound)
+		}
+		fn(w, r)
+	}
+}
+
+func ApiCandleHandler(w http.ResponseWriter, r *http.Request) {
+	productCode := r.URL.Query().Get("product_code")
+	if productCode == "" {
+		utils.APIError(w, "No product_code params", http.StatusBadRequest)
+		return
+	}
+	strLimit := r.URL.Query().Get("limit")
+	limit, err := strconv.Atoi(strLimit)
+	if strLimit == "" || err != nil || limit < 0 || limit > 1000 {
+		limit = 1000
+	}
+
+	duration := r.URL.Query().Get("duration")
+	if duration == "" {
+		duration = "1m"
+	}
+	durationTime := config.Config.Durations[duration]
+
+	df, _ := usecase.GetAllCandle(productCode, durationTime, limit)
+
+	js, err := json.Marshal(df)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
 }

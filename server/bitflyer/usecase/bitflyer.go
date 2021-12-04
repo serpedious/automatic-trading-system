@@ -296,3 +296,80 @@ func CreateCandleWithDuration(ticker Ticker, productCode string, duration time.D
 	currentCandle.Save()
 	return false
 }
+
+type DataFrameCandle bitflyer.DataFrameCandle
+
+func (df *DataFrameCandle) Times() []time.Time {
+	s := make([]time.Time, len(df.Candles))
+	for i, candle := range df.Candles {
+		s[i] = candle.Time
+	}
+	return s
+}
+
+func (df *DataFrameCandle) Opens() []float64 {
+	s := make([]float64, len(df.Candles))
+	for i, candle := range df.Candles {
+		s[i] = candle.Open
+	}
+	return s
+}
+
+func (df *DataFrameCandle) Closes() []float64 {
+	s := make([]float64, len(df.Candles))
+	for i, candle := range df.Candles {
+		s[i] = candle.Close
+	}
+	return s
+}
+
+func (df *DataFrameCandle) Highs() []float64 {
+	s := make([]float64, len(df.Candles))
+	for i, candle := range df.Candles {
+		s[i] = candle.High
+	}
+	return s
+}
+
+func (df *DataFrameCandle) Lows() []float64 {
+	s := make([]float64, len(df.Candles))
+	for i, candle := range df.Candles {
+		s[i] = candle.Low
+	}
+	return s
+}
+
+func (df *DataFrameCandle) Volumes() []float64 {
+	s := make([]float64, len(df.Candles))
+	for i, candle := range df.Candles {
+		s[i] = candle.Volume
+	}
+	return s
+}
+
+func GetAllCandle(productCode string, duration time.Duration, limit int) (dfCandle *DataFrameCandle, err error) {
+	tableName := GetCandleTableName(productCode, duration)
+	cmd := fmt.Sprintf(`SELECT * FROM (
+		SELECT time, open, close, high, low, volume FROM %s ORDER BY time DESC LIMIT ?
+		) ORDER BY time ASC;`, tableName)
+	rows, err := DbConnection.Query(cmd, limit)
+	if err != nil {
+		return
+	}
+	defer rows.Close()
+
+	dfCandle = &DataFrameCandle{}
+	dfCandle.Duration = duration
+	for rows.Next() {
+		var candle bitflyer.Candle
+		candle.ProductCode = productCode
+		candle.Duration = duration
+		rows.Scan(&candle.Time, &candle.Open, &candle.Close, &candle.High, &candle.Low, &candle.Volume)
+		dfCandle.Candles = append(dfCandle.Candles, candle)
+	}
+	err = rows.Err()
+	if err != nil {
+		return
+	}
+	return dfCandle, nil
+}

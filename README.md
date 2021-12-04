@@ -7,7 +7,7 @@
 
 
 ### when you enter into postgres container
-docker-compose exec db psql -U postgres test_db
+docker-compose exec postgres psql -U postgres test_db
 
 ### when you access postgres in prod via ec2
 psql -h {rds-endpoint} -U {username} {dbname}

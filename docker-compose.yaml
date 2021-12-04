@@ -18,7 +18,7 @@ services:
     volumes:
       - ./server:/api
   
-  db:
+  postgres:
     image: postgres:10-alpine
     container_name: postgres_db
     ports: 
@@ -31,4 +31,15 @@ services:
       DATABASE_HOST: ${DATABASE_HOST}
     volumes:
       - $PWD/docker/db/init:/docker-entrypoint-initdb.d
-      
+  
+# sqlite3:
+#     image: nouchka/sqlite3:latest
+#     container_name: sqlite3_container
+#     stdin_open: true
+#     tty: true
+#     volumes:
+#       #Modify following line
+#       - path-to/your/databases/sqlite3:/root/db/
+#     ports:
+#       - '9000:9000' # expose ports - HOST:CONTAINER
+#     restart: unless-stopped
