@@ -106,6 +106,23 @@ func (api *APIClient) GetBalance() ([]bitflyer.Balance, error) {
 	return balance, nil
 }
 
+func (api *APIClient) GetBalanceHistory() ([]bitflyer.BalanceHistory, error) {
+	url := "me/getbalancehistory"
+	resp, err := api.doRequest("GET", url, map[string]string{"count": "10"}, nil)
+	log.Printf("url=%s resp=%s", url, string(resp))
+	if err != nil {
+		log.Printf("action=GetBalance err=%s", err.Error())
+		return nil, err
+	}
+	var balance_history []bitflyer.BalanceHistory
+	err = json.Unmarshal(resp, &balance_history)
+	if err != nil {
+		log.Printf("action=GetBalance err=%s", err.Error())
+		return nil, err
+	}
+	return balance_history, nil
+}
+
 func (t *Ticker) GetMidPrice() float64 {
 	return (t.BestBid + t.BestAsk) / 2
 }

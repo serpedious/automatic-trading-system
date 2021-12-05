@@ -10,6 +10,21 @@ type Balance struct {
 	Available   float64 `json:"available"`
 }
 
+type BalanceHistory struct {
+	ID           int     `json:"id"`
+	TradeDate    string  `json:"trade_date"`
+	EventDate    string  `json:"event_date"`
+	ProductCode  string  `json:"product_code"`
+	CurrencyCode string  `json:"currency_code"`
+	TradeType    string  `json:"trade_type"`
+	Price        float64 `json:"price"`
+	Amount       float64 `json:"amount"`
+	Quantity     float64 `json:"quantity"`
+	Commission   float64 `json:"commission"`
+	Balance      float64 `json:"balance"`
+	OrderID      string  `json:"order_id"`
+}
+
 type Ticker struct {
 	ProductCode     string  `json:"product_code"`
 	State           string  `json:"state"`

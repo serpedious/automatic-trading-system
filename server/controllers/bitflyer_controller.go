@@ -45,6 +45,13 @@ func Balance(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(js))
 }
 
+func GetBalanceHistory(w http.ResponseWriter, r *http.Request) {
+	apiClient := usecase.CreateClient()
+	balance_history_data, _ := apiClient.GetBalanceHistory()
+	js, _ := json.Marshal(balance_history_data)
+	w.Write([]byte(js))
+}
+
 func Ticker(w http.ResponseWriter, r *http.Request) {
 	apiClient := usecase.CreateClient()
 	ticker_data, _ := apiClient.GetTicker(config.Config.ProductCode)
