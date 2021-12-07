@@ -59,6 +59,7 @@ func main() {
 	r.Post("/creatememo", controllers.CreateMemo)
 	r.Put("/donememo", controllers.DoneMemo)
 	r.Put("/deletememo", controllers.DeleteMemo)
+	r.Get("/getuser", controllers.GetUser)
 
 	r.Get("/compareticker", controllers.CompareTicker)
 	r.Get("/api/candle/", controllers.ApiMakeHandler(controllers.ApiCandleHandler))

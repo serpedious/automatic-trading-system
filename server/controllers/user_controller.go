@@ -8,9 +8,25 @@ import (
 
 	_ "github.com/lib/pq"
 
+	"github.com/serpedious/automatic-trading-system/server/tool"
 	"github.com/serpedious/automatic-trading-system/server/user/usecase"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 )
+
+func GetUser(w http.ResponseWriter, r *http.Request) {
+	userId := tool.GetUserIdFromCookie(w, r)
+	var u usecase.User
+	v, err := u.GetUser(userId)
+	var error utils.Error
+	if err != nil {
+		error.Message = "failed to get user"
+		utils.ErrorInResponse(w, http.StatusBadRequest, error)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	utils.ResponseByJSON(w, v)
+}
 
 func Signin(w http.ResponseWriter, r *http.Request) {
 	var u usecase.User

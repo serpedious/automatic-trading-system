@@ -50,6 +50,19 @@ func (u *User) CreateToken() string {
 	return jwt.Token
 }
 
+func (u *User) GetUser(userId int) (*User, error) {
+	Db := tool.NewDb()
+	defer Db.Close()
+
+	row := Db.QueryRow("SELECT id, email, password FROM USERS WHERE id=$1;", userId)
+	err := row.Scan(&u.ID, &u.Email, &u.Password)
+	if err != nil {
+		return u, err
+	}
+
+	return u, nil
+}
+
 func (u *User) GetUserByEmail() error {
 	Db := tool.NewDb()
 	defer Db.Close()

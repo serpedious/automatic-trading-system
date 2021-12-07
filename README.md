@@ -12,6 +12,11 @@ docker-compose exec postgres psql -U postgres test_db
 ### when you access postgres in prod via ec2
 psql -h {rds-endpoint} -U {username} {dbname}
 
+### when you access postgres in prod via ec2
+example-user
+email: guest@gmail.com
+password: password
+
 ### activate aws resource when you deploy
 - CloudFront
 - RDS
