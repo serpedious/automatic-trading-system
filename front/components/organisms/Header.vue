@@ -55,7 +55,15 @@
       <v-toolbar-title>Automatic Trading system</v-toolbar-title>
 
       <v-spacer></v-spacer>
-
+      <v-btn
+        class="ma-2"
+        @click="getUser"
+        depressed
+        color="primary"
+      >
+        SHOW
+      </v-btn>
+      {{ user.email }}
       <v-menu
         bottom
         left
@@ -87,6 +95,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data: () => ({ 
     drawer: null,
@@ -102,7 +111,14 @@ export default {
       { title: 'Alert', icon: 'mdi-bell-outline', to: '/dashboard/alert' },
       { title: 'CSV', icon: 'mdi-file-delimited-outline', to: '/dashboard/csv' }
     ],
+    user: "",
   }),
+   methods: {
+    getUser: async function () {
+      let res = await axios.get(process.env.API_BASE_URL + '/getuser')
+      this.user = res.data
+    }
+  }
 }
 </script>
 

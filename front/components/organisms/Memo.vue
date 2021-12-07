@@ -3,6 +3,22 @@
     <v-card class="mx-auto mt-5 pa-5" width="800px">
       <v-card-title class="pb-5">
         <h3>Memo</h3>
+        <tbody>
+          <tr
+            v-for="memo of allMemos" :key="memo.id"
+          >
+            <td>{{ memo.id }}</td>
+            <td>{{ memo.content }}</td>
+          </tr>
+        </tbody>
+        <v-btn
+          class="ma-2"
+          @click="getAllMemos"
+          depressed
+          color="primary"
+        >
+          SHOW
+        </v-btn>
       </v-card-title>
   <div class="home">
     <v-text-field
@@ -71,6 +87,7 @@ export default {
   data() {
     return {
       newTaskTitle: '',
+      allMemos: [],
       tasks: [
         // {
         //   id: 1,
@@ -91,6 +108,10 @@ export default {
     }
   },
   methods: {
+    getAllMemos: async function () {
+      let res = await axios.get(process.env.API_BASE_URL + '/getallmemos')
+      this.allMemos = res.data
+    },
     addTask: async function() {
       let newTask = {
         id: Date.now(),
