@@ -26,7 +26,8 @@ func CreateMemo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	c := m.CreateMemo()
+	userId := tool.GetUserIdFromCookie(w, r)
+	c := m.CreateMemo(userId)
 	if c != nil {
 		error.Message = "failed create memo"
 		utils.ErrorInResponse(w, http.StatusBadRequest, error)

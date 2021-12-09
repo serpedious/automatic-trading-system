@@ -21,21 +21,21 @@ func (m *Memo) Validate() string {
 	return ""
 }
 
-func (m *Memo) InsertMemo() error {
+func (m *Memo) InsertMemo(userid int) error {
 	sql_query := "INSERT INTO MEMOS(USER_ID, CONTENT, DONE, DELETE) VALUES($1, $2, $3, $4) RETURNING id;"
 
 	Db := tool.NewDb()
 	defer Db.Close()
 
-	err := Db.QueryRow(sql_query, 2, m.Content, false, false).Scan(&m.ID)
+	err := Db.QueryRow(sql_query, userid, m.Content, false, false).Scan(&m.ID)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *Memo) CreateMemo() error {
-	err := m.InsertMemo()
+func (m *Memo) CreateMemo(userid int) error {
+	err := m.InsertMemo(userid)
 	if err != nil {
 		return err
 	}
@@ -109,7 +109,7 @@ func (m *GetMemo) GetAll(userid int) ([]GetMemo, error) {
 	Db := tool.NewDb()
 	defer Db.Close()
 
-	sql_query := "SELECT id, content FROM MEMOS WHERE user_id = $1;"
+	sql_query := "SELECT id, content, done, delete FROM MEMOS WHERE delete = false and user_id = $1;"
 	rows, err := Db.Query(sql_query, userid)
 	if err != nil {
 		return nil, err
@@ -117,11 +117,11 @@ func (m *GetMemo) GetAll(userid int) ([]GetMemo, error) {
 	var memos []GetMemo
 
 	for rows.Next() {
-		var memo Memo
-		if err := rows.Scan(&memo.ID, &memo.Content); err != nil {
+		var memo GetMemo
+		if err := rows.Scan(&memo.ID, &memo.Content, &memo.Done, &memo.Delete); err != nil {
 			log.Fatal(err)
 		}
-		memos = append(memos, GetMemo{ID: memo.ID, Content: memo.Content})
+		memos = append(memos, GetMemo{ID: memo.ID, Content: memo.Content, Done: memo.Done, Delete: memo.Delete})
 	}
 
 	return memos, nil

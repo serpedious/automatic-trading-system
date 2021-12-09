@@ -3,14 +3,6 @@
     <v-card class="mx-auto mt-5 pa-5" width="800px">
       <v-card-title class="pb-5">
         <h3>Memo</h3>
-        <tbody>
-          <tr
-            v-for="memo of allMemos" :key="memo.id"
-          >
-            <td>{{ memo.id }}</td>
-            <td>{{ memo.content }}</td>
-          </tr>
-        </tbody>
         <v-btn
           class="ma-2"
           @click="getAllMemos"
@@ -22,9 +14,9 @@
       </v-card-title>
   <div class="home">
     <v-text-field
-     v-model="newTaskTitle"
-     @click:append='addTask'
-     @keyup.enter="addTask"
+     v-model="newMemoContent"
+     @click:append='addMemo'
+     @keyup.enter="addMemo"
       class="pa-3"
       outlined
       label="Add Memo"
@@ -38,31 +30,31 @@
       flat
     >
       <div
-        v-for="task in tasks"
-        :key="task.id"
+        v-for="memo in allMemos"
+        :key="memo.id"
       >
       <v-list-item
-        @click="doneTask(task.id)"
-        :class="{ 'blue-grey lighten-4' : task.done }"
+        @click="doneMemo(memo.id)"
+        :class="{ 'blue-grey lighten-4' : memo.done }"
       >
         <template v-slot:default>
           <v-list-item-action>
             <v-checkbox
-              :input-value="task.done"
-              color="primary"
+              :input-value="memo.done"
+              color="red"
             ></v-checkbox>
           </v-list-item-action>
 
           <v-list-item-content>
             <v-list-item-title
-              :class="{ 'text-decoration-line-through' : task.done }"
+              :class="{ 'text-decoration-line-through' : memo.done }"
             >
-              {{ task.title }}
+              {{ memo.content }}
             </v-list-item-title>
           </v-list-item-content>
            <v-list-item-action>
           <v-btn
-            @click.stop="deleteTask(task.id)"
+            @click.stop="deleteMemo(memo.id)"
             icon
           >
             <v-icon color="grey">mdi-delete-circle</v-icon>
@@ -86,25 +78,8 @@ export default {
   name: 'Memo',
   data() {
     return {
-      newTaskTitle: '',
-      allMemos: [],
-      tasks: [
-        // {
-        //   id: 1,
-        //   title: 'Wake up',
-        //   done: false
-        // },
-        // {
-        //   id: 2,
-        //   title: 'Get bananas',
-        //   done: false
-        // },
-        // {
-        //   id: 3,
-        //   title: 'Eat bananas',
-        //   done: false
-        // }
-      ]
+      newMemoContent: '',
+      allMemos: []
     }
   },
   methods: {
@@ -112,31 +87,35 @@ export default {
       let res = await axios.get(process.env.API_BASE_URL + '/getallmemos')
       this.allMemos = res.data
     },
-    addTask: async function() {
-      let newTask = {
+    addMemo: async function() {
+      let newMemo = {
         id: Date.now(),
-        title: this.newTaskTitle,
-        done: false
+        content: this.newMemoContent,
+        done: false,
+        delete: false
       }
-      this.tasks.push(newTask)
-      let res = await axios.post(process.env.API_BASE_URL + "/creatememo", {
-        content: this.newTaskTitle
-      });
-      this.newTaskTitle = ''
+      if (this.newMemoContent.length <= 0) {
+        console.log('please fill in something');
+      } else {
+        this.allMemos.push(newMemo)
+        let res = await axios.post(process.env.API_BASE_URL + "/creatememo", {
+          content: this.newMemoContent
+        });
+        this.newMemoContent = ''
+     }
     },
-    doneTask: async function(id) {
+    doneMemo: async function(id) {
       let res = await axios.put(process.env.API_BASE_URL + "/donememo", {
-        id: 13,
-        done: true
+        id: id
       });
-      let task = this.tasks.filter(task => task.id === id)[0]
-      task.done = !task.done
+      let memo = this.allMemos.filter(memo => memo.id === id)[0]
+      memo.done = !memo.done
     },
-    deleteTask: async function(id) {
+    deleteMemo: async function(id) {
       let res = await axios.put(process.env.API_BASE_URL + "/deletememo", {
-        id: 11
+        id: id
       });
-      this.tasks = this.tasks.filter(task => task.id !== id)
+      this.allMemos = this.allMemos.filter(memo => memo.id !== id)
     }
   }
 }

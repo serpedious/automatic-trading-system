@@ -25,4 +25,6 @@ type DeleteMemo struct {
 type GetMemo struct {
 	ID      int    `json:"id"`
 	Content string `json:"content"`
+	Done    bool   `json:"done"`
+	Delete  bool   `json:"delete"`
 }
