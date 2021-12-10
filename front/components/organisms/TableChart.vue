@@ -6,21 +6,26 @@
     <v-simple-table dense>
       <template v-slot:default>
         <thead>
+          <v-btn
+            class="ma-2"
+            @click="apiBalance"
+            depressed
+            color="primary"
+          >
+            SHOW
+          </v-btn>
           <tr>
             <th class="text-left">
-              Name
+              Crypto Name
             </th>
-            <!-- <th class="text-left">
-              Bid
-            </th>
-            <th class="text-left">
-              Ask
-            </th> -->
             <th class="text-left">
               Balance
             </th>
             <th class="text-left">
-              Transation
+              Price
+            </th>
+            <th class="text-left">
+              Value(JPY)
             </th>
           </tr>
         </thead>
@@ -29,45 +34,11 @@
             v-for="balance of balancelists" :key="balance.currency_code"
           >
             <td>{{ balance.currency_code }}</td>
-            <!-- <td>{{ item.buy }}</td>
-            <td>{{ item.sell }}</td> -->
             <td>{{ balance.amount }}</td>
-            <td>
-              <v-btn
-                depressed
-                color="primary"
-                x-small
-              >
-                BID
-              </v-btn>
-              <v-btn
-                depressed
-                color="error"
-                x-small
-              >
-                ASK
-              </v-btn>
-            </td>
           </tr>
         </tbody>
       </template>
     </v-simple-table>
-    <v-btn
-      class="ma-2"
-      @click="apiBalance"
-      depressed
-      color="primary"
-    >
-      SHOW
-    </v-btn>
-    <v-btn
-      class="ma-2"
-      depressed
-      color="grey"
-      @click="apiBalanceHide"
-    >
-      CLOSE
-    </v-btn>
  </v-card>
 </template>
 
@@ -84,9 +55,6 @@ export default {
     apiBalance: async function () {
       let res = await axios.get(process.env.API_BASE_URL + '/balance')
       this.balancelists = res.data
-    },
-    apiBalanceHide: async function () {
-      this.balancelists = ''
     }
   }
 }

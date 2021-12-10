@@ -27,6 +27,22 @@
       >
         <v-card flat color="">
           <v-card-text >{{ item.content }}</v-card-text>
+            <td>
+              <v-btn
+                depressed
+                color="primary"
+                x-small
+              >
+                BID
+              </v-btn>
+              <v-btn
+                depressed
+                color="error"
+                x-small
+              >
+                ASK
+              </v-btn>
+            </td>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
