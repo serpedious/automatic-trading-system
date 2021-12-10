@@ -104,7 +104,7 @@ export default {
       { title: 'SignOut', icon: 'mdi-chart-line', to: '/' },
     ],
     categories: [
-      { title: 'Chart', icon: 'mdi-chart-line', to: '/dashboard/chart' },
+      { title: 'Home', icon: 'mdi-home', to: '/dashboard/home' },
       { title: 'History', icon: 'mdi-history', to: '/dashboard/history' },
       { title: 'Compare', icon: 'mdi-arrow-left-right', to: '/dashboard/compare' },
       { title: 'Memo', icon: 'mdi-format-list-checks', to: '/dashboard/memo' },

@@ -50,7 +50,7 @@ module.exports = {
       '/auth/signin',
       '/auth/signup',
       '/dashboard',
-      '/dashboard/chart',
+      '/dashboard/home',
       '/dashboard/memo',
       '/dashboard/csv',
       '/dashboard/alert'

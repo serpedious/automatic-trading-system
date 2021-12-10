@@ -1,7 +1,7 @@
 <template>
  <v-card class="mt-3 mr-3 pa-4">
     <v-card-title class="pb-5">
-      <h3>Chart</h3>
+      <h3>Home</h3>
     </v-card-title>
     <v-simple-table dense>
       <template v-slot:default>

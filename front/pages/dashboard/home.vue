@@ -1,9 +1,6 @@
 <template>
   <v-row>
-    <v-col md="8">
-      <GraphChart/>
-    </v-col>
-    <v-col md="4">
+    <v-col class="mx-auto pa-5" width="800px">
     <TableChart/>
     </v-col>
   </v-row>
@@ -11,10 +8,10 @@
 
 <script>
 import TableChart from '~/components/organisms/TableChart.vue'
-import GraphChart from '~/components/organisms/GraphChart.vue'
+// import GraphChart from '~/components/organisms/GraphChart.vue'
 export default {
   components: {
-    GraphChart,
+    // GraphChart,
     TableChart,
   }
 }
