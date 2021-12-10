@@ -30,6 +30,13 @@
           <p>You don't have an account?
             <router-link to="/auth/signup">create account now</router-link>
           </p>
+          <v-btn
+            class="ma-1"
+            @click="guestSignin"
+            color="primary"
+          >
+            guest
+          </v-btn>
         </form>
       </v-card-text>
     </v-card>
@@ -53,6 +60,14 @@ export default {
         let res = await axios.post(process.env.API_BASE_URL + "/signin", {
             email: this.email,
             password: this.password,
+        }, { withCredentials: true });
+        this.token = res.data.token
+        this.$router.push("/dashboard");
+      },
+      guestSignin: async function() {
+        let res = await axios.post(process.env.API_BASE_URL + "/signin", {
+            email: "guest@gmail.com",
+            password: "password",
         }, { withCredentials: true });
         this.token = res.data.token
         this.$router.push("/dashboard");

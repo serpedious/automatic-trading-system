@@ -1,101 +1,135 @@
 <template>
-    <v-card class="mx-auto pa-5" width="900px">
+    <v-card class="mx-auto mb-5 pa-5" width="1100px">
  <v-simple-table dense>
     <template v-slot:default>
       <thead>
+         <v-btn
+          class="ma-3"
+          @click="getBalanceHistory"
+          depressed
+          color="primary"
+        >
+          SHOW
+        </v-btn>
         <tr>
           <th class="text-left">
-            Name
+            Trade Date
           </th>
           <th class="text-left">
-            Side
+            Product Code
           </th>
           <th class="text-left">
-            Amount
+            Price
           </th>
           <th class="text-left">
-            Date
+            Crypto Amount
+          </th>
+          <th class="text-left">
+            Trade Type
+          </th>
+          <th class="text-left">
+            Fee
+          </th>
+          <th class="text-left">
+            Currency
+          </th>
+          <th class="text-left">
+            Currency Amount
+          </th>
+          <th class="text-left">
+            Order ID
           </th>
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="item in desserts"
-          :key="item.name"
+          v-for="trade in trades"
+          :key="trade.date"
         >
-          <td>{{ item.name }}</td>
-          <td>{{ item.side }}</td>
-          <td>{{ item.amount }}</td>
-          <td>{{ item.date}}</td>
+          <td>{{ trade.trade_date }}</td>
+          <td>{{ trade.product_code }}</td>
+          <td>{{ trade.price }}</td>
+          <td>{{ trade.quantity}}</td>
+          <td>{{ trade.trade_type }}</td>
+          <td>{{ trade.commission }}</td>
+          <td>{{ trade.currency_code }}</td>
+          <td>{{ trade.amount}}</td>
+          <td>{{ trade.order_id }}</td>
         </tr>
       </tbody>
     </template>
   </v-simple-table>
-    </v-card>
+  </v-card>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'History',
   data () {
       return {
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Ice cream sandwich',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Eclair',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Cupcake',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Gingerbread',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Jelly bean',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Lollipop',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Honeycomb',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Donut',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
+        trades: [
+          // {
+          //   date: '2020-20-28',
+          //   type: 'SELL',
+          //   price: 100,
+          //   crypto: 'XRP',
+          //   crp_amount: 9000,
+          //   fee: 0.009,
+          //   currency: 'JPY',
+          //   amount: 5000,
+          //   counter: "bitfyler",
+          //   order_id: 'HDLOEE9987',
+          // },
+          // {
+          //   date: '2020-20-28',
+          //   type: 'SELL',
+          //   price: 100,
+          //   crypto: 'XRP',
+          //   crp_amount: 9000,
+          //   fee: 0.009,
+          //   currency: 'JPY',
+          //   amount: 5000,
+          //   counter: "bitfyler",
+          //   order_id: 'HDLOEE9987',
+          // },
         ],
       }
     },
+    methods: {
+      getBalanceHistory: async function () {
+        let res = await axios.get(process.env.API_BASE_URL + '/getbalancehistory')
+        this.trades = res.data
+      }
+  }
 }
 </script>
+
+
+// type BalanceHistory struct {
+// 	TradeDate    string  `json:"trade_date"`
+// 	ProductCode  string  `json:"product_code"`
+// 	CurrencyCode string  `json:"currency_code"`
+// 	TradeType    string  `json:"trade_type"`
+// 	Price        float64 `json:"price"`
+// 	Amount       float64 `json:"amount"`
+// 	Quantity     float64 `json:"quantity"`
+// 	Commission   float64 `json:"commission"`
+// 	Balance      float64 `json:"balance"`
+// 	OrderID      string  `json:"order_id"`
+// }
+
+// type BalanceHistory struct {
+// 	ID           int       `json:"id"`
+// 	TradeDate    string `json:"trade_date"`
+// 	EventDate    string `json:"event_date"`
+// 	ProductCode  string    `json:"product_code"`
+// 	CurrencyCode string    `json:"currency_code"`
+// 	TradeType    string    `json:"trade_type"`
+// 	Price        float64   `json:"price"`
+// 	Amount       float64   `json:"amount"`
+// 	Quantity     float64   `json:"quantity"`
+// 	Commission   float64   `json:"commission"`
+// 	Balance      float64   `json:"balance"`
+// 	OrderID      string    `json:"order_id"`
+// }

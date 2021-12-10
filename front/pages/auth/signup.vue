@@ -29,7 +29,6 @@
           </v-btn>
           <p>You already have an account?
             <router-link to="/auth/signin">signin here</router-link>
-            <router-link to="/dashboard">dashboard</router-link>
           </p>
         </form>
       </v-card-text>

@@ -12,4 +12,6 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.7
 	github.com/rs/cors v1.7.0
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
+	golang.org/x/tools v0.0.0-20190524140312-2c0ae7006135 // indirect
+	google.golang.org/genproto v0.0.0-20211208223120-3a66f561d7aa // indirect
 )

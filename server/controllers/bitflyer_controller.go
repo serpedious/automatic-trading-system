@@ -47,7 +47,13 @@ func Balance(w http.ResponseWriter, r *http.Request) {
 
 func GetBalanceHistory(w http.ResponseWriter, r *http.Request) {
 	apiClient := usecase.CreateClient()
-	balance_history_data, _ := apiClient.GetBalanceHistory()
+	params := map[string]string{
+		"currency_code": "JPY",
+		"count":         "10",
+		"before":        "0",
+		"after":         "0",
+	}
+	balance_history_data, _ := apiClient.GetBalanceHistory(params)
 	js, _ := json.Marshal(balance_history_data)
 	w.Write([]byte(js))
 }

@@ -106,9 +106,9 @@ func (api *APIClient) GetBalance() ([]bitflyer.Balance, error) {
 	return balance, nil
 }
 
-func (api *APIClient) GetBalanceHistory() ([]bitflyer.BalanceHistory, error) {
+func (api *APIClient) GetBalanceHistory(query map[string]string) ([]bitflyer.BalanceHistory, error) {
 	url := "me/getbalancehistory"
-	resp, err := api.doRequest("GET", url, map[string]string{"count": "10"}, nil)
+	resp, err := api.doRequest("GET", url, query, nil)
 	log.Printf("url=%s resp=%s", url, string(resp))
 	if err != nil {
 		log.Printf("action=GetBalance err=%s", err.Error())
