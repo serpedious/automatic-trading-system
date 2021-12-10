@@ -51,6 +51,8 @@ module.exports = {
       '/auth/signup',
       '/dashboard',
       '/dashboard/home',
+      '/dashboard/trade',
+      '/dashboard/compare',
       '/dashboard/memo',
       '/dashboard/csv',
       '/dashboard/alert'

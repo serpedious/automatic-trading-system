@@ -105,6 +105,7 @@ export default {
     ],
     categories: [
       { title: 'Home', icon: 'mdi-home', to: '/dashboard/home' },
+      { title: 'Trade', icon: 'mdi-chart-areaspline', to: '/dashboard/trade' },
       { title: 'History', icon: 'mdi-history', to: '/dashboard/history' },
       { title: 'Compare', icon: 'mdi-arrow-left-right', to: '/dashboard/compare' },
       { title: 'Memo', icon: 'mdi-format-list-checks', to: '/dashboard/memo' },
