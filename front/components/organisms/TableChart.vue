@@ -1,7 +1,7 @@
 <template>
  <v-card class="mt-3 mr-3 pa-4">
     <v-card-title class="pb-5">
-      <h3>Home</h3>
+      <h3>My Assets</h3>
     </v-card-title>
     <v-simple-table dense>
       <template v-slot:default>
@@ -33,8 +33,10 @@
           <tr
             v-for="balance of balancelists" :key="balance.currency_code"
           >
-            <td>{{ balance.currency_code }}</td>
+            <td>{{ balance.crpto }}</td>
             <td>{{ balance.amount }}</td>
+            <td>{{ balance.price }}</td>
+            <td>{{ balance.value }}</td>
           </tr>
         </tbody>
       </template>
@@ -53,9 +55,17 @@ export default {
   },
   methods: {
     apiBalance: async function () {
-      let res = await axios.get(process.env.API_BASE_URL + '/balance')
+      let res = await axios.get(process.env.API_BASE_URL + '/getmyassets')
       this.balancelists = res.data
     }
   }
 }
 </script>
+
+
+type MyAssets struct {
+	Crpto  string  `json:"crpto"`
+	Amount float64 `json:"amount"`
+	Price  float64 `json:"price"`
+	Value  int     `json:"value"`
+}

@@ -65,16 +65,17 @@ func Ticker(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(js))
 }
 
-func GetAllTickerValue(w http.ResponseWriter, r *http.Request) {
+func GetMyAssets(w http.ResponseWriter, r *http.Request) {
 	apiClient := usecase.CreateClient()
-	markets_list := []string{"BTC_JPY", "XRP_JPY", "ETH_JPY", "XLM_JPY", "MONA_JPY", "BCH_BTC"}
-	market_values := map[string]int{}
+	markets_list := []string{"BTC_JPY", "XRP_JPY", "ETH_JPY", "XLM_JPY", "MONA_JPY"}
+	ticker_data := []*bitflyer.AssetsTicker{}
 	for _, product_code := range markets_list {
-		ticker_data, _ := apiClient.GetTicker(product_code)
-		value := int((ticker_data.BestBid + ticker_data.BestAsk) / 2)
-		market_values[product_code] = value
+		ticker, _ := apiClient.GetAssetsTicker(product_code)
+		ticker_data = append(ticker_data, ticker)
 	}
-	js, _ := json.Marshal(market_values)
+	balance_data, _ := apiClient.GetBalance()
+	my_assets, _ := usecase.CalcMyAssets(ticker_data, balance_data)
+	js, _ := json.Marshal(my_assets)
 	w.Write([]byte(js))
 }
 

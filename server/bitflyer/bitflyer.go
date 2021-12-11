@@ -6,7 +6,6 @@ const BaseURL = "https://api.bitflyer.com/v1/"
 
 type Balance struct {
 	CurrentCode string  `json:"currency_code"`
-	Amount      float64 `json:"amount"`
 	Available   float64 `json:"available"`
 }
 
@@ -41,6 +40,11 @@ type Ticker struct {
 	Ltp             float64 `json:"ltp"`
 	Volume          float64 `json:"volume"`
 	VolumeByProduct float64 `json:"volume_by_product"`
+}
+
+type AssetsTicker struct {
+	ProductCode string  `json:"product_code"`
+	Ltp         float64 `json:"ltp"`
 }
 
 type Execution struct {
@@ -110,4 +114,11 @@ type DataFrameCandle struct {
 	ProductCode string        `json:"product_code"`
 	Duration    time.Duration `json:"duration"`
 	Candles     []Candle      `json:"candles"`
+}
+
+type MyAssets struct {
+	Crpto  string  `json:"crpto"`
+	Amount float64 `json:"amount"`
+	Price  float64 `json:"price"`
+	Value  int     `json:"value"`
 }

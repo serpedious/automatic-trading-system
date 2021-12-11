@@ -40,7 +40,6 @@ func CreateClient() *APIClient {
 
 func (api APIClient) header(method, endpoint string, body []byte) map[string]string {
 	timestamp := strconv.FormatInt(time.Now().Unix(), 10)
-	log.Println(timestamp)
 	message := timestamp + method + endpoint + string(body)
 
 	mac := hmac.New(sha256.New, []byte(api.secret))
@@ -106,6 +105,40 @@ func (api *APIClient) GetBalance() ([]bitflyer.Balance, error) {
 	return balance, nil
 }
 
+func subOnlyCrptoName(product_code string) string {
+	return product_code[:3]
+}
+
+func CalcMyAssets(ticker_data []*bitflyer.AssetsTicker, balance_data []bitflyer.Balance) ([]bitflyer.MyAssets, error) {
+	var myasset bitflyer.MyAssets
+	var myassets []bitflyer.MyAssets
+
+	set_name_ltp := map[string]float64{}
+	for i := 0; i < len(ticker_data); i++ {
+		v := ticker_data[i]
+		symbol := subOnlyCrptoName(v.ProductCode)
+		set_name_ltp[symbol] = v.Ltp
+	}
+	// fmt.Println(set_name_ltp)
+	// fmt.Println(balance_data)
+	for i := 0; i < len(balance_data); i++ {
+		curr_balance := balance_data[i]
+		for key, value := range set_name_ltp {
+			fmt.Println(key)
+			if key == curr_balance.CurrentCode {
+				jpy_value := curr_balance.Available*value
+				myasset.Crpto = key
+				myasset.Amount = curr_balance.Available
+				myasset.Price = value
+				myasset.Value = int(jpy_value)
+				myassets = append(myassets, myasset)
+			}
+		}
+	}
+
+	return myassets, nil
+}
+
 func (api *APIClient) GetBalanceHistory(query map[string]string) ([]bitflyer.BalanceHistory, error) {
 	url := "me/getbalancehistory"
 	resp, err := api.doRequest("GET", url, query, nil)
@@ -151,6 +184,20 @@ func (api *APIClient) GetTicker(productCode string) (*bitflyer.Ticker, error) {
 		return nil, err
 	}
 	return &ticker, nil
+}
+
+func (api *APIClient) GetAssetsTicker(productCode string) (*bitflyer.AssetsTicker, error) {
+	url := "ticker"
+	resp, err := api.doRequest("GET", url, map[string]string{"product_code": productCode}, nil)
+	if err != nil {
+		return nil, err
+	}
+	var assetsticker bitflyer.AssetsTicker
+	err = json.Unmarshal(resp, &assetsticker)
+	if err != nil {
+		return nil, err
+	}
+	return &assetsticker, nil
 }
 
 func (api *APIClient) GetExecution(productCode string) ([]bitflyer.Execution, error) {
