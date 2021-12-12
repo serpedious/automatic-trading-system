@@ -10,7 +10,7 @@
             Dashboard
           </v-list-item-title>
           <v-list-item-subtitle>
-          chose categories
+          choose categories
         </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>

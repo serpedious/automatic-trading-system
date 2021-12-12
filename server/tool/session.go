@@ -2,6 +2,7 @@ package tool
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -19,11 +20,14 @@ func findUserId(claims map[string]interface{}) interface{} {
 }
 
 func GetUserIdFromCookie(w http.ResponseWriter, r *http.Request) int {
-	c, _ := r.Cookie("access_token")
+	c, err := r.Cookie("access_token")
+	if err != nil {
+		log.Println("Cookie: ", err)
+	}
 	tknStr := c.Value
 	claims := jwt.MapClaims{}
 	secret := os.Getenv("JWT_SECRET")
-	_, err := jwt.ParseWithClaims(tknStr, claims, func(token *jwt.Token) (interface{}, error) {
+	_, err = jwt.ParseWithClaims(tknStr, claims, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
 	})
 	if err != nil {

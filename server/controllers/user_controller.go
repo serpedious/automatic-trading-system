@@ -59,9 +59,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		SameSite: 4,
 		Expires:  time.Now().Add(time.Minute * 15),
 	}
-
 	http.SetCookie(w, atCookie)
-
 	w.WriteHeader(http.StatusOK)
 	utils.ResponseByJSON(w, jwt)
 }
