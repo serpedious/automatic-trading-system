@@ -7,7 +7,7 @@
       centered
       fixed-tabs
       v-model="tab"
-      background-color="primary"
+      background-color="indigo"
       dark
       slider-color="purple"
     >
@@ -18,31 +18,38 @@
         {{ item.tab }}
       </v-tab>
     </v-tabs>
-    
+
 
     <v-tabs-items v-model="tab">
       <v-tab-item
         v-for="item in items"
         :key="item.tab"
       >
+      
         <v-card flat color="">
-          <v-card-text >{{ item.content }}</v-card-text>
+          <v-card-text class="text-h5">{{ item.content }}</v-card-text>
+          <div class="text-h4 mx-auto">
+            {{ item.value }} JPY
+          </div>
             <td>
               <v-btn
                 depressed
-                color="primary"
-                x-small
+                color="error"
+                x-large
               >
-                BID
+                SELL
               </v-btn>
               <v-btn
                 depressed
-                color="error"
-                x-small
+                color="success"
+                x-large
               >
-                ASK
+                BUY
               </v-btn>
             </td>
+            <div class="mx-auto mt-3 mb-3">
+              Japanese Yen {{ item.jpy }} JPY
+            </div>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -50,28 +57,46 @@
 </template>
 
 <script>
-  export default {
-    name: 'Csv',
+import axios from 'axios'
+export default {
+    name: 'TableTrade',
     data () {
-      return {
+        return {
         tab: null,
+        balance: [],
+        tickers: [],
         items: [
-          { tab: 'BTC/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'XRP/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'ETH/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'DOT/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'XTZ/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'XLM/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'XEM/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'BAT/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'ETC/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'LTC/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'BCH/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'MONA/JPY', content: 'Bitcoin Marketplace' },
-          { tab: 'LSK/JPY', content: 'Bitcoin Marketplace' },
+          { tab: 'BTC/JPY', content: 'Bitcoin Marketplace', value: null, jpy: null },
+          { tab: 'XRP/JPY', content: 'XRP Marketplace', value: null, jpy: null },
+          { tab: 'ETH/JPY', content: 'ETH Marketplace', value: null, jpy: null },
+          { tab: 'XLM/JPY', content: 'XLM Marketplace', value: null, jpy: null },
+          { tab: 'MONA/JPY', content: 'MONA Marketplace', value: null, jpy: null },
         ],
-      }
+        }
     },
+    mounted () {
+        this.apiCalc();
+        // this.intervalFetchData();
+    },
+    methods: {
+    apiCalc: async function () {
+        let res_assets = await axios.get(process.env.API_BASE_URL + '/getmyassets')
+        this.tickers = res_assets.data
+        let res = await axios.get(process.env.API_BASE_URL + '/balance')
+        this.balance = res.data
+        console.log(this.tickers)
+        let tickers_len = this.tickers.length;
+        for (let i = 0; i < tickers_len; i++) {
+            this.items[i]["value"] = this.tickers[i].price
+            this.items[i]["jpy"] = this.balance[0]["available"]
+        }
+    },
+    // intervalFetchData: function () {
+    //     setInterval(() => {    
+    //         this.apiCalc();
+    //         }, 1000000);    
+    // }
+   }
   }
 </script>
 
@@ -83,3 +108,5 @@
   text-align: center;
 }
 </style>
+
+

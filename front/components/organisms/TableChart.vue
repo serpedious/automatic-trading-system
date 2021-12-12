@@ -6,14 +6,6 @@
     <v-simple-table dense>
       <template v-slot:default>
         <thead>
-          <v-btn
-            class="ma-2"
-            @click="apiBalance"
-            depressed
-            color="primary"
-          >
-            SHOW
-          </v-btn>
           <tr>
             <th class="text-left">
               Crypto Name
@@ -53,6 +45,9 @@ export default {
       balancelists: [],
     }
   },
+  mounted() {
+    this.apiBalance();
+  },
   methods: {
     apiBalance: async function () {
       let res = await axios.get(process.env.API_BASE_URL + '/getmyassets')
@@ -62,10 +57,3 @@ export default {
 }
 </script>
 
-
-type MyAssets struct {
-	Crpto  string  `json:"crpto"`
-	Amount float64 `json:"amount"`
-	Price  float64 `json:"price"`
-	Value  int     `json:"value"`
-}

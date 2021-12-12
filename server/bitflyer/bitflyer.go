@@ -122,3 +122,7 @@ type MyAssets struct {
 	Price  float64 `json:"price"`
 	Value  int     `json:"value"`
 }
+
+type Trade struct {
+	Price float64 `json:"price"`
+}

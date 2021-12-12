@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -106,7 +107,8 @@ func (api *APIClient) GetBalance() ([]bitflyer.Balance, error) {
 }
 
 func subOnlyCrptoName(product_code string) string {
-	return product_code[:3]
+	slice := strings.Split(product_code, "_")
+	return slice[0]
 }
 
 func CalcMyAssets(ticker_data []*bitflyer.AssetsTicker, balance_data []bitflyer.Balance) ([]bitflyer.MyAssets, error) {
@@ -119,14 +121,12 @@ func CalcMyAssets(ticker_data []*bitflyer.AssetsTicker, balance_data []bitflyer.
 		symbol := subOnlyCrptoName(v.ProductCode)
 		set_name_ltp[symbol] = v.Ltp
 	}
-	// fmt.Println(set_name_ltp)
-	// fmt.Println(balance_data)
 	for i := 0; i < len(balance_data); i++ {
 		curr_balance := balance_data[i]
 		for key, value := range set_name_ltp {
 			fmt.Println(key)
 			if key == curr_balance.CurrentCode {
-				jpy_value := curr_balance.Available*value
+				jpy_value := curr_balance.Available * value
 				myasset.Crpto = key
 				myasset.Amount = curr_balance.Available
 				myasset.Price = value

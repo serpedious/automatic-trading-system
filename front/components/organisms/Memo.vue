@@ -3,14 +3,6 @@
     <v-card class="mx-auto mt-5 pa-5" width="800px">
       <v-card-title class="pb-5">
         <h3>Memo</h3>
-        <v-btn
-          class="ma-2"
-          @click="getAllMemos"
-          depressed
-          color="primary"
-        >
-          SHOW
-        </v-btn>
       </v-card-title>
   <div class="home">
     <v-text-field
@@ -82,6 +74,9 @@ export default {
       allMemos: []
     }
   },
+  mounted() {
+    this.getAllMemos();
+  },
   methods: {
     getAllMemos: async function () {
       let res = await axios.get(process.env.API_BASE_URL + '/getallmemos')
@@ -102,6 +97,7 @@ export default {
           content: this.newMemoContent
         });
         this.newMemoContent = ''
+        this.getAllMemos();
      }
     },
     doneMemo: async function(id) {

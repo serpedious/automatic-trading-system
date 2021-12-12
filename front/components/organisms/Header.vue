@@ -55,14 +55,6 @@
       <v-toolbar-title>Automatic Trading system</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <v-btn
-        class="ma-2"
-        @click="getUser"
-        depressed
-        color="primary"
-      >
-        SHOW
-      </v-btn>
       {{ user.email }}
       <v-menu
         bottom
@@ -114,6 +106,9 @@ export default {
     ],
     user: "",
   }),
+  mounted () {
+        this.getUser();
+    },
    methods: {
     getUser: async function () {
       let res = await axios.get(process.env.API_BASE_URL + '/getuser')

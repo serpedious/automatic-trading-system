@@ -3,14 +3,6 @@
  <v-simple-table dense>
     <template v-slot:default>
       <thead>
-         <v-btn
-          class="ma-3"
-          @click="getBalanceHistory"
-          depressed
-          color="primary"
-        >
-          SHOW
-        </v-btn>
         <tr>
           <th class="text-left">
             Trade Date
@@ -95,6 +87,9 @@ export default {
           // },
         ],
       }
+    },
+    mounted() {
+      this.getBalanceHistory();
     },
     methods: {
       getBalanceHistory: async function () {
