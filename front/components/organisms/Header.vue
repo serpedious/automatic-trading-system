@@ -92,7 +92,7 @@ export default {
   data: () => ({ 
     drawer: null,
     items: [
-      { title: 'Edit Pass', icon: 'mdi-chart-line', to: '/dashboard/user' },
+      { title: 'Edit Pass', icon: 'mdi-chart-line', to: '/dashboard/editpass' },
       { title: 'SignOut', icon: 'mdi-chart-line', to: '/' },
     ],
     categories: [
@@ -103,7 +103,6 @@ export default {
       { title: 'Memo', icon: 'mdi-format-list-checks', to: '/dashboard/memo' },
       { title: 'Alert', icon: 'mdi-bell-outline', to: '/dashboard/alert' },
       { title: 'CSV', icon: 'mdi-file-delimited-outline', to: '/dashboard/csv' },
-      { title: 'FORM', icon: 'mdi-file-delimited-outline', to: '/dashboard/form' }
     ],
     user: "",
   }),

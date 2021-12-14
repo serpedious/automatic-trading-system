@@ -31,25 +31,10 @@
           <div class="text-h4 mx-auto">
             {{ item.value }} JPY
           </div>
-            <td>
-              <v-btn
-                depressed
-                color="error"
-                x-large
-              >
-                SELL
-              </v-btn>
-              <v-btn
-                depressed
-                color="success"
-                x-large
-              >
-                BUY
-              </v-btn>
-            </td>
-            <div class="mx-auto mt-3 mb-3">
-              Japanese Yen {{ item.jpy }} JPY
-            </div>
+            <OrderButton/>
+          <div class="mx-auto mt-3 mb-3">
+            Japanese Yen {{ item.jpy }} JPY
+          </div>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -58,7 +43,11 @@
 
 <script>
 import axios from 'axios'
+import OrderButton from './OrderButton.vue'
 export default {
+    components: {
+      OrderButton,
+    },
     name: 'TableTrade',
     data () {
         return {
@@ -108,4 +97,5 @@ export default {
   text-align: center;
 }
 </style>
+
 

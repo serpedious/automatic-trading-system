@@ -13,13 +13,11 @@ import (
 func CreateMemo(w http.ResponseWriter, r *http.Request) {
 	var m usecase.Memo
 	fmt.Println(r.Body)
-	fmt.Println("*****************")
 	err := json.NewDecoder(r.Body).Decode(&m)
 	if err != nil {
 		return
 	}
 	fmt.Println(m)
-	fmt.Println("************999999999999*****")
 	fmt.Println(&m)
 	defer r.Body.Close()
 

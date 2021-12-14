@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -72,6 +73,31 @@ func (u *User) GetUserByEmail() error {
 	if err != nil {
 		return err
 	}
+
+	return nil
+}
+
+func (u *User) EditPass(userId int) error {
+	Db := tool.NewDb()
+	defer Db.Close()
+
+	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
+	if err != nil {
+		return err
+	}
+	u.Password = string(hash)
+	sqlUpdate := `
+				UPDATE users
+				SET password = $1
+				WHERE id = $2;
+				`
+	_, err = Db.Exec(sqlUpdate, u.Password, userId)
+	fmt.Println("***********eeeeeeee*****************")
+	fmt.Println(err)
+	if err != nil {
+		return err
+	}
+	u.Password = ""
 
 	return nil
 }

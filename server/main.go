@@ -47,6 +47,9 @@ func main() {
 	r.Post("/signin", controllers.Signin)
 	r.Get("/signout", controllers.SignOut)
 
+	r.Get("/getuser", controllers.GetUser)
+	r.Post("/editpass", controllers.EditPass)
+
 	r.Post("/sendorder", controllers.SendOrder)
 	r.Get("/balance", controllers.Balance)
 	r.Get("/ticker", controllers.Ticker)
@@ -59,7 +62,6 @@ func main() {
 	r.Post("/creatememo", controllers.CreateMemo)
 	r.Put("/donememo", controllers.DoneMemo)
 	r.Put("/deletememo", controllers.DeleteMemo)
-	r.Get("/getuser", controllers.GetUser)
 
 	r.Get("/compareticker", controllers.CompareTicker)
 	r.Get("/api/candle/", controllers.ApiMakeHandler(controllers.ApiCandleHandler))

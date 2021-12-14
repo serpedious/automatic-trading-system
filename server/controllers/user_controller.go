@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -23,6 +24,34 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		utils.ErrorInResponse(w, http.StatusBadRequest, error)
 		return
 	}
+
+	w.WriteHeader(http.StatusOK)
+	utils.ResponseByJSON(w, v)
+}
+
+func EditPass(w http.ResponseWriter, r *http.Request) {
+	var u usecase.User
+	err := json.NewDecoder(r.Body).Decode(&u)
+	if err != nil {
+		fmt.Println(err)
+		fmt.Println("***********eeeeeeee*****************")
+		return
+	}
+	defer r.Body.Close()
+	fmt.Println(u)
+	userId := tool.GetUserIdFromCookie(w, r)
+	
+
+	err = u.EditPass(userId)
+	var error utils.Error
+	if err != nil {
+		error.Message = "failed to update password"
+		utils.ErrorInResponse(w, http.StatusBadRequest, error)
+		return
+	}
+	v := "completed update"
+	fmt.Println(v)
+	fmt.Println("********rrrrrrrrrr********************")
 
 	w.WriteHeader(http.StatusOK)
 	utils.ResponseByJSON(w, v)

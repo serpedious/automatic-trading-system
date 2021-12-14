@@ -99,8 +99,6 @@ func Listorder(w http.ResponseWriter, r *http.Request) {
 }
 
 func SendOrder(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("*******************************")
-	fmt.Println(r.Body)
 	apiClient := usecase.CreateClient()
 	var order bitflyer.Order
 	err := json.NewDecoder(r.Body).Decode(&order)
@@ -108,16 +106,7 @@ func SendOrder(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 	defer r.Body.Close()
-	// order := &bitflyer.Order{
-	// 	ProductCode:     "XRP_JPY",
-	// 	ChildOrderType:  "MARKET",
-	// 	Side:            "BUY",
-	// 	Size:            size,
-	// 	MinuteToExpires: 1,
-	// 	TimeInForce:     "GTC",
-	// }
 	fmt.Println(order)
-	fmt.Println("**********************")
 	sendorder_data, _ := apiClient.SendOrder(&order)
 	js, _ := json.Marshal(sendorder_data)
 	w.Write([]byte(js))
