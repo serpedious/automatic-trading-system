@@ -6,9 +6,11 @@
 
 <script>
 import TableTrade from '../../components/organisms/TableTrade.vue'
+
+
 export default {
   components: {
-  TableTrade
+  TableTrade,
   }
 }
 </script>

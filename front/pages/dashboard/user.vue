@@ -2,18 +2,10 @@
   <section class="container">
     <v-card class="mx-auto mt-5 pt-5" width="400px">
       <v-card-title class="pb-10">
-        <h2>Edit Profile</h2>
+        <h2>Edit Password</h2>
       </v-card-title>
       <v-card-text>
         <form>
-          <v-text-field
-            v-model="email"
-            :error-messages="emailErrors"
-            label="E-mail"
-            required
-            @input="$v.email.$touch()"
-            @blur="$v.email.$touch()"
-          ></v-text-field>
           <v-text-field
             v-model="password"
             :error-messages="passwordErrors"
@@ -95,13 +87,6 @@ export default {
         !this.$v.password.required && errors.push('Password is required.')
         return errors
       },
-      emailErrors () {
-        const errors = []
-        if (!this.$v.email.$dirty) return errors
-        !this.$v.email.email && errors.push('Must be valid e-mail')
-        !this.$v.email.required && errors.push('E-mail is required')
-        return errors
-      },
     },
 
     methods: {
@@ -110,7 +95,6 @@ export default {
       },
       clear () {
         this.$v.$reset()
-        this.email = ''
         this.password = ''
         this.checkbox = false
       },
