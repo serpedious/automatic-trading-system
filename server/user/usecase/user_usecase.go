@@ -80,6 +80,8 @@ func (u *User) GetUserByEmail() error {
 func (u *User) EditPass(userId int) error {
 	Db := tool.NewDb()
 	defer Db.Close()
+	fmt.Println(u.Password)
+	fmt.Println("*******************9999fdas********")
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
 	if err != nil {

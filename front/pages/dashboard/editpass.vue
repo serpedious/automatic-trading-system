@@ -26,6 +26,7 @@
           <v-btn
             @click="submit"
             class="ma-4"
+            :disabled="password=='' || checkbox === false"
           >
             submit
           </v-btn>
@@ -40,15 +41,6 @@
     </v-card>
   </section>
 </template>
-
-<script>
-export default {
-  name: 'User',
-}
-</script>
-
-<style scoped>
-</style>
 
 <script>
   import { validationMixin } from 'vuelidate'
@@ -90,7 +82,7 @@ export default {
 
     methods: {
       submit () {
-        this.password = this.$v.$touch()
+        this.$v.$touch()
         this.apiEdit();
       },
       clear () {
@@ -99,11 +91,12 @@ export default {
         this.checkbox = false
       },
       apiEdit: async function() {
+        console.log(this.password)
         let res = await axios.post(process.env.API_BASE_URL + "/editpass", {
           password: this.password
         });
         if (res.status === 200) {
-           location.href='/dashboard/home';
+          location.href='/dashboard/home';
         }
       },
     },

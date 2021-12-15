@@ -39,8 +39,9 @@ func EditPass(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 	fmt.Println(u)
+	fmt.Println("((((((((((((((((((((((((")
 	userId := tool.GetUserIdFromCookie(w, r)
-	
+
 
 	err = u.EditPass(userId)
 	var error utils.Error
