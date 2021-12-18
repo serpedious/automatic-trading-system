@@ -64,6 +64,8 @@ func main() {
 	r.Put("/donememo", controllers.DoneMemo)
 	r.Put("/deletememo", controllers.DeleteMemo)
 
+	r.Get("/getcsvfile", controllers.GetCsvFile)
+
 	r.Get("/compareticker", controllers.CompareTicker)
 	r.Get("/api/candle/", controllers.ApiMakeHandler(controllers.ApiCandleHandler))
 
