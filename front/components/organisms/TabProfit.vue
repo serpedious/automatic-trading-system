@@ -26,7 +26,7 @@
         :key="item.tab"
       >
         <v-card flat color="">
-          <v-card-text >{{ item.content }}</v-card-text>
+          <v-card-text class="text-h5">{{ item.content }} YEN</v-card-text>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -34,19 +34,29 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
-    name: 'Csv',
+    name: 'Profit',
     data () {
       return {
         tab: null,
         items: [
-          { tab: 'Day', content: 'Tab 1 Content' },
-          { tab: 'Week', content: 'Tab 2 Content' },
-          { tab: 'Month', content: 'Tab 3 Content' },
-          { tab: 'All', content: 'Tab 4 Content' },
+          { tab: 'Day', content: 'no value' },
+          { tab: 'Week', content: 'no value' },
+          { tab: 'Month', content: 'no value' },
+          { tab: 'All', content: null },
         ],
       }
     },
+    mounted() {
+      this.getProfit();
+    },
+    methods: {
+    getProfit: async function () {
+      let res = await axios.get(process.env.API_BASE_URL + '/calcprofit')
+      this.items[3]["content"] = res.data
+    },
+    }
   }
 </script>
 

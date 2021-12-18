@@ -86,6 +86,28 @@ func GetExecution(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(js))
 }
 
+func CalcProfit(w http.ResponseWriter, r *http.Request) {
+	apiClient := usecase.CreateClient()
+	markets_list := []string{"BTC_JPY", "XRP_JPY", "ETH_JPY", "XLM_JPY", "MONA_JPY"}
+	ticker_data := []*bitflyer.AssetsTicker{}
+	for _, product_code := range markets_list {
+		ticker, _ := apiClient.GetAssetsTicker(product_code)
+		ticker_data = append(ticker_data, ticker)
+	}
+	balance_data, _ := apiClient.GetBalance()
+	my_assets, _ := usecase.CalcMyAssets(ticker_data, balance_data)
+	var all_myassets float64
+	for i := 0; i < len(my_assets); i++ {
+		all_myassets += float64(my_assets[i].Value)
+	}
+	jpy_value, _ := apiClient.GetBalance()
+	jpy := jpy_value[0].Available
+	profit_data, _ := apiClient.CalcProfit(all_myassets, jpy)
+	data := int(profit_data)
+	js, _ := json.Marshal(data)
+	w.Write([]byte(js))
+}
+
 func Listorder(w http.ResponseWriter, r *http.Request) {
 	apiClient := usecase.CreateClient()
 	i := "JRF2hogehoge"

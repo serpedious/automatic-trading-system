@@ -57,6 +57,7 @@ func main() {
 	r.Get("/getbalancehistory", controllers.GetBalanceHistory)
 	r.Get("/execution", controllers.GetExecution)
 	r.Get("/listorder", controllers.Listorder)
+	r.Get("/calcprofit", controllers.CalcProfit)
 
 	r.Get("/getallmemos", controllers.GetAllMemos)
 	r.Post("/creatememo", controllers.CreateMemo)
