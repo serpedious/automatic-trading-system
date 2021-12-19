@@ -1,61 +1,47 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
+	"reflect"
+	"strconv"
+
+	"github.com/serpedious/automatic-trading-system/server/bitflyer/usecase"
 )
 
 func GetCsvFile(w http.ResponseWriter, r *http.Request) {
-	// records := [][]string{
-	// 	{"first_name", "last_name", "username"},
-	// 	{"Rob", "Pike", "rob"},
-	// 	{"Ken", "Thompson", "ken"},
-	// 	{"Robert", "Griesemer", "gri"},
-	// }
-
-	// file, err := os.Create("sample.csv")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// wc := csv.NewWriter(w)
-
-	// // w := csv.NewWriter(os.Stdout)
-
-	// for _, record := range records {
-	// 	if err := wc.Write(record); err != nil {
-	// 		log.Fatalln("error writing record to csv:", err)
-	// 	}
-	// }
-
-	// wc.Flush()
-	// if err := wc.Error(); err != nil {
-	// 	log.Fatal(err)
-	// }
-	// file.Close()
-
-	records := [][]string{
-		{"first_name", "last_name", "username"},
-		{"Rob", "Pike", "rob"},
-		{"Ken", "Thompson", "ken"},
-		{"Robert", "Griesemer", "gri"},
+	apiClient := usecase.CreateClient()
+	params := map[string]string{
+		"currency_code": "JPY",
+		"count":         "10",
+		"before":        "0",
+		"after":         "0",
 	}
-
+	balance_history_data, _ := apiClient.GetBalanceHistory(params)
 	w.Header().Set("Content-Disposition", "attachment; filename=test.csv")
 	w.Header().Set("Content-Type", "text/csv")
-	w.Header().Set("Content-Length", string(len(records)))
-	var out []byte
-	for _, record := range records {
-		for _, value := range record {
-		  if value == record[len(record) - 1] {
-			out = []byte(value)
-		  } else {
-			out = []byte(value + ",")
-		  }
-		  w.Write(out)
+	w.Header().Set("Content-Length", string(len(balance_history_data)))
+	for _, record := range balance_history_data {
+		rtCst := reflect.TypeOf(record)
+		rvCst := reflect.ValueOf(record)
+		for i := 0; i < rtCst.NumField(); i++ {
+			f := rtCst.Field(i)
+			v := rvCst.FieldByName(f.Name).Interface()
+			value := ""
+			if _, ok := v.(float64); ok {
+				value = strconv.FormatFloat(v.(float64), 'f', 2, 64)
+			}
+
+			if _, ok := v.(int); ok {
+				value = strconv.Itoa(v.(int))
+			}
+
+			if _, ok := v.(string); ok {
+				value = v.(string)
+			}
+			w.Write([]byte(value + ","))
+			fmt.Println(value)
 		}
 		w.Write([]byte("\n"))
 	}
-	// for i := 0; i < 4; i++ {
-	// 	out = []byte("test,test2,test3")
-	// 	w.Write(out)
-	// }
 }
