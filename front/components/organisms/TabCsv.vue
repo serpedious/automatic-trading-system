@@ -31,6 +31,7 @@
           color="purple"
           dark
           class="ma-10"
+          @click="downloadCsv"
         >
         DownLoad
         </v-btn>
@@ -42,6 +43,7 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
     name: 'Csv',
     data () {
@@ -53,6 +55,24 @@
         ],
       }
     },
+    methods: {
+    downloadCsv: async function () {
+      // let res = await axios.get(process.env.API_BASE_URL + '/getcsvfile')
+    axios({
+      url: 'http://localhost:8000/getcsvfile',
+      method: 'GET',
+      responseType: 'blob',
+    }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'history.csv');
+      document.body.appendChild(link);
+      link.click();
+    });
+      
+    },
+    }
   }
 </script>
 
