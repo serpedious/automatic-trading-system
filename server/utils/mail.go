@@ -9,9 +9,9 @@ import (
 	"os"
 )
 
-func Mail() {
-	from := "daiaojob@gmail.com"
-	password := "2serp5serp2"
+func Mail(useremail string) {
+	from := os.Getenv("MAIL")
+	password := os.Getenv("MAIL_PASS")
 
 	to := []string{
 		"daiaorab@gmail.com",
@@ -27,7 +27,7 @@ func Mail() {
 		log.Fatal(err)
 	}
 
-	t, _ := template.ParseFiles(wd + "/mail_tmp/test_template.html")
+	t, _ := template.ParseFiles(wd + "/mail_tmp/create_user.html")
 
 	var body bytes.Buffer
 
@@ -38,7 +38,7 @@ func Mail() {
 		Name    string
 		Message string
 	}{
-		Name:    "I am developer",
+		Name:    useremail,
 		Message: "This is a test message in a HTML template",
 	})
 

@@ -33,15 +33,10 @@ func EditPass(w http.ResponseWriter, r *http.Request) {
 	var u usecase.User
 	err := json.NewDecoder(r.Body).Decode(&u)
 	if err != nil {
-		fmt.Println(err)
-		fmt.Println("***********eeeeeeee*****************")
 		return
 	}
 	defer r.Body.Close()
-	fmt.Println(u)
-	fmt.Println("((((((((((((((((((((((((")
 	userId := tool.GetUserIdFromCookie(w, r)
-
 
 	err = u.EditPass(userId)
 	var error utils.Error
@@ -52,7 +47,6 @@ func EditPass(w http.ResponseWriter, r *http.Request) {
 	}
 	v := "completed update"
 	fmt.Println(v)
-	fmt.Println("********rrrrrrrrrr********************")
 
 	w.WriteHeader(http.StatusOK)
 	utils.ResponseByJSON(w, v)
@@ -116,6 +110,9 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		utils.ErrorInResponse(w, http.StatusInternalServerError, error)
 		return
 	}
+
+	useremail := u.Email
+	utils.Mail(useremail)
 
 	w.Header().Set("Content-Type", "application/json")
 	utils.ResponseByJSON(w, u)
