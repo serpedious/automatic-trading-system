@@ -41,10 +41,10 @@ import axios from 'axios'
       return {
         tab: null,
         items: [
+          { tab: 'All', content: null },
           { tab: 'Day', content: 'no value' },
           { tab: 'Week', content: 'no value' },
           { tab: 'Month', content: 'no value' },
-          { tab: 'All', content: null },
         ],
       }
     },
@@ -54,7 +54,7 @@ import axios from 'axios'
     methods: {
     getProfit: async function () {
       let res = await axios.get(process.env.API_BASE_URL + '/calcprofit')
-      this.items[3]["content"] = res.data
+      this.items[0]["content"] = res.data
     },
     }
   }
