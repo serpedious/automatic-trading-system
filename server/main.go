@@ -53,6 +53,7 @@ func main() {
 	r.Post("/sendorder", controllers.SendOrder)
 	r.Get("/balance", controllers.Balance)
 	r.Get("/ticker", controllers.Ticker)
+	r.Get("/getalert", controllers.GetAlert)
 	r.Get("/getmyassets", controllers.GetMyAssets)
 	r.Get("/getbalancehistory", controllers.GetBalanceHistory)
 	r.Get("/execution", controllers.GetExecution)

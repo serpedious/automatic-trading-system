@@ -65,6 +65,13 @@ func Ticker(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(js))
 }
 
+func GetAlert(w http.ResponseWriter, r *http.Request) {
+	apiClient := usecase.CreateClient()
+	alert_data, _ := apiClient.GetAlert()
+	js, _ := json.Marshal(alert_data)
+	w.Write([]byte(js))
+}
+
 func GetMyAssets(w http.ResponseWriter, r *http.Request) {
 	apiClient := usecase.CreateClient()
 	markets_list := []string{"BTC_JPY", "XRP_JPY", "ETH_JPY", "XLM_JPY", "MONA_JPY"}

@@ -186,6 +186,40 @@ func (api *APIClient) GetTicker(productCode string) (*bitflyer.Ticker, error) {
 	return &ticker, nil
 }
 
+func getWithDrawals(resp []byte, alert *bitflyer.Alert) {
+	err := json.Unmarshal(resp, &alert.With)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func getDeposit(resp []byte, alert *bitflyer.Alert) {
+	err := json.Unmarshal(resp, &alert.Dep)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func (api *APIClient) GetAlert() (*bitflyer.Alert, error) {
+	url := "me/getwithdrawals"
+	resp, err := api.doRequest("GET", url, map[string]string{}, nil)
+	if err != nil {
+		return nil, err
+	}
+	alert := &bitflyer.Alert{}
+	getWithDrawals(resp, alert)
+	
+	url = "me/getdeposits"
+	deposit_resp, err := api.doRequest("GET", url, map[string]string{}, nil)
+	if err != nil {
+		return nil, err
+	}
+	getDeposit(deposit_resp, alert)
+
+	return alert, nil
+
+}
+
 func (api *APIClient) GetAssetsTicker(productCode string) (*bitflyer.AssetsTicker, error) {
 	url := "ticker"
 	resp, err := api.doRequest("GET", url, map[string]string{"product_code": productCode}, nil)
@@ -281,19 +315,18 @@ func (api *APIClient) CalcProfit(asset float64, jpy float64) (float64, error) {
 	var all_coinouts float64
 	for i := 0; i < len(coinout); i++ {
 		productCode := coinout[i].CurrencyCode
-		productCode = productCode+"_JPY"
+		productCode = productCode + "_JPY"
 		ticker_resp, _ := api.doRequest("GET", url, map[string]string{"product_code": productCode}, nil)
 		err = json.Unmarshal(ticker_resp, &ticker)
 		if err != nil {
 			log.Println(err)
 		}
 		current_crpto_price := ticker.Ltp
-		all_coinouts += current_crpto_price*coinout[i].Amount
+		all_coinouts += current_crpto_price * coinout[i].Amount
 	}
-	profit := (asset+jpy+all_withdrawals)-(all_deposit)
+	profit := (asset + jpy + all_withdrawals) - (all_deposit)
 	return profit, nil
 }
-
 
 func (api *APIClient) SendOrder(order *bitflyer.Order) (*bitflyer.ResponseSendChildOrder, error) {
 	data, err := json.Marshal(order)

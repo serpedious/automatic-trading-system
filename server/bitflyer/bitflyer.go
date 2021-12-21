@@ -128,21 +128,26 @@ type Trade struct {
 }
 
 type Deposits struct {
-	ID           int    `json:"id"`
-	OrderID      string `json:"order_id"`
-	CurrencyCode string `json:"currency_code"`
-	Amount       float64    `json:"amount"`
-	Status       string `json:"status"`
-	EventDate    string `json:"event_date"`
+	ID           int     `json:"id"`
+	OrderID      string  `json:"order_id"`
+	CurrencyCode string  `json:"currency_code"`
+	Amount       float64 `json:"amount"`
+	Status       string  `json:"status"`
+	EventDate    string  `json:"event_date"`
 }
 
 type Withdrawals struct {
-	ID           int    `json:"id"`
-	OrderID      string `json:"order_id"`
-	CurrencyCode string `json:"currency_code"`
-	Amount       float64    `json:"amount"`
-	Status       string `json:"status"`
-	EventDate    string `json:"event_date"`
+	ID           int     `json:"id"`
+	OrderID      string  `json:"order_id"`
+	CurrencyCode string  `json:"currency_code"`
+	Amount       float64 `json:"amount"`
+	Status       string  `json:"status"`
+	EventDate    string  `json:"event_date"`
+}
+
+type Alert struct {
+	Dep  []Deposits    `json:"deposit"`
+	With []Withdrawals `json:"withdrawals"`
 }
 
 type Coins struct {

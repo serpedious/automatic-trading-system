@@ -44,8 +44,7 @@ import TableAlert from '~/components/organisms/TableAlert.vue'
       return {
         tab: null,
         items: [
-          { tab: 'Twitter', content: 'Tab 1 Content' },
-          { tab: 'Balance', content: 'Tab 2 Content' },
+          { tab: 'Activity', content: 'Tab 1 Content' },
         ],
       }
     },

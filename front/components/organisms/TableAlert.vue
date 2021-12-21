@@ -4,20 +4,24 @@
       <thead>
         <tr>
           <th class="text-left">
-            Name
+            Transaction
           </th>
           <th class="text-left">
-            Side
+            Date
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="item in desserts"
-          :key="item.name"
+        <!-- <li v-for="item in deposit" :key="item.message">
+          {{ item.amount }}
+       </li> -->
+          <tr
+          v-for="item in deposit"
+          :key="item.id"
+          :class="[item.flag === 'MDP' ? 'red lighten-5' : 'blue lighten-5']"
         >
-          <td>{{ item.name }}</td>
-          <td>{{ item.date}}</td>
+          <td>{{ item.message }} {{ item.amount }} YEN</td>
+          <td>{{ item.event_date}}</td>
         </tr>
       </tbody>
     </template>
@@ -25,74 +29,44 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'History',
   data () {
       return {
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Ice cream sandwich',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Eclair',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Cupcake',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Gingerbread',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Jelly bean',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Lollipop',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Honeycomb',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'Donut',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-          {
-            name: 'KitKat',
-            side: 'SELL',
-            amount: 100,
-            date: '2020/08/23',
-          },
-        ],
+        alerts: [],
+        deposit: [{id: null, amount: null, event_date: null, order_id: null, flag: null, message: null}],
+        withdraws: [{id: null, amount: null, event_date: null}],
       }
     },
+   mounted() {
+      this.getAlert();
+    },
+    methods: {
+    getAlert: async function () {
+      let res = await axios.get(process.env.API_BASE_URL + '/getalert')
+      this.alerts = res.data
+      this.deposit = this.alerts.deposit
+      this.withdraws = this.alerts.withdrawals
+      const len_with = this.withdraws.length;
+      for (var i = 0; i < len_with; i++) {
+        this.deposit.push(this.withdraws[i])
+      }
+      const len_all = this.deposit.length;
+      for (var i = 0; i < len_all; i++) {
+        this.deposit[i].flag = this.deposit[i].order_id.substring(0,3)
+        if (this.deposit[i].flag === 'MDP') {
+          this.deposit[i].message = "You deposited"
+        } else {
+          this.deposit[i].message = "You withdrawed"
+        }
+        console.log(this.deposit[i])
+      }
+      this.deposit = this.deposit.sort(function(a,b){
+        return new Date(b.event_date) - new Date(a.event_date);
+      });
+    },
+    }
 }
 </script>
 
