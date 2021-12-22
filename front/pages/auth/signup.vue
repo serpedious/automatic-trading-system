@@ -8,22 +8,34 @@
         <form>
           <v-text-field
             v-model="email"
+            :counter="10"
             label="E-mail"
             required
+            :error-messages="emailErrors"
             @input="$v.email.$touch()"
             @blur="$v.email.$touch()"
           ></v-text-field>
           <v-text-field
             v-model="password"
             :counter="10"
+            :error-messages="passwordErrors"
             label="password"
             required
             @input="$v.password.$touch()"
             @blur="$v.password.$touch()"
           ></v-text-field>
+          <v-checkbox
+            v-model="checkbox"
+            :error-messages="checkboxErrors"
+            label="Do you agree?"
+            required
+            @change="$v.checkbox.$touch()"
+            @blur="$v.checkbox.$touch()"
+          ></v-checkbox>
           <v-btn
             class="ma-5"
             @click="apiSignup"
+            :disabled="password=='' || email=='' || checkbox === false"
           >
             create
           </v-btn>
@@ -38,16 +50,52 @@
 
 <script>
 import axios from 'axios'
+import { validationMixin } from 'vuelidate'
+import { required, maxLength } from 'vuelidate/lib/validators'
 export default {
+   mixins: [validationMixin],
+    validations: {
+      email: { required, maxLength: maxLength(10) },
+      password: { required, maxLength: maxLength(10) },
+      checkbox: {
+        checked (val) {
+          return val
+        },
+      },
+    },
   name: 'Signup',
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      checkbox: false,
     }
   },
+   computed: {
+      checkboxErrors () {
+        const errors = []
+        if (!this.$v.checkbox.$dirty) return errors
+        !this.$v.checkbox.checked && errors.push('You must agree to continue!')
+        return errors
+      },
+      emailErrors () {
+        const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.email.maxLength && errors.push('Email must be at most 10 characters long')
+        !this.$v.email.required && errors.push('Email is required.')
+        return errors
+      },
+      passwordErrors () {
+        const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.password.maxLength && errors.push('Password must be at most 10 characters long')
+        !this.$v.password.required && errors.push('Password is required.')
+        return errors
+      },
+    },
   methods: {
       apiSignup: async function() {
+        this.$v.$touch()
         let res = await axios.post(process.env.API_BASE_URL + "/signup", {
             email: this.email,
             password: this.password

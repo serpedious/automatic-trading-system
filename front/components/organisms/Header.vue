@@ -55,7 +55,10 @@
       <v-toolbar-title>Automatic Trading system</v-toolbar-title>
 
       <v-spacer></v-spacer>
-      {{ user.email }}
+      <div class="pr-5">
+        Balance(JPY): {{ balance }} JPY
+      </div>
+      {{ user }}
       <v-menu
         bottom
         left
@@ -67,7 +70,7 @@
             v-bind="attrs"
             v-on="on"
           >
-            <v-icon>mdi-dots-vertical</v-icon>
+          <v-icon>mdi-account-circle</v-icon>
           </v-btn>
         </template>
 
@@ -104,15 +107,24 @@ export default {
       { title: 'CSV', icon: 'mdi-file-delimited-outline', to: '/dashboard/csv' },
     ],
     user: "",
+    balance: 0,
   }),
   mounted () {
         this.getUser();
+        this.getBalance();
     },
    methods: {
     getUser: async function () {
       let res = await axios.get(process.env.API_BASE_URL + '/getuser')
       this.user = res.data
-    }
+      let email = this.user["email"]
+      this.user = email.toUpperCase()
+    },
+    getBalance: async function () {
+      let res = await axios.get(process.env.API_BASE_URL + '/balance')
+      this.balance = res.data
+      this.balance = this.balance[0]["available"]
+    },
   }
 }
 </script>

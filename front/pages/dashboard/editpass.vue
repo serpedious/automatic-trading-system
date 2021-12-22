@@ -49,7 +49,6 @@
 
   export default {
     mixins: [validationMixin],
-
     validations: {
       password: { required, maxLength: maxLength(10) },
       checkbox: {
