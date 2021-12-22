@@ -1,7 +1,6 @@
 package usecase
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -80,8 +79,6 @@ func (u *User) GetUserByEmail() error {
 func (u *User) EditPass(userId int) error {
 	Db := tool.NewDb()
 	defer Db.Close()
-	fmt.Println(u.Password)
-	fmt.Println("*******************9999fdas********")
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
 	if err != nil {
@@ -94,8 +91,6 @@ func (u *User) EditPass(userId int) error {
 				WHERE id = $2;
 				`
 	_, err = Db.Exec(sqlUpdate, u.Password, userId)
-	fmt.Println("***********eeeeeeee*****************")
-	fmt.Println(err)
 	if err != nil {
 		return err
 	}
@@ -132,10 +127,10 @@ func (u *User) SignIn() (string, error) {
 	return jwt, nil
 }
 
-func (u *User) SignUp() error {
+func (u *User) SignUp() (string, error) {
 	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	u.Password = string(hash)
@@ -146,9 +141,10 @@ func (u *User) SignUp() error {
 
 	err = Db.QueryRow(sql_query, u.Email, u.Password).Scan(&u.ID)
 	if err != nil {
-		return err
+		return "", err
 	}
 	u.Password = ""
+	jwt := u.CreateToken()
 
-	return nil
+	return jwt, nil
 }

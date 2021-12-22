@@ -8,7 +8,7 @@
         <form>
           <v-text-field
             v-model="email"
-            :counter="10"
+            :counter="20"
             label="E-mail"
             required
             :error-messages="emailErrors"
@@ -55,7 +55,7 @@ import { required, maxLength } from 'vuelidate/lib/validators'
 export default {
    mixins: [validationMixin],
     validations: {
-      email: { required, maxLength: maxLength(10) },
+      email: { required, maxLength: maxLength(20) },
       password: { required, maxLength: maxLength(10) },
       checkbox: {
         checked (val) {
@@ -81,7 +81,7 @@ export default {
       emailErrors () {
         const errors = []
         if (!this.$v.password.$dirty) return errors
-        !this.$v.email.maxLength && errors.push('Email must be at most 10 characters long')
+        !this.$v.email.maxLength && errors.push('Email must be at most 20 characters long')
         !this.$v.email.required && errors.push('Email is required.')
         return errors
       },

@@ -104,16 +104,26 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = u.SignUp()
+	jwt, err := u.SignUp()
 	if err != nil {
 		error.Message = "faied to create user"
 		utils.ErrorInResponse(w, http.StatusInternalServerError, error)
 		return
 	}
 
+	atCookie := &http.Cookie{
+		Name:     "access_token",
+		Path:     "/",
+		Value:    jwt,
+		Secure:   true,
+		SameSite: 4,
+		Expires:  time.Now().Add(time.Minute * 15),
+	}
+
 	useremail := u.Email
 	utils.Mail(useremail)
-
+	
+	http.SetCookie(w, atCookie)
 	w.Header().Set("Content-Type", "application/json")
 	utils.ResponseByJSON(w, u)
 }
