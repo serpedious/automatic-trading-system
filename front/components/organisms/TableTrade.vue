@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mt-3 pa-5" width="1300">
+  <v-card class="mx-auto mt-3 pa-7" width="1300">
     <v-card-title>
       <h3>Trade</h3>
     </v-card-title>

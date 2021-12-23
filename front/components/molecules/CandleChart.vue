@@ -1,12 +1,43 @@
 <template>
-<html>
-  <head>
+<div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
+    </script>
+ <v-card width="700">
+    <div id="chart_div" style="width: 700px; height: 350px;"></div>
+ </v-card>
+</div>
+</template>
 
-  function drawChart() {
+<script>
+export default {
+  props: {
+    crypto: '',
+    side: '',
+    amount: ''
+  },
+  data() {
+    return {
+      returnData: {
+        crypto: this.crypto,
+        side: this.side,
+        amount: this.amount
+      }
+    }
+  },
+  mounted () {
+    this.drawChart();
+  },
+  methods: {
+    submit() {
+      this.$emit('clickSubmit', this.returnData)
+    },
+    cancel() {
+      this.$emit('clickSubmit', "")
+    },
+    drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Mon', 20, 28, 38, 45],
       ['Tue', 31, 38, 55, 66],
@@ -24,10 +55,6 @@
 
     chart.draw(data, options);
   }
-    </script>
-  </head>
-  <body>
-    <div id="chart_div" style="width: 700px; height: 350px;"></div>
-  </body>
-</html>
-</template>
+  }
+}
+</script>
