@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto mb-5 pa-5" width="1100px">
+    <v-card class="mx-auto mb-5 pa-5" width="1150px">
  <v-simple-table dense>
     <template v-slot:default>
       <thead>
@@ -56,6 +56,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'History',
   data () {
@@ -99,32 +100,3 @@ export default {
   }
 }
 </script>
-
-
-// type BalanceHistory struct {
-// 	TradeDate    string  `json:"trade_date"`
-// 	ProductCode  string  `json:"product_code"`
-// 	CurrencyCode string  `json:"currency_code"`
-// 	TradeType    string  `json:"trade_type"`
-// 	Price        float64 `json:"price"`
-// 	Amount       float64 `json:"amount"`
-// 	Quantity     float64 `json:"quantity"`
-// 	Commission   float64 `json:"commission"`
-// 	Balance      float64 `json:"balance"`
-// 	OrderID      string  `json:"order_id"`
-// }
-
-// type BalanceHistory struct {
-// 	ID           int       `json:"id"`
-// 	TradeDate    string `json:"trade_date"`
-// 	EventDate    string `json:"event_date"`
-// 	ProductCode  string    `json:"product_code"`
-// 	CurrencyCode string    `json:"currency_code"`
-// 	TradeType    string    `json:"trade_type"`
-// 	Price        float64   `json:"price"`
-// 	Amount       float64   `json:"amount"`
-// 	Quantity     float64   `json:"quantity"`
-// 	Commission   float64   `json:"commission"`
-// 	Balance      float64   `json:"balance"`
-// 	OrderID      string    `json:"order_id"`
-// }

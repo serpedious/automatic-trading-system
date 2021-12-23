@@ -1,5 +1,8 @@
 <template>
- <v-card class="mt-3 mr-3 pa-4">
+<div>
+<div class="d-flex justify-start">
+<CandleChart/>
+ <v-card class="ml-3 pa-4" width="500px" height="350px">
     <v-card-title class="pb-5">
       <h3>My Assets</h3>
     </v-card-title>
@@ -34,11 +37,22 @@
       </template>
     </v-simple-table>
  </v-card>
+ </div>
+ <div>
+<TradeTable/>
+</div>
+</div>
 </template>
 
 <script>
 import axios from 'axios'
+import CandleChart from '../molecules/CandleChart'
+import TradeTable from './TableTrade'
 export default {
+  components: {
+    CandleChart,
+    TradeTable,
+  },
   name: 'TableChart',
   data() {
     return {

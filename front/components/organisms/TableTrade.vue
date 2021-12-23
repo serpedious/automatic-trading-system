@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mt-3 pa-3" width="1100px">
+  <v-card class="mx-auto mt-3 pa-5" width="1300">
     <v-card-title>
       <h3>Trade</h3>
     </v-card-title>
@@ -25,15 +25,17 @@
         v-for="item in items"
         :key="item.tab"
       >
-      
         <v-card flat color="">
           <v-card-text class="text-h5">{{ item.content }}</v-card-text>
+          <div class="d-flex justify-start">
+          <img width="100px" height="100px" :src="item.img"/>
           <div class="text-h4 mx-auto">
-            {{ item.value }} JPY
+            Value: {{ item.value }} JPY
           </div>
             <OrderButton/>
           <div class="mx-auto mt-3 mb-3">
-            Japanese Yen {{ item.jpy }} JPY
+            Your Balance: Japanese Yen {{ item.jpy }} JPY
+          </div>
           </div>
         </v-card>
       </v-tab-item>
@@ -55,11 +57,11 @@ export default {
         balance: [],
         tickers: [],
         items: [
-          { tab: 'BTC/JPY', content: 'Bitcoin Marketplace', value: null, jpy: null },
-          { tab: 'XRP/JPY', content: 'XRP Marketplace', value: null, jpy: null },
-          { tab: 'ETH/JPY', content: 'ETH Marketplace', value: null, jpy: null },
-          { tab: 'XLM/JPY', content: 'XLM Marketplace', value: null, jpy: null },
-          { tab: 'MONA/JPY', content: 'MONA Marketplace', value: null, jpy: null },
+          { tab: 'BTC/JPY', content: 'Bitcoin Marketplace', value: null, jpy: null, img: "/bitcoin.svg" },
+          { tab: 'XRP/JPY', content: 'XRP Marketplace', value: null, jpy: null, img: "/ripple.svg"},
+          { tab: 'ETH/JPY', content: 'ETH Marketplace', value: null, jpy: null, img: "/ethereum.svg" },
+          { tab: 'XLM/JPY', content: 'XLM Marketplace', value: null, jpy: null, img: "/stellar.svg"},
+          { tab: 'MONA/JPY', content: 'MONA Marketplace', value: null, jpy: null, img: "/mona.svg" },
         ],
         }
     },

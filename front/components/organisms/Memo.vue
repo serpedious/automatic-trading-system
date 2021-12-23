@@ -1,6 +1,6 @@
 <template>
 <section class="container">
-    <v-card class="mx-auto mt-5 pa-5" width="800px">
+    <v-card class="mx-auto pa-5" width="1200px">
       <v-card-title class="pb-5">
         <h3>Memo</h3>
       </v-card-title>

@@ -1,7 +1,7 @@
 <template>
-  <section class="container">
-    <v-card class="mx-auto mt-5 pa-5" width="700px">
-      <v-card-title class="pb-5">
+  <section class="d-flex justify-start">
+    <v-card class="ma-3 pa-5" width="1200px">
+      <v-card-title class="pb-3">
         <h3>Alert</h3>
       </v-card-title>
     <v-tabs

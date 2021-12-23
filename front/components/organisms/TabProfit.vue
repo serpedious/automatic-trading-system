@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mt-2 pa-5" width="400px">
+  <v-card class="pa-5 ma-5" width="550px">
     <v-card-title class="pb-5">
       <h3>Profit</h3>
     </v-card-title>

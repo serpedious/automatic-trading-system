@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="pa-4">
+    <div class="d-flex justify-start">
+      <TabCsv/>
       <TabProfit/>
     </div>
     <TableHistory/>
@@ -10,10 +11,12 @@
 <script>
 import TableHistory from '~/components/organisms/TableHistory.vue'
 import TabProfit from '../../components/organisms/TabProfit.vue'
+import TabCsv from '../../components/organisms/TabCsv.vue'
 export default {
   components: {
   TableHistory,
-  TabProfit
+  TabProfit,
+  TabCsv
   }
 }
 </script>

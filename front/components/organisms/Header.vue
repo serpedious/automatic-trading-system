@@ -100,11 +100,9 @@ export default {
     ],
     categories: [
       { title: 'Home', icon: 'mdi-home', to: '/dashboard/home' },
-      { title: 'Trade', icon: 'mdi-chart-areaspline', to: '/dashboard/trade' },
       { title: 'History', icon: 'mdi-history', to: '/dashboard/history' },
       { title: 'Memo', icon: 'mdi-format-list-checks', to: '/dashboard/memo' },
       { title: 'Alert', icon: 'mdi-bell-outline', to: '/dashboard/alert' },
-      { title: 'CSV', icon: 'mdi-file-delimited-outline', to: '/dashboard/csv' },
     ],
     user: "",
     balance: 0,
