@@ -1,6 +1,6 @@
 <template>
   <section>
-  <v-card class="pa-5 ma-5" width="550px">
+  <v-card class="mx-auto pa-5 ma-3 ml-4" width="570px">
     <v-card-title class="pb-5">
       <h3>CSV</h3>
     </v-card-title>
@@ -30,7 +30,7 @@
           <v-btn
           color="purple"
           dark
-          class="ma-10"
+          class="ma-5"
           @click="downloadCsv"
         >
         DownLoad

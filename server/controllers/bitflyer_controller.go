@@ -156,13 +156,12 @@ func ApiMakeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFun
 func ApiCandleHandler(w http.ResponseWriter, r *http.Request) {
 	productCode := r.URL.Query().Get("product_code")
 	if productCode == "" {
-		utils.APIError(w, "No product_code params", http.StatusBadRequest)
-		return
+		productCode = config.Config.ProductCode
 	}
 	strLimit := r.URL.Query().Get("limit")
 	limit, err := strconv.Atoi(strLimit)
 	if strLimit == "" || err != nil || limit < 0 || limit > 1000 {
-		limit = 1000
+		limit = 100
 	}
 
 	duration := r.URL.Query().Get("duration")

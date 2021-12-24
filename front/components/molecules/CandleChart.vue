@@ -6,12 +6,16 @@
       google.charts.setOnLoadCallback(drawChart);
     </script>
  <v-card width="700">
-    <div id="chart_div" style="width: 700px; height: 350px;"></div>
+    <v-card-title class="pl-8">
+      <h3>Bitcoin Chart</h3>
+    </v-card-title>
+    <div id="chart_div" style="width: 700px; height: 300px;"></div>
  </v-card>
 </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   props: {
     crypto: '',
@@ -20,6 +24,7 @@ export default {
   },
   data() {
     return {
+      dataflame: null,
       returnData: {
         crypto: this.crypto,
         side: this.side,
@@ -28,9 +33,15 @@ export default {
     }
   },
   mounted () {
-    this.drawChart();
+    this.getCandle();
+    this.intervalFetchData();
   },
   methods: {
+    getCandle: async function () {
+      let res = await axios.get(process.env.API_BASE_URL + '/api/candle/')
+      this.dataflame = res.data
+      this.drawChart();
+    },
     submit() {
       this.$emit('clickSubmit', this.returnData)
     },
@@ -38,22 +49,36 @@ export default {
       this.$emit('clickSubmit', "")
     },
     drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Mon', 20, 28, 38, 45],
-      ['Tue', 31, 38, 55, 66],
-      ['Wed', 50, 55, 77, 80],
-      ['Thu', 77, 77, 66, 50],
-      ['Fri', 68, 66, 22, 15]
-      // Treat first row as data as well.
-    ], true);
-
+    var dataTable = [];
+    for (var i = 0; i < this.dataflame.candles.length; i++) {
+        var candleData = []
+        candleData.push(this.dataflame.candles[i]["time"])
+        candleData.push(this.dataflame.candles[i]["low"])
+        candleData.push(this.dataflame.candles[i]["open"])
+        candleData.push(this.dataflame.candles[i]["close"])
+        candleData.push(this.dataflame.candles[i]["high"])
+        dataTable.push(candleData)
+        candleData = []
+    } 
+    
+    var data = google.visualization.arrayToDataTable(dataTable, true);
     var options = {
-      legend:'none'
+      legend:'none',
+      candlestick: {
+          fallingColor: {strokeWidth: 0, fill: '#a52714' },
+          risingColor: {strokeWidth: 0, fill: '#0f9d58' }, 
+      }
     };
 
     var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
 
     chart.draw(data, options);
+    this.intervalFetchData();
+  },
+   intervalFetchData: function () {
+    setInterval(() => {    
+      this.getCandle();
+    }, 10000);    
   }
   }
 }

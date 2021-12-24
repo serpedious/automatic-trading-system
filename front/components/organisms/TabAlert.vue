@@ -1,6 +1,6 @@
 <template>
   <section class="d-flex justify-start">
-    <v-card class="ma-3 pa-5" width="1200px">
+    <v-card class="mx-auto ma-3 pa-5" width="1150px">
       <v-card-title class="pb-3">
         <h3>Alert</h3>
       </v-card-title>

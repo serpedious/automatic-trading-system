@@ -2,7 +2,7 @@
 <div>
 <div class="d-flex justify-start">
 <CandleChart/>
- <v-card class="ml-3 pa-4" width="500px" height="350px">
+ <v-card class="ml-3 pa-4" width="500px" height="365px">
     <v-card-title class="pb-5">
       <h3>My Assets</h3>
     </v-card-title>
