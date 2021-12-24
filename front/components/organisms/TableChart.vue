@@ -2,7 +2,7 @@
 <div>
 <div class="d-flex justify-start">
 <CandleChart/>
- <v-card class="ml-3 pa-4" width="500px" height="365px">
+ <v-card class="ml-3 pa-4" width="500px" height="365px" v-if="balancelists.length">
     <v-card-title class="pb-5">
       <h3>My Assets</h3>
     </v-card-title>
@@ -36,6 +36,15 @@
         </tbody>
       </template>
     </v-simple-table>
+ </v-card>
+ <v-card class="pt-16 text-center ml-3" width="500px" height="365px" v-else>
+ <v-card-actions class="justify-center pt-16">
+       <v-progress-circular
+         class="pt-16"
+            indeterminate
+            color="primary"
+          ></v-progress-circular>
+ </v-card-actions>
  </v-card>
  </div>
  <div>

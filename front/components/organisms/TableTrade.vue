@@ -29,7 +29,7 @@
           <v-card-text class="text-h5">{{ item.content }}</v-card-text>
           <div class="d-flex justify-start">
           <img width="100px" height="100px" :src="item.img"/>
-          <div class="text-h4 mx-auto">
+          <div class="text-h5 mx-auto">
             Value: {{ item.value }} JPY
           </div>
             <OrderButton/>

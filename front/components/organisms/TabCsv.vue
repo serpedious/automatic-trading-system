@@ -8,7 +8,7 @@
       centered
       fixed-tabs
       v-model="tab"
-      background-color="primary"
+      background-color="indigo"
       dark
       slider-color="purple"
     >
@@ -26,11 +26,11 @@
         v-for="item in items"
         :key="item.tab"
       >
-        <v-card flat>
+        <v-card flat class="text-center pt-5">
           <v-btn
           color="purple"
           dark
-          class="ma-5"
+          class="text-center ma-5"
           @click="downloadCsv"
         >
         DownLoad

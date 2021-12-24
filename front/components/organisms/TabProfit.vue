@@ -7,7 +7,7 @@
       centered
       fixed-tabs
       v-model="tab"
-      background-color="primary"
+      background-color="indigo"
       dark
       slider-color="purple"
     >
@@ -25,8 +25,14 @@
         v-for="item in items"
         :key="item.tab"
       >
-        <v-card flat color="">
-          <v-card-text class="text-h5">{{ item.content }} YEN</v-card-text>
+        <v-card flat color="" v-if="item.content !== null">
+          <v-card-text class="text-center pt-8 text-h4 indigo--text"><b>{{ item.content }} YEN</b></v-card-text>
+        </v-card>
+        <v-card class="text-center pt-8" v-else>
+          <v-progress-circular
+            indeterminate
+            color="primary"
+          ></v-progress-circular>
         </v-card>
       </v-tab-item>
     </v-tabs-items>

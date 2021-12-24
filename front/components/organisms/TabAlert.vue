@@ -8,7 +8,7 @@
       centered
       fixed-tabs
       v-model="tab"
-      background-color="primary"
+      background-color="indigo"
       dark
       slider-color="purple"
     >
