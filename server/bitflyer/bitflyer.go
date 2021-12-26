@@ -114,6 +114,13 @@ type DataFrameCandle struct {
 	ProductCode string        `json:"product_code"`
 	Duration    time.Duration `json:"duration"`
 	Candles     []Candle      `json:"candles"`
+	Rsi         *Rsi          `json:"rsi,omitempty"`
+	Events      *SignalEvents `json:"events"`
+}
+
+type Rsi struct {
+	Period int       `json:"period,omitempty"`
+	Values []float64 `json:"values,omitempty"`
 }
 
 type MyAssets struct {
@@ -161,4 +168,16 @@ type Coins struct {
 	AdditionalFee float64 `json:"additional_fee"`
 	Status        string  `json:"status"`
 	EventDate     string  `json:"event_date"`
+}
+
+type SignalEvent struct {
+	ProductCode string    `json:"product_code"`
+	Time        time.Time `json:"time"`
+	Side        string    `json:"side"`
+	Price       float64   `json:"price"`
+	Size        float64   `json:"size"`
+}
+
+type SignalEvents struct {
+	Signals []SignalEvent `json:"signals,omitempty"`
 }

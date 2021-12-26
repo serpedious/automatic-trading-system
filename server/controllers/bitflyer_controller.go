@@ -172,6 +172,10 @@ func ApiCandleHandler(w http.ResponseWriter, r *http.Request) {
 
 	df, _ := usecase.GetAllCandle(productCode, durationTime, limit)
 
+	firstTime := df.Candles[0].Time
+	df.AddEvents(firstTime)
+	df.AddRsi(14)
+
 	js, err := json.Marshal(df)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

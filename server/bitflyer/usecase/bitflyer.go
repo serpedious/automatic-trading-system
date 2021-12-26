@@ -16,6 +16,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	"github.com/markcheno/go-talib"
 
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/config"
@@ -208,7 +209,7 @@ func (api *APIClient) GetAlert() (*bitflyer.Alert, error) {
 	}
 	alert := &bitflyer.Alert{}
 	getWithDrawals(resp, alert)
-	
+
 	url = "me/getdeposits"
 	deposit_resp, err := api.doRequest("GET", url, map[string]string{}, nil)
 	if err != nil {
@@ -551,3 +552,262 @@ func GetAllCandle(productCode string, duration time.Duration, limit int) (dfCand
 	}
 	return dfCandle, nil
 }
+
+type SignalEvent struct {
+	ProductCode string    `json:"product_code"`
+	Time        time.Time `json:"time"`
+	Side        string    `json:"side"`
+	Price       float64   `json:"price"`
+	Size        float64   `json:"size"`
+}
+
+type SignalEvents struct {
+	Signals []SignalEvent `json:"signals,omitempty"`
+}
+
+func (s *SignalEvent) Save() bool {
+	cmd := fmt.Sprintf("INSERT INTO %s(time, product_code, side, price, size) VALUES (?, ?, ?, ?, ?)", tableNameSignalEvents)
+	_, err := DbConnection.Exec(cmd, s.Time.Format(time.RFC3339), s.ProductCode, s.Side, s.Price, s.Size)
+	if err != nil {
+		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
+			log.Println(err)
+			return true
+		}
+		return false
+	}
+	return true
+}
+
+func NewSignalEvents() *SignalEvents {
+	return &SignalEvents{}
+}
+
+func GetSignalEventsByCount(loadEvents int) *bitflyer.SignalEvents {
+	cmd := fmt.Sprintf(`SELECT * FROM (
+		SELECT time, product_code, side, price, size FROM %s WHERE product_code = ? ORDER BY time DESC LIMIT ? )
+		ORDER BY time ASC;`, tableNameSignalEvents)
+	rows, err := DbConnection.Query(cmd, config.Config.ProductCode, loadEvents)
+	if err != nil {
+		return nil
+	}
+	defer rows.Close()
+
+	var signalEvents bitflyer.SignalEvents
+	for rows.Next() {
+		var signalEvent bitflyer.SignalEvent
+		rows.Scan(&signalEvent.Time, &signalEvent.ProductCode, &signalEvent.Side, &signalEvent.Price, &signalEvent.Size)
+		signalEvents.Signals = append(signalEvents.Signals, signalEvent)
+	}
+	err = rows.Err()
+	if err != nil {
+		return nil
+	}
+	return &signalEvents
+}
+
+func GetSignalEventsAfterTime(timeTime time.Time) *bitflyer.SignalEvents {
+	cmd := fmt.Sprintf(`SELECT * FROM (
+		SELECT time, product_code, side, price, size FROM %s 
+		WHERE DATETIME(time) >= DATETIME(?)
+		ORDER BY time DESC
+	) ORDER BY time ASC;`, tableNameSignalEvents)
+	rows, err := DbConnection.Query(cmd, timeTime.Format(time.RFC3339))
+	if err != nil {
+		return nil
+	}
+	defer rows.Close()
+
+	var signalEvents bitflyer.SignalEvents
+	for rows.Next() {
+		var signalEvent bitflyer.SignalEvent
+		rows.Scan(&signalEvent.Time, &signalEvent.ProductCode, &signalEvent.Side, &signalEvent.Price, &signalEvent.Size)
+		signalEvents.Signals = append(signalEvents.Signals, signalEvent)
+	}
+	err = rows.Err()
+	if err != nil {
+		return nil
+	}
+	return &signalEvents
+}
+
+func (s *SignalEvents) CanBuy(time time.Time) bool {
+	lenSignals := len(s.Signals)
+	if lenSignals == 0 {
+		return true
+	}
+	lastSignal := s.Signals[lenSignals-1]
+	if lastSignal.Side == "SELL" && lastSignal.Time.Before(time) {
+		return true
+	}
+	return false
+}
+
+func (s *SignalEvents) CanSell(time time.Time) bool {
+	lenSignals := len(s.Signals)
+	if lenSignals == 0 {
+		return false
+	}
+	lastSignal := s.Signals[lenSignals-1]
+	if lastSignal.Side == "BUY" && lastSignal.Time.Before(time) {
+		return true
+	}
+	return false
+}
+
+func (s *SignalEvents) Buy(ProductCode string, time time.Time, price, size float64, save bool) bool {
+	if !s.CanBuy(time) {
+		return false
+	}
+	signalEvent := SignalEvent{
+		ProductCode: ProductCode,
+		Time:        time,
+		Side:        "BUY",
+		Price:       price,
+		Size:        size,
+	}
+	if save {
+		signalEvent.Save()
+	}
+	s.Signals = append(s.Signals, signalEvent)
+	return true
+}
+
+func (s *SignalEvents) Sell(ProductCode string, time time.Time, price, size float64, save bool) bool {
+	if !s.CanSell(time) {
+		return false
+	}
+	signalEvent := SignalEvent{
+		ProductCode: ProductCode,
+		Time:        time,
+		Side:        "SELL",
+		Price:       price,
+		Size:        size,
+	}
+	if save {
+		signalEvent.Save()
+	}
+	s.Signals = append(s.Signals, signalEvent)
+	return true
+}
+
+func (s *SignalEvents) Profit() float64 {
+	total := 0.0
+	beforeSell := 0.0
+	isHolding := false
+
+	for i, signalEvent := range s.Signals {
+		if i == 0 && signalEvent.Side == "SELL" {
+			continue
+		}
+		if signalEvent.Side == "BUY" {
+			total -= signalEvent.Price * signalEvent.Size
+			isHolding = true
+		}
+		if signalEvent.Side == "SELL" {
+			total += signalEvent.Price * signalEvent.Size
+			isHolding = false
+			beforeSell = total
+		}
+		if isHolding {
+			return beforeSell
+		}
+	}
+	return total
+}
+
+func (s SignalEvents) MarshalJSON() ([]byte, error) {
+	value, err := json.Marshal(&struct {
+		Signals []SignalEvent `json:"signals,omitempty"`
+		Profit  float64       `json:"profit,omitempty"`
+	}{
+		Signals: s.Signals,
+		Profit:  s.Profit(),
+	})
+	if err != nil {
+		return nil, err
+	}
+	return value, err
+}
+
+func (s *SignalEvents) CollectAfter(time time.Time) *SignalEvents {
+	for i, signal := range s.Signals {
+		if time.After(signal.Time) {
+			continue
+		}
+		return &SignalEvents{Signals: s.Signals[i:]}
+	}
+	return nil
+}
+
+func (df *DataFrameCandle) AddRsi(period int) bool {
+	if len(df.Candles) > period {
+		values := talib.Rsi(df.Closes(), period)
+		df.Rsi = &bitflyer.Rsi{
+			Period: period,
+			Values: values,
+		}
+		return true
+	}
+	return false
+}
+
+func (df *DataFrameCandle) AddEvents(timeTime time.Time) bool {
+	signalEvents := GetSignalEventsAfterTime(timeTime)
+	if len(signalEvents.Signals) > 0 {
+		df.Events = signalEvents
+		return true
+	}
+	return false
+}
+
+func AutomaticNotification() {
+	for {
+		df, _ := GetAllCandle("BTC_JPY", time.Minute, 365)
+		df.BackTestRsi(14, 30.0, 70.0)	
+	}
+}
+
+func (df *DataFrameCandle) BackTestRsi(period int, buyThread, sellThread float64) *SignalEvents {
+	lenCandles := len(df.Candles)
+	if lenCandles <= period {
+		return nil
+	}
+
+	SignalEvents := NewSignalEvents()
+	values := talib.Rsi(df.Closes(), period)
+	for i := 1; i < lenCandles; i++ {
+		if values[i-1] == 0 || values[i-1] == 100 {
+			continue
+		}
+		if values[i-1] < buyThread && values[i] > buyThread {
+			SignalEvents.Buy(df.ProductCode, df.Candles[i].Time, df.Candles[i].Close, 1.0, false)
+			fmt.Println("************************** Buy ***********************")
+		}
+
+		if values[i-1] > sellThread && values[i] <= sellThread {
+			SignalEvents.Sell(df.ProductCode, df.Candles[i].Time, df.Candles[i].Close, 1.0, false)
+			fmt.Println("************************** Sell ***********************")
+		}
+	}
+	return SignalEvents
+}
+
+// func (df *DataFrameCandle) OptimizeRsi() (performance float64, bestPeriod int, bestBuyThread, bestSellThread float64) {
+// 	bestPeriod = 14
+// 	bestBuyThread, bestSellThread = 30.0, 70.0
+
+// 	for period := 5; period < 25; period++ {
+// 		SignalEvents := df.BackTestRsi(period, bestSellThread, bestSellThread)
+// 		if SignalEvents == nil {
+// 			continue
+// 		}
+// 		profit := SignalEvents.Profit()
+// 		if performance < profit {
+// 			performance = profit
+// 			bestPeriod = period
+// 			bestBuyThread = bestBuyThread
+// 			bestSellThread = bestSellThread
+// 		}
+// 	}
+// 	return performance, bestPeriod, bestBuyThread, bestSellThread
+// }

@@ -2,6 +2,7 @@ package config
 
 import (
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -23,6 +24,10 @@ type ConfigList struct {
 	DbName             string
 	SQLDriver          string
 	Port               int
+	BackTest           bool
+	UsePercent         float64
+	DataLimit          int
+	StopLimitPercent   float64
 }
 
 var Config ConfigList
@@ -35,6 +40,15 @@ func init() {
 		"1m": time.Minute,
 		"1h": time.Hour,
 	}
+
+	bt := os.Getenv("BACK_TEST")
+	backTest, _ := strconv.ParseBool(bt)
+	up := os.Getenv("USE_PERCENT")
+	usePercent, _ := strconv.ParseFloat(up, 64)
+	dl := os.Getenv("DATA_LIMIT")
+	dataLimit, _ := strconv.Atoi(dl)
+	slp := os.Getenv("STOP_PERCENT_LIMIT")
+	stopLimitPercent, _ := strconv.ParseFloat(slp, 64)
 
 	Config = ConfigList{
 		ApiKey:      os.Getenv("BITFLYER_API_KEY"),
@@ -52,6 +66,10 @@ func init() {
 		TradeDuration:      durations[os.Getenv("TRADE_DURATION")],
 		DbName:             os.Getenv("DB_NAME"),
 		SQLDriver:          os.Getenv("SQL_DRIVER"),
+		BackTest:           backTest,
+		UsePercent:         usePercent,
+		DataLimit:          dataLimit,
+		StopLimitPercent:   stopLimitPercent,
 	}
 }
 
