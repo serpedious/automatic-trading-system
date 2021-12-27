@@ -3,6 +3,11 @@
    <v-card-title class="pb-5">
       <h3>Chart</h3>
     </v-card-title>
+    <div>
+    <v-btn @click="changeDuration('1s');">1s</v-btn>
+    <v-btn @click="changeDuration('1m');">1m</v-btn>
+    <v-btn @click="changeDuration('1h');">1h</v-btn>
+    </div>
   <GChart
       type="CandlestickChart"
       :settings="chartsLib"
@@ -37,7 +42,27 @@ export default {
         candlestick: {
           fallingColor: {strokeWidth: 0, fill: '#a52714' },
           risingColor: {strokeWidth: 0, fill: '#0f9d58' }, 
-      }
+        }
+      },
+      config: {
+        candlestick:{
+            product_code: 'BTC_JPY',
+            duration: '1m',
+            limit: 365,
+            numViews: 5,
+        },
+        dataTable: {
+            index : 0,
+            value: null
+        },
+        rsi: {
+            enable: false,
+            indexes: {'up': 0, 'value': 0, 'down': 0},
+            period: 14,
+            up: 70,
+            values: [],
+            down: 30
+        },
       }
     }
   },
@@ -59,10 +84,19 @@ export default {
     } 
   },  
   getCandle: async function () {
-      let res = await axios.get(process.env.API_BASE_URL + '/api/candle/')
+    var params = {
+        "product_code": this.config.candlestick.product_code,
+        "duration": this.config.candlestick.duration,
+        "limit": this.config.candlestick.limit,
+      }
+      let res = await axios.get(process.env.API_BASE_URL + '/api/candle/', {params: params})
       this.dataflame = res.data
       this.drawChart();
     },
+  changeDuration(s){
+    this.config.candlestick.duration = s;
+    this.getCandle();
+  },
   intervalFetchData: function () {
     setInterval(() => {    
       this.getCandle();
