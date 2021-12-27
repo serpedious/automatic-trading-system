@@ -7,7 +7,10 @@ import (
 	"net/http"
 	"regexp"
 	"strconv"
+	"time"
 
+	
+	"github.com/markcheno/go-talib"
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/bitflyer/usecase"
 	"github.com/serpedious/automatic-trading-system/server/config"
@@ -182,4 +185,37 @@ func ApiCandleHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)
+}
+
+func GetRsi(w http.ResponseWriter, r *http.Request) {
+	period := 14
+	df, _ := usecase.GetAllCandle("BTC_JPY", time.Minute, 365)
+	if period < 14 {
+		fmt.Println("less data set compare with config")
+	}
+	lenCandles := len(df.Candles)
+	if lenCandles <= period {
+		return
+	}
+	var rsi_data []float64
+	values := talib.Rsi(df.Closes(), period)
+	lastValue := values[lenCandles-1]
+	secondLastValue := values[lenCandles-2]
+	rsi_data = append(rsi_data, lastValue, secondLastValue)
+	js, _ := json.Marshal(rsi_data)
+	w.Write([]byte(js))
+}
+
+func GetSignal(w http.ResponseWriter, r *http.Request) {
+	limit := 1
+	signal_data := usecase.GetSignalEventsByCount(limit)
+	js, _ := json.Marshal(signal_data)
+	w.Write([]byte(js))
+}
+
+func GetSignalAll(w http.ResponseWriter, r *http.Request) {
+	limit := 100
+	signal_data := usecase.GetSignalEventsByCount(limit)
+	js, _ := json.Marshal(signal_data)
+	w.Write([]byte(js))
 }

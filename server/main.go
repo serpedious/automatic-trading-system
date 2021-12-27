@@ -26,12 +26,6 @@ func main() {
 
 	r := chi.NewRouter()
 
-	// df, _ := usecase.GetAllCandle("BTC_JPY", time.Minute, 365)
-	// c1 := df.Candles[len(df.Candles)-2]
-	// c2 := df.Candles[len(df.Candles)-1]
-	// s.Buy("BTC_JPY", c1.Time.UTC(), c1.Close, 1.0, true)
-	// s.Sell("BTC_JPY", c2.Time.UTC(), c2.Close, 1.0, true)
-
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 	r.Use(cors.New(cors.Options{
@@ -65,6 +59,9 @@ func main() {
 	r.Get("/execution", controllers.GetExecution)
 	r.Get("/listorder", controllers.Listorder)
 	r.Get("/calcprofit", controllers.CalcProfit)
+	r.Get("/getrsi", controllers.GetRsi)
+	r.Get("/getsignal", controllers.GetSignal)
+	r.Get("/getsignalall", controllers.GetSignalAll)
 
 	r.Get("/getallmemos", controllers.GetAllMemos)
 	r.Post("/creatememo", controllers.CreateMemo)

@@ -15,13 +15,13 @@
         <!-- <li v-for="item in deposit" :key="item.message">
           {{ item.amount }}
        </li> -->
-          <tr
+        <tr
           v-for="item in deposit"
           :key="item.id"
           :class="[item.flag === 'MDP' ? 'red lighten-5' : 'blue lighten-5']"
         >
-          <td>{{ item.message }} {{ item.amount }} YEN</td>
-          <td>{{ item.event_date}}</td>
+          <td>{{ item.message }} {{ item.amount }} {{item.price}} YEN {{item.product_code}} {{ item.side}}</td>
+          <td>{{ item.event_date}}  {{item.time}} </td>
         </tr>
       </tbody>
     </template>
@@ -60,12 +60,29 @@ export default {
         } else {
           this.deposit[i].message = "You withdrawed"
         }
-        console.log(this.deposit[i])
       }
+      let resp = await axios.get(process.env.API_BASE_URL + '/getsignalall') 
+      this.signal = resp.data
+      var size = Object.values(this.signal)[0].length
+      for (var i = 0; i < size; i++) {
+        console.log(Object.values(this.signal)[0][i].message)
+        this.deposit.push(Object.values(this.signal)[0][i])
+      }
+      console.log(this.deposit)
       this.deposit = this.deposit.sort(function(a,b){
         return new Date(b.event_date) - new Date(a.event_date);
       });
     },
+  //   getSignal: async function() {
+  //     let res = await axios.get(process.env.API_BASE_URL + '/getsignalall') 
+  //     this.signal = res.data
+  //     var size = Object.values(this.signal)[0].length
+  //     for (var i = 0; i < size; i++) {
+  //       console.log(Object.values(this.signal)[0][i])
+  //       this.deposit.push(Object.values(this.signal)[0][i])
+  //     }
+  //     console.log(this.deposit)
+  //  },
     }
 }
 </script>

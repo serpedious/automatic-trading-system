@@ -11,7 +11,9 @@ require (
 	github.com/lib/pq v1.9.0
 	github.com/markcheno/go-talib v0.0.0-20190307022042-cd53a9264d70
 	github.com/mattn/go-sqlite3 v1.14.7
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rs/cors v1.7.0
+	github.com/slack-go/slack v0.10.1
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
 	golang.org/x/tools v0.0.0-20190524140312-2c0ae7006135 // indirect
 	google.golang.org/genproto v0.0.0-20211208223120-3a66f561d7aa // indirect

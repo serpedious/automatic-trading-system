@@ -2,6 +2,7 @@
 <div>
 <div class="d-flex justify-start">
 <CandleChart/>
+<Automatic/>
  <v-card class="ml-3 pa-4" width="500px" height="365px" v-if="balancelists.length">
     <v-card-title class="pb-5">
       <h3>My Assets</h3>
@@ -56,10 +57,12 @@
 <script>
 import axios from 'axios'
 import CandleChart from '../molecules/CandleChart'
+import Automatic from '../molecules/Automatic.vue'
 import TradeTable from './TableTrade'
 export default {
   components: {
     CandleChart,
+    Automatic,
     TradeTable,
   },
   name: 'TableChart',

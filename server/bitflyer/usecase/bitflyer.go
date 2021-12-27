@@ -11,12 +11,14 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/markcheno/go-talib"
+	"github.com/slack-go/slack"
 
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/config"
@@ -576,6 +578,7 @@ func (s *SignalEvent) Save() bool {
 		}
 		return false
 	}
+	SlackNotificationOfTrade(s.ProductCode, s.Side, s.Price)
 	return true
 }
 
@@ -762,16 +765,14 @@ func (df *DataFrameCandle) AddEvents(timeTime time.Time) bool {
 }
 
 func AutomaticNotification() {
-	fmt.Println("automatic trade*****************************************8")
-	fmt.Println(time.Now().UTC())
-		period := 14
-		df, _ := GetAllCandle("BTC_JPY", time.Minute, 365)
-		if period < 14 {
-			fmt.Println("less data set compare with config")
-		}
-		df.BackTestRsi(period, 30.0, 70.0)
-	
+	period := 14
+	df, _ := GetAllCandle("BTC_JPY", time.Minute, 365)
+	if period < 14 {
+		fmt.Println("less data set compare with config")
+	}
+	df.BackTestRsi(period, 30.0, 70.0)
 }
+
 // [0 0 0 0 0 0 0 0 0 0 0 0 0 0 62.1655423330554 62.01873018642934 63.04765739783426 63.6225892333548 60.97913445887541 60.77441890552207 59.32740321961276 61.66926634129186 54.44129625238412 67.36773168376943 69.40364567915516 53.928394232696256 54.52379691208941]
 func (df *DataFrameCandle) BackTestRsi(period int, buyThread, sellThread float64) *SignalEvents {
 	lenCandles := len(df.Candles)
@@ -784,10 +785,8 @@ func (df *DataFrameCandle) BackTestRsi(period int, buyThread, sellThread float64
 	secondLastValue := values[lenCandles-2]
 	fmt.Println(secondLastValue)
 	fmt.Println(lastValue)
-
 	fmt.Print(values)
 
-	
 	if secondLastValue == 0 || secondLastValue == 100 {
 		return nil
 	}
@@ -802,4 +801,16 @@ func (df *DataFrameCandle) BackTestRsi(period int, buyThread, sellThread float64
 	}
 
 	return SignalEvents
+}
+
+func SlackNotificationOfTrade(productCode, side string, price float64) {
+	tkn := os.Getenv("SLACK_BOT_TOKEN")
+	c := slack.New(tkn)
+
+	message := "Notification: " + productCode + ", " + side + ", " + strconv.Itoa(int(price))
+	_, _, err := c.PostMessage("automatic-trading-notification", slack.MsgOptionText(message, true))
+	if err != nil {
+		fmt.Println("*********")
+		panic(err)
+	}
 }
