@@ -39,6 +39,7 @@ export default {
         withdraws: [{id: null, amount: null, event_date: null}],
       }
     },
+    
    mounted() {
       this.getAlert();
     },
