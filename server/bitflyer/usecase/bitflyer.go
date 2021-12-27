@@ -762,53 +762,44 @@ func (df *DataFrameCandle) AddEvents(timeTime time.Time) bool {
 }
 
 func AutomaticNotification() {
-	for {
+	fmt.Println("automatic trade*****************************************8")
+	fmt.Println(time.Now().UTC())
+		period := 14
 		df, _ := GetAllCandle("BTC_JPY", time.Minute, 365)
-		df.BackTestRsi(14, 30.0, 70.0)	
-	}
+		if period < 14 {
+			fmt.Println("less data set compare with config")
+		}
+		df.BackTestRsi(period, 30.0, 70.0)
+	
 }
-
+// [0 0 0 0 0 0 0 0 0 0 0 0 0 0 62.1655423330554 62.01873018642934 63.04765739783426 63.6225892333548 60.97913445887541 60.77441890552207 59.32740321961276 61.66926634129186 54.44129625238412 67.36773168376943 69.40364567915516 53.928394232696256 54.52379691208941]
 func (df *DataFrameCandle) BackTestRsi(period int, buyThread, sellThread float64) *SignalEvents {
 	lenCandles := len(df.Candles)
 	if lenCandles <= period {
 		return nil
 	}
-
 	SignalEvents := NewSignalEvents()
 	values := talib.Rsi(df.Closes(), period)
-	for i := 1; i < lenCandles; i++ {
-		if values[i-1] == 0 || values[i-1] == 100 {
-			continue
-		}
-		if values[i-1] < buyThread && values[i] > buyThread {
-			SignalEvents.Buy(df.ProductCode, df.Candles[i].Time, df.Candles[i].Close, 1.0, false)
-			fmt.Println("************************** Buy ***********************")
-		}
+	lastValue := values[lenCandles-1]
+	secondLastValue := values[lenCandles-2]
+	fmt.Println(secondLastValue)
+	fmt.Println(lastValue)
 
-		if values[i-1] > sellThread && values[i] <= sellThread {
-			SignalEvents.Sell(df.ProductCode, df.Candles[i].Time, df.Candles[i].Close, 1.0, false)
-			fmt.Println("************************** Sell ***********************")
-		}
+	fmt.Print(values)
+
+	
+	if secondLastValue == 0 || secondLastValue == 100 {
+		return nil
 	}
+	if secondLastValue < buyThread && lastValue > buyThread {
+		SignalEvents.Buy(df.ProductCode, df.Candles[lenCandles-1].Time, df.Candles[lenCandles-1].Close, 1.0, true)
+		fmt.Println("************************** Buy ***********************")
+	}
+
+	if secondLastValue > sellThread && lastValue <= sellThread {
+		SignalEvents.Sell(df.ProductCode, df.Candles[lenCandles-1].Time, df.Candles[lenCandles-1].Close, 1.0, true)
+		fmt.Println("************************** Sell ***********************")
+	}
+
 	return SignalEvents
 }
-
-// func (df *DataFrameCandle) OptimizeRsi() (performance float64, bestPeriod int, bestBuyThread, bestSellThread float64) {
-// 	bestPeriod = 14
-// 	bestBuyThread, bestSellThread = 30.0, 70.0
-
-// 	for period := 5; period < 25; period++ {
-// 		SignalEvents := df.BackTestRsi(period, bestSellThread, bestSellThread)
-// 		if SignalEvents == nil {
-// 			continue
-// 		}
-// 		profit := SignalEvents.Profit()
-// 		if performance < profit {
-// 			performance = profit
-// 			bestPeriod = period
-// 			bestBuyThread = bestBuyThread
-// 			bestSellThread = bestSellThread
-// 		}
-// 	}
-// 	return performance, bestPeriod, bestBuyThread, bestSellThread
-// }
