@@ -3573,6 +3573,11 @@ deasync@^0.1.15:
     bindings "^1.5.0"
     node-addon-api "^1.7.1"
 
+debounce@^1.1.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
+  integrity sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==
+
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8:
   version "2.6.9"
   resolved "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"
@@ -10048,6 +10053,13 @@ vue-eslint-parser@^2.0.3:
     espree "^3.5.2"
     esquery "^1.0.0"
     lodash "^4.17.4"
+
+vue-google-charts@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/vue-google-charts/-/vue-google-charts-0.3.3.tgz#cb9662d07c662afbba1411177c09f7e17ac5e097"
+  integrity sha512-dvp5C0m3uAfB7PbAWPOqnYGJLUKyK0NPmnjOE8FDUhVySeErojOPZVd5zNOq4m9RhhwmNFP31bsxVYNb+0+f9w==
+  dependencies:
+    debounce "^1.1.0"
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"

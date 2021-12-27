@@ -1,55 +1,52 @@
 <template>
-<div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-    </script>
- <v-card width="700">
-    <v-card-title class="pl-8">
-      <h3>Bitcoin Chart</h3>
+<v-card class="ml-3" width="500px" height="365px" v-if="dataTable.length !== 1">
+   <v-card-title class="pb-5">
+      <h3>Chart</h3>
     </v-card-title>
-    <div id="chart_div" style="width: 700px; height: 300px;"></div>
- </v-card>
-</div>
+  <GChart
+      type="CandlestickChart"
+      :settings="chartsLib"
+      :data="dataTable"
+      :options="chartOptions"
+  />
+</v-card>
+  <v-card class="ml-3" width="500px" height="365px" v-else>
+    <v-card-actions class="justify-center pt-16">
+       <v-progress-circular
+         class="pt-16"
+          indeterminate
+          color="primary"
+          ></v-progress-circular>
+ </v-card-actions>
+  </v-card>
 </template>
 
 <script>
+import { GChart } from 'vue-google-charts'
 import axios from 'axios'
 export default {
-  props: {
-    crypto: '',
-    side: '',
-    amount: ''
+  components: {
+    GChart
   },
-  data() {
+  data () {
     return {
-      dataflame: null,
-      returnData: {
-        crypto: this.crypto,
-        side: this.side,
-        amount: this.amount
+      chartsLib: {packages: ['corechart']},
+      dataTable: [["x", "Low", "Close", "Open", "High"]],
+      chartOptions: {
+        legend:'none',
+        candlestick: {
+          fallingColor: {strokeWidth: 0, fill: '#a52714' },
+          risingColor: {strokeWidth: 0, fill: '#0f9d58' }, 
+      }
       }
     }
   },
-  mounted () {
-    this.getCandle();
+  mounted() {
     this.intervalFetchData();
   },
   methods: {
-    getCandle: async function () {
-      let res = await axios.get(process.env.API_BASE_URL + '/api/candle/')
-      this.dataflame = res.data
-      this.drawChart();
-    },
-    submit() {
-      this.$emit('clickSubmit', this.returnData)
-    },
-    cancel() {
-      this.$emit('clickSubmit', "")
-    },
-    drawChart() {
-    var dataTable = [];
+  drawChart() {
+    this.dataTable = [["x", "Low", "Close", "Open", "High"]]; 
     for (var i = 0; i < this.dataflame.candles.length; i++) {
         var candleData = []
         candleData.push(this.dataflame.candles[i]["time"])
@@ -57,28 +54,19 @@ export default {
         candleData.push(this.dataflame.candles[i]["open"])
         candleData.push(this.dataflame.candles[i]["close"])
         candleData.push(this.dataflame.candles[i]["high"])
-        dataTable.push(candleData)
+        this.dataTable.push(candleData)
         candleData = []
     } 
-    
-    var data = google.visualization.arrayToDataTable(dataTable, true);
-    var options = {
-      legend:'none',
-      candlestick: {
-          fallingColor: {strokeWidth: 0, fill: '#a52714' },
-          risingColor: {strokeWidth: 0, fill: '#0f9d58' }, 
-      }
-    };
-
-    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
-
-    chart.draw(data, options);
-    this.intervalFetchData();
-  },
-   intervalFetchData: function () {
+  },  
+  getCandle: async function () {
+      let res = await axios.get(process.env.API_BASE_URL + '/api/candle/')
+      this.dataflame = res.data
+      this.drawChart();
+    },
+  intervalFetchData: function () {
     setInterval(() => {    
       this.getCandle();
-    }, 10000);    
+    }, 1000);    
   }
   }
 }
