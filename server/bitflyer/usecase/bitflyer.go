@@ -538,6 +538,7 @@ func GetAllCandle(productCode string, duration time.Duration, limit int) (dfCand
 	defer rows.Close()
 
 	dfCandle = &DataFrameCandle{}
+	dfCandle.ProductCode = productCode
 	dfCandle.Duration = duration
 	for rows.Next() {
 		var candle bitflyer.Candle
