@@ -3,7 +3,9 @@
 <div class="d-flex justify-start">
 <CandleChart/>
 <Automatic/>
- <v-card class="ml-3 pa-4" width="500px" height="365px" v-if="balancelists.length">
+ </div>
+ <div class="d-flex justify-start">
+ <v-card lass=fluid style="margin: 2px; padding: 30px; width: 100%" v-if="balancelists.length">
     <v-card-title class="pb-5">
       <h3>My Assets</h3>
     </v-card-title>
@@ -38,7 +40,7 @@
       </template>
     </v-simple-table>
  </v-card>
- <v-card class="pt-16 text-center ml-3" width="500px" height="365px" v-else>
+ <v-card lass=fluid style="margin: 5px; padding: 30px; width: 100%" v-else>
  <v-card-actions class="justify-center pt-16">
        <v-progress-circular
          class="pt-16"
@@ -47,8 +49,6 @@
           ></v-progress-circular>
  </v-card-actions>
  </v-card>
- </div>
- <div>
 <TradeTable/>
 </div>
 </div>

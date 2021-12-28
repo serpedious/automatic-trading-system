@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mx-auto mb-5 pa-5" width="1150px">
+    <v-card lass=fluid style="margin: 5px; padding: 30px; width: 100%">
  <v-simple-table dense>
     <template v-slot:default>
       <thead>

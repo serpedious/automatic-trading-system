@@ -1,6 +1,6 @@
 <template>
   <section>
-  <v-card class="mx-auto pa-5 ma-3 ml-4" width="570px">
+  <v-card lass=fluid style="margin: 5px; padding: 30px; width: 99%">
     <v-card-title class="pb-5">
       <h3>CSV</h3>
     </v-card-title>

@@ -1,20 +1,71 @@
 <template>
-<v-card class="ml-3 pa-8" width="500px" height="365px">
-   <v-card-title class="pb-5">
+<v-card lass=fluid style="margin: 2px; padding: 30px; width: 100%">
+   <v-card-title class="pl-5">
     <h3>Automatic Trade</h3>
     </v-card-title>
-    <h4>Border</h4>
-    <h5>upper: 70</h5>
-    <h5>lower: 30</h5>
-     <tbody>
-        <tr
-        v-for="rsi of rsi_data" :key="rsi.msg"
-        >
-        <td><h4>{{ rsi.msg }} -> {{ rsi.value }}</h4></td>
+     <v-alert
+      dense
+      shaped
+      outlined
+      text
+      type="success"
+    >
+      RSI Border Condition: <strong>  Upper: 70 - Lower: 30 </strong>
+    </v-alert>
+    <div class="pl-7">
+      <h5>RSI Values</h5>
+     <v-simple-table dense>
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th class="text-left">
+            Term
+          </th>
+          <th class="text-left">
+            Value
+          </th>
         </tr>
-    </tbody>
-    <h4>Last Trade Notification</h4>
-    <h5>{{ signal_data.product_code }}: (Price ->{{ signal_data.price }}, Side ->{{ signal_data.side }}, Time ->{{ signal_data.time }})</h5>
+      </thead>
+      <tbody>
+        <tr
+          v-for="rsi of rsi_data" :key="rsi.msg"
+        >
+          <td>{{ rsi.msg }}</td>
+          <td>{{ rsi.value }}</td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table><br>
+      <h5>Last Trade Notification</h5>
+      <v-simple-table dense>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th class="text-left">
+              Crypto Name
+            </th>
+            <th class="text-left">
+              Side
+            </th>
+            <th class="text-left">
+              Price
+            </th>
+            <th class="text-left">
+              Time
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ signal_data.product_code }}</td>
+            <td>{{ signal_data.price }}</td>
+            <td>{{ signal_data.side }}</td>
+            <td>{{ signal_data.time }}</td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+    </div>
 </v-card>
 </template>
 
@@ -32,8 +83,8 @@ export default {
       signal: [],
       rsis: [],
       rsi_data: [
-        { msg: 'second value', value: null},
-        { msg: 'last value', value: null}
+        { msg: 'Current the second value to last', value: null},
+        { msg: 'Current last value', value: null}
       ],
     }
   },
@@ -60,7 +111,6 @@ export default {
    },
    intervalFetchRsi: function () {
     setInterval(() => {    
-     console.log("(((((((((((9((((99")
      this.getRsi();
      this.getSignal();
     }, 1000 * 60);    

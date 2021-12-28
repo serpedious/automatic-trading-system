@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mt-3 pa-7" width="1300">
+  <v-card lass=fluid style="margin: 2px; padding: 30px; width: 100%">
     <v-card-title>
       <h3>Trade</h3>
     </v-card-title>
@@ -26,17 +26,17 @@
         :key="item.tab"
       >
         <v-card flat color="">
-          <v-card-text class="text-h5">{{ item.content }}</v-card-text>
+          <v-card-text>{{ item.content }}</v-card-text>
+<div class="pl-5 text-h5">
+              Value: {{ item.value }} JPY
+</div>
           <div class="d-flex justify-start">
-          <img width="100px" height="100px" :src="item.img"/>
-          <div class="text-h5 mx-auto">
-            Value: {{ item.value }} JPY
-          </div>
-            <OrderButton/>
-          <div class="mx-auto mt-3 mb-3">
-            Your Balance: Japanese Yen {{ item.jpy }} JPY
-          </div>
-          </div>
+          <img style="margin-left: 25px" class="pl-5" width="100px" height="100px" :src="item.img"/>
+          <div style="margin-left: 150px; margin-top: -30px">
+            <OrderButton/><br>
+            Japanese Yen: {{ item.jpy }} JPY
+            </div>
+                </div>
         </v-card>
       </v-tab-item>
     </v-tabs-items>

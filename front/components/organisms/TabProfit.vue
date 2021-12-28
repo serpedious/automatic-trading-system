@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-5 ma-3" width="570px">
+  <v-card lass=fluid style="margin: 5px; padding: 30px; width: 99%">
     <v-card-title class="pb-5">
       <h3>Profit</h3>
     </v-card-title>

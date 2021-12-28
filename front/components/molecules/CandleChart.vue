@@ -1,12 +1,12 @@
 <template>
-<v-card class="ml-3" width="500px" height="365px" v-if="dataTable.length !== 1">
+<v-card lass=fluid style="margin: 2px; padding: 30px; width: 100%" v-if="dataTable.length !== 1">
    <v-card-title class="pb-5">
       <h3>Chart</h3>
     </v-card-title>
-    <div>
-    <v-btn @click="changeDuration('1s');">1s</v-btn>
-    <v-btn @click="changeDuration('1m');">1m</v-btn>
-    <v-btn @click="changeDuration('1h');">1h</v-btn>
+    <div class="pb-2">
+    <v-btn small @click="changeDuration('1s');">1s</v-btn>
+    <v-btn small @click="changeDuration('1m');">1m</v-btn>
+    <v-btn small @click="changeDuration('1h');">1h</v-btn>
     </div>
   <GChart
       type="CandlestickChart"
@@ -15,7 +15,7 @@
       :options="chartOptions"
   />
 </v-card>
-  <v-card class="ml-3" width="500px" height="365px" v-else>
+  <v-card lass=fluid style="margin: 5px; padding: 30px; width: 100%" v-else>
     <v-card-actions class="justify-center pt-16">
        <v-progress-circular
          class="pt-16"
