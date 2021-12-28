@@ -1,10 +1,10 @@
 # automatic-trading-system
 
 ### Infra Architecture Image URL
-(https://cacoo.com/diagrams/xLW2Cih0XiKMCfvU/EDA53)
+`https://cacoo.com/diagrams/xLW2Cih0XiKMCfvU/EDA53`
 
 ### DB Design Image URL
-(https://app.diagrams.net/#G1_QAdHhH8cdyf7nwVqn0OkZNsAbn0t9H\_)
+`https://app.diagrams.net/#G1_QAdHhH8cdyf7nwVqn0OkZNsAbn0t9H_`
 
 ### you need to excute items below
 - make files listed in .gitignore
