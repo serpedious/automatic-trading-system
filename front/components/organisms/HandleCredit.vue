@@ -35,11 +35,11 @@ export default {
   data () {
       return {
         alerts: [],
-        deposit: [{id: null, amount: null, event_date: null, order_id: null, flag: null, message: null}],
-        withdraws: [{id: null, amount: null, event_date: null}],
+        deposit: [],
+        withdraws: [],
       }
     },
-    
+
    mounted() {
       this.getAlert();
     },
@@ -62,14 +62,6 @@ export default {
           this.deposit[i].message = "You withdrawed"
         }
       }
-      let resp = await axios.get(process.env.API_BASE_URL + '/getsignalall') 
-      this.signal = resp.data
-      var size = Object.values(this.signal)[0].length
-      for (var i = 0; i < size; i++) {
-        console.log(Object.values(this.signal)[0][i].message)
-        this.deposit.push(Object.values(this.signal)[0][i])
-      }
-      console.log(this.deposit)
       this.deposit = this.deposit.sort(function(a,b){
         return new Date(b.event_date) - new Date(a.event_date);
       });

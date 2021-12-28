@@ -13,39 +13,32 @@
       slider-color="purple"
     >
       <v-tab
-        v-for="item in items"
-        :key="item.tab"
+        v-for="tab in tabs"
+        :key="tab"
+        @click="selected = tab;"
+        :class="['tab-btn', { active: selected === tab }]"
       >
-        {{ item.tab }}
+        {{ tab }}
       </v-tab>
     </v-tabs>
-    
-
-    <v-tabs-items v-model="tab">
-      <v-tab-item
-        v-for="item in items"
-        :key="item.tab"
-      >
-       <TableAlert/>
-      </v-tab-item>
-    </v-tabs-items>
+    <component :is="selected" class="tab"></component>
   </v-card>
 </section>
 </template>
 
 <script>
-import TableAlert from '~/components/organisms/TableAlert.vue'
+import HandleCredit from '~/components/organisms/HandleCredit.vue'
+import TradeNotification from '~/components/organisms/TradeNotification'
   export default {
     name: 'Csv',
     components: {
-      TableAlert,
+      HandleCredit,
+      TradeNotification
     },
     data () {
       return {
-        tab: null,
-        items: [
-          { tab: 'Activity', content: 'Tab 1 Content' },
-        ],
+        tabs: ["HandleCredit", "TradeNotification"],
+        selected: "HandleCredit"
       }
     },
   }
