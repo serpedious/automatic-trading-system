@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Sat Dec 25 16:04:10 2021
+# Make data base, printed on Tue Dec 28 16:34:31 2021
 
 # Variables
 
@@ -52,7 +52,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/wm/ss4rnks50zxd6y3r9yjdz7000000gn/T/vscode-ipc-1af5602b-a1da-4623-92cd-c680a1f9ed29.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/wm/ss4rnks50zxd6y3r9yjdz7000000gn/T/vscode-ipc-134cf4cc-2ee7-4196-b50d-ba3b34d8d911.sock
 # environment
 VSCODE_CWD = /Users/serpedious/go/src/github.com/serpedious/automatic-trading-system
 # environment
@@ -68,7 +68,7 @@ GOPATH = /Users/serpedious/go
 # environment
 NVM_BIN = /Users/serpedious/.nvm/versions/node/v14.15.1/bin
 # environment
-LaunchInstanceID = C207CD14-28D9-4B3E-86DE-256A82A3849B
+LaunchInstanceID = F49E5103-C31D-44F8-9680-985FDC3E2B87
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -76,11 +76,11 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.TcJlyOXOq1/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.6VKJEEz4ZN/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.NSlFgXnL7L/org.macosforge.xquartz:0
+DISPLAY = /private/tmp/com.apple.launchd.Qzn4Fbm45b/org.macosforge.xquartz:0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -132,7 +132,7 @@ USER = serpedious
 # default
 MAKECMDGOALS := all
 # environment
-TERM_SESSION_ID = w0t0p1:BE67432D-2D36-4105-AE94-A0546CCF8536
+TERM_SESSION_ID = w0t0p0:A9B4BC8D-7B71-40D6-A68E-865CD062814E
 # environment
 LESS = -R
 # automatic
@@ -160,7 +160,7 @@ TERM_PROGRAM_VERSION = 3.4.12
 # environment
 NVM_DIR = /Users/serpedious/.nvm
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.26994174.26994180.EA6D30C4-BFCA-48FF-A3BF-1E896DE0C1EF
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.26994174.26994180.74481446-3EE2-4ACB-ADAE-F2EDED5D78E8
 # environment
 LC_TERMINAL_VERSION = 3.4.12
 # environment
@@ -170,7 +170,7 @@ HOMEBREW_PREFIX = /opt/homebrew
 # automatic
 +F = $(notdir $+)
 # environment
-ITERM_SESSION_ID = w0t0p1:BE67432D-2D36-4105-AE94-A0546CCF8536
+ITERM_SESSION_ID = w0t0p0:A9B4BC8D-7B71-40D6-A68E-865CD062814E
 # environment
 HOMEBREW_REPOSITORY = /opt/homebrew
 # environment
@@ -192,7 +192,7 @@ LC_ALL = C
 # environment
 AWS_DEFAULT_PROFILE = serpedious
 # environment
-SECURITYSESSIONID = 186a5
+SECURITYSESSIONID = 186ac
 # automatic
 ^F = $(notdir $^)
 # default
@@ -204,7 +204,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 4017
+VSCODE_PID = 8088
 # variable set hash-table stats:
 # Load=97/1024=9%, Rehash=0, Collisions=6/117=5%
 
@@ -214,9 +214,9 @@ VSCODE_PID = 4017
 
 # Directories
 
-# . (device 16777232, inode 2469717): 17 files, no impossibilities.
+# . (device 16777231, inode 2469717): 18 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -288,7 +288,7 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Sat Dec 25 16:04:10 2021
+# Finished Make data base on Tue Dec 28 16:34:31 2021
 
  
 make: *** No rule to make target `all'.  Stop.
