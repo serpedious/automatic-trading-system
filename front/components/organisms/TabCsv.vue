@@ -51,7 +51,6 @@ import axios from 'axios'
         tab: null,
         items: [
           { tab: 'history', content: 'Tab 1 Content' },
-          { tab: 'profit', content: 'Tab 2 Content' },
         ],
       }
     },
