@@ -4,7 +4,7 @@
 (https://cacoo.com/diagrams/xLW2Cih0XiKMCfvU/EDA53)
 
 ### DB Design Image URL
-(https://app.diagrams.net/#G1_QAdHhH8cdyf7nwVqn0OkZNsAbn0t9H_)
+(https://app.diagrams.net/#G1_QAdHhH8cdyf7nwVqn0OkZNsAbn0t9H\_)
 
 ### you need to excute items below
 - make files listed in .gitignore
