@@ -10,3 +10,4 @@ resource "aws_vpc" "automatic-trading-system" {
     Name = "automatic-trading-system"
   }
 }
+

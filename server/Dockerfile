@@ -5,9 +5,9 @@ COPY . .
 ENV GO111MODULE=on
 ENV CGO_ENABLED=1
 
-RUN go get github.com/pilu/fresh
+# RUN go get github.com/pilu/fresh
 EXPOSE 8000
-CMD ["fresh"]
+# CMD ["fresh"]
 
 RUN apt-get update -y && apt-get -y upgrade
 RUN apt-get install -y sqlite3
