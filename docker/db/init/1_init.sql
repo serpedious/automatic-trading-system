@@ -72,8 +72,8 @@ CREATE TABLE duration (
 
 
 
-INSERT INTO users (email, password) VALUES ('hoge@sample.co.jp', 'golang');
-INSERT INTO memos (content, done, user_id) VALUES ('test', true, 1);
+INSERT INTO users (email, password) VALUES ('guest@gmail.com', 'password');
+INSERT INTO memos (content, done, delete, user_id) VALUES ('test', false, false, 1);
 INSERT INTO profits (day, week, month, total, user_id) VALUES (1, 2, 3, 4, 1);
 INSERT INTO histories (name, side, amount, ta_date, user_id) VALUES ('BTC', 'SELL', 1, '2021-12-31', 1);
 INSERT INTO tickers (day, week, month) VALUES (1, 2, 3);

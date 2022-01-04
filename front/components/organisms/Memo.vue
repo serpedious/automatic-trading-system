@@ -92,12 +92,12 @@ export default {
       if (this.newMemoContent.length <= 0) {
         console.log('please fill in something');
       } else {
-        this.allMemos.push(newMemo)
         let res = await axios.post(process.env.API_BASE_URL + "/creatememo", {
           content: this.newMemoContent
         });
-        this.newMemoContent = ''
         this.getAllMemos();
+        this.allMemos.push(newMemo)
+        this.newMemoContent = ''
      }
     },
     doneMemo: async function(id) {
