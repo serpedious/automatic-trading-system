@@ -58,7 +58,6 @@ jobs:
       - aws-s3/sync:
           from: front/dist
           to: s3://automatic-trading-system-s3-bucket-for-nuxt/
-          overwrite: true
       - slack/status:
           success_message: ':circleci-pass: $CIRCLE_BRANCH front deploy is success!\n:github_octocat: User：$CIRCLE_USERNAME'
           failure_message: ':circleci-fail: $CIRCLE_BRANCH front deploy is failed!\n:github_octocat: User：$CIRCLE_USERNAME'
