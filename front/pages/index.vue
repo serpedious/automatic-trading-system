@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <AppLogo/>
-      <h1>Automatic Trading System</h1>
+    <h1>Automatic Trading System</h1>
     </div>
     <v-btn
       :to="'/auth/signin'"
@@ -27,7 +26,7 @@ export default {
 <style scoped>
 .container {
   min-height: 100vh;
-  display: flex;
+  margin-top: 20%;
   justify-content: center;
   align-items: center;
   text-align: center
