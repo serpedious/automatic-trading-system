@@ -101,12 +101,12 @@ workflows:
   continuous-deploy:
     jobs:
       - test_server
-      # - deploy_server:
-      #     requires:
-      #       - test_server
-      #     filters:
-      #       branches:
-      #         only: main
+      - deploy_server:
+          requires:
+            - test_server
+          filters:
+            branches:
+              only: main
       - test_front
       - deploy_front:
           requires:
