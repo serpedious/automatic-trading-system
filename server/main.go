@@ -42,6 +42,8 @@ func main() {
 		Debug:            true,
 	}).Handler)
 
+	r.Get("/healthcheck", controllers.HealthCheck)
+
 	r.Get("/verify", controllers.TokenVerifyMiddleWare(controllers.VerifyEndpoint))
 	r.Post("/signup", controllers.Signup)
 	r.Post("/signin", controllers.Signin)
