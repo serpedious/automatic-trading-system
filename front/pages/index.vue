@@ -24,7 +24,7 @@ export default {
 <style scoped>
 .container {
   min-height: 100vh;
-  margin-top: 20%;
+  padding-top: 300px;
   justify-content: center;
   align-items: center;
   text-align: center
