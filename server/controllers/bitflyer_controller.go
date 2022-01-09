@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"regexp"
-	"strconv"
 	"time"
 
 	"github.com/markcheno/go-talib"
@@ -166,20 +165,22 @@ func ApiMakeHandler(fn func(http.ResponseWriter, *http.Request)) http.HandlerFun
 }
 
 func ApiCandleHandler(w http.ResponseWriter, r *http.Request) {
-	productCode := r.URL.Query().Get("product_code")
-	if productCode == "" {
-		productCode = config.Config.ProductCode
-	}
-	strLimit := r.URL.Query().Get("limit")
-	limit, err := strconv.Atoi(strLimit)
-	if strLimit == "" || err != nil || limit < 0 || limit > 1000 {
-		limit = 100
-	}
+	// productCode := r.URL.Query().Get("product_code")
+	// if productCode == "" {
+	// 	productCode = config.Config.ProductCode
+	// }
+	// // strLimit := r.URL.Query().Get("limit")
+	// limit, err := strconv.Atoi(strLimit)
+	// if strLimit == "" || err != nil || limit < 0 || limit > 1000 {
+	// 	limit = 100
+	// }
 
 	duration := r.URL.Query().Get("duration")
 	if duration == "" {
 		duration = "1m"
 	}
+	productCode := config.Config.ProductCode
+	limit := 100
 	durationTime := config.Config.Durations[duration]
 
 	df, _ := usecase.GetAllCandle(productCode, durationTime, limit)
