@@ -58,7 +58,7 @@ import axios from 'axios'
     downloadCsv: async function () {
       // let res = await axios.get(process.env.API_BASE_URL + '/getcsvfile')
     axios({
-      url: 'http://localhost:8000/getcsvfile',
+      url: process.env.API_BASE_URL + '/getcsvfile',
       method: 'GET',
       responseType: 'blob',
     }).then((response) => {
