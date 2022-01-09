@@ -445,6 +445,28 @@ func (c *Candle) Save() error {
 	return err
 }
 
+func CronDelete() error {
+	cmd_sec := "DELETE FROM BTC_JPY_1s WHERE time < (select time from (select * from BTC_JPY_1s order by time desc limit 42000) order by time asc limit 1);"
+	_, err := DbConnection.Exec(cmd_sec)
+	if err != nil {
+		return err
+	}
+
+	cmd_min := "DELETE FROM BTC_JPY_1m0s WHERE time < (select time from (select * from BTC_JPY_1m0s order by time desc limit 720) order by time asc limit 1);"
+	_, err = DbConnection.Exec(cmd_min)
+	if err != nil {
+		return err
+	}
+
+	cmd_hour := "DELETE FROM BTC_JPY_1h0m0s WHERE time < (select time from (select * from BTC_JPY_1h0m0s order by time desc limit 12) order by time asc limit 1);"
+	_, err = DbConnection.Exec(cmd_hour)
+	if err != nil {
+		return err
+	}
+
+	return err
+}
+
 func GetCandle(productCode string, duration time.Duration, dateTime time.Time) *Candle {
 	tableName := GetCandleTableName(productCode, duration)
 	cmd := fmt.Sprintf("SELECT time, open, close, high, low, volume FROM %s WHERE time = ?", tableName)

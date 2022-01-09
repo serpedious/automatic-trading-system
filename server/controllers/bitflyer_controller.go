@@ -9,13 +9,22 @@ import (
 	"strconv"
 	"time"
 
-	
 	"github.com/markcheno/go-talib"
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/bitflyer/usecase"
 	"github.com/serpedious/automatic-trading-system/server/config"
 	"github.com/serpedious/automatic-trading-system/server/utils"
 )
+
+func CleanUpStreamData() {
+	for {
+		time.Sleep(time.Hour * 12)
+		err := usecase.CronDelete()
+		if err != nil {
+			log.Fatalln("clean up error")
+		}
+	}
+}
 
 func StreamIngectionData() {
 	var tickerChannl = make(chan usecase.Ticker)

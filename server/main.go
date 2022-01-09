@@ -23,6 +23,7 @@ func main() {
 	utils.LoggingSettings(config.Config.LogFile)
 
 	go controllers.StreamIngectionData()
+	go controllers.CleanUpStreamData()
 
 	r := chi.NewRouter()
 
