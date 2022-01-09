@@ -34,6 +34,7 @@ func main() {
 			"http://localhost:*",
 			"https://localhost:*",
 			"https://api.serpedious.link:*",
+			"https://serpedious.link:*",
 		},
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "Set-Cookie"},
