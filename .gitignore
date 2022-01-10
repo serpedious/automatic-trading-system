@@ -3,6 +3,7 @@
 server/config.ini
 server/gotrading.log
 server/.env
+server/tmp/runner-build
 
 
 terraform/.envrc
