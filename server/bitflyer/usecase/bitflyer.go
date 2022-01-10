@@ -377,8 +377,6 @@ func (api *APIClient) GetRealTimeTicker(symbol string, ch chan<- Ticker) {
 
 OUTER:
 	for {
-		fmt.Println(c)
-		fmt.Println("&&&&&&&&&&&&&&&&&")
 		message := new(bitflyer.JsonRPC2)
 		if err := c.ReadJSON(message); err != nil {
 			log.Println("read:", err)
@@ -392,16 +390,10 @@ OUTER:
 					if key == "message" {
 						marshaTic, err := json.Marshal(binary)
 						if err != nil {
-							fmt.Println(err)
-							fmt.Println(message)
-							fmt.Println("*********************************8")
 							continue OUTER
 						}
 						var ticker Ticker
 						if err := json.Unmarshal(marshaTic, &ticker); err != nil {
-							fmt.Println(err)
-							fmt.Println(message)
-							fmt.Println("**fasdffffffffas")
 							continue OUTER
 						}
 						ch <- ticker
