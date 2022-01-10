@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -46,7 +45,6 @@ func EditPass(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	v := "completed update"
-	fmt.Println(v)
 
 	w.WriteHeader(http.StatusOK)
 	utils.ResponseByJSON(w, v)
@@ -122,7 +120,6 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 
 	useremail := u.Email
 	utils.Mail(useremail)
-	
 	http.SetCookie(w, atCookie)
 	w.Header().Set("Content-Type", "application/json")
 	utils.ResponseByJSON(w, u)

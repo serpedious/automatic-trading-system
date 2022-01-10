@@ -37,12 +37,10 @@ export default {
           this.dialog = false
           return
       }
-      console.log(params)
       this.dialog = false
       this.crypto = params.crypto
       this.side = params.side
       this.amount = parseFloat(params.amount)
-      console.log(this.crypto)
       this.sendOrder();
     },
     sendOrder: async function() {

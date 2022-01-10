@@ -45,10 +45,10 @@
               Crypto Name
             </th>
             <th class="text-left">
-              Side
+              Price
             </th>
             <th class="text-left">
-              Price
+              Side
             </th>
             <th class="text-left">
               Time
@@ -113,7 +113,7 @@ export default {
     setInterval(() => {    
      this.getRsi();
      this.getSignal();
-    }, 1000 * 60);    
+    }, 1000);    
    }
   }
 }

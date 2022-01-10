@@ -22,6 +22,7 @@ import (
 
 	"github.com/serpedious/automatic-trading-system/server/bitflyer"
 	"github.com/serpedious/automatic-trading-system/server/config"
+	"github.com/serpedious/automatic-trading-system/server/tool"
 )
 
 type Ticker bitflyer.Ticker
@@ -95,7 +96,7 @@ func (api *APIClient) doRequest(method, urlPath string, query map[string]string,
 func (api *APIClient) GetBalance() ([]bitflyer.Balance, error) {
 	url := "me/getbalance"
 	resp, err := api.doRequest("GET", url, map[string]string{}, nil)
-	log.Printf("url=%s resp=%s", url, string(resp))
+	// log.Printf("url=%s resp=%s", url, string(resp))
 	if err != nil {
 		log.Printf("action=GetBalance err=%s", err.Error())
 		return nil, err
@@ -127,7 +128,6 @@ func CalcMyAssets(ticker_data []*bitflyer.AssetsTicker, balance_data []bitflyer.
 	for i := 0; i < len(balance_data); i++ {
 		curr_balance := balance_data[i]
 		for key, value := range set_name_ltp {
-			fmt.Println(key)
 			if key == curr_balance.CurrentCode {
 				jpy_value := curr_balance.Available * value
 				myasset.Crpto = key
@@ -145,7 +145,7 @@ func CalcMyAssets(ticker_data []*bitflyer.AssetsTicker, balance_data []bitflyer.
 func (api *APIClient) GetBalanceHistory(query map[string]string) ([]bitflyer.BalanceHistory, error) {
 	url := "me/getbalancehistory"
 	resp, err := api.doRequest("GET", url, query, nil)
-	log.Printf("url=%s resp=%s", url, string(resp))
+	// log.Printf("url=%s resp=%s", url, string(resp))
 	if err != nil {
 		log.Printf("action=GetBalance err=%s", err.Error())
 		return nil, err
@@ -260,7 +260,6 @@ func (api *APIClient) CalcProfit(asset float64, jpy float64) (float64, error) {
 	var withdrawals []bitflyer.Withdrawals
 	err = json.Unmarshal(resp, &withdrawals)
 	if err != nil {
-		fmt.Println(err)
 		return 0, err
 	}
 
@@ -277,7 +276,6 @@ func (api *APIClient) CalcProfit(asset float64, jpy float64) (float64, error) {
 	var deposit []bitflyer.Deposits
 	err = json.Unmarshal(deposit_resp, &deposit)
 	if err != nil {
-		fmt.Println(err)
 		return 0, err
 	}
 	var all_deposit float64
@@ -293,7 +291,6 @@ func (api *APIClient) CalcProfit(asset float64, jpy float64) (float64, error) {
 	var coinin []bitflyer.Coins
 	err = json.Unmarshal(coinin_resp, &coinin)
 	if err != nil {
-		fmt.Println(err)
 		return 0, err
 	}
 	var all_coinins float64
@@ -309,7 +306,6 @@ func (api *APIClient) CalcProfit(asset float64, jpy float64) (float64, error) {
 	var coinout []bitflyer.Coins
 	err = json.Unmarshal(coinout_resp, &coinout)
 	if err != nil {
-		fmt.Println(err)
 		return 0, err
 	}
 
@@ -364,7 +360,7 @@ func (api *APIClient) ListOrder(query map[string]string) ([]bitflyer.Order, erro
 
 func (api *APIClient) GetRealTimeTicker(symbol string, ch chan<- Ticker) {
 	u := url.URL{Scheme: "wss", Host: "ws.lightstream.bitflyer.com", Path: "/json-rpc"}
-	log.Printf("connecting to %s", u.String())
+	// log.Printf("connecting to %s", u.String())
 
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
@@ -428,8 +424,11 @@ func (c *Candle) TableName() string {
 }
 
 func (c *Candle) Create() error {
-	cmd := fmt.Sprintf("INSERT INTO %s (time, open, close, high, low, volume) VALUES (?, ?, ?, ?, ?, ?)", c.TableName())
-	_, err := DbConnection.Exec(cmd, c.Time.Format(time.RFC3339), c.Open, c.Close, c.High, c.Low, c.Volume)
+	Db := tool.NewDb()
+	defer Db.Close()
+
+	cmd := fmt.Sprintf("INSERT INTO %s (time, open, close, high, low, volume) VALUES ($1, $2, $3, $4, $5, $6)", c.TableName())
+	_, err := Db.Exec(cmd, c.Time.Format(time.RFC3339), c.Open, c.Close, c.High, c.Low, c.Volume)
 	if err != nil {
 		return err
 	}
@@ -437,8 +436,11 @@ func (c *Candle) Create() error {
 }
 
 func (c *Candle) Save() error {
-	cmd := fmt.Sprintf("UPDATE %s SET open = ?, close = ?, high = ?, low = ?, volume = ? WHERE time = ?", c.TableName())
-	_, err := DbConnection.Exec(cmd, c.Open, c.Close, c.High, c.Low, c.Volume, c.Time.Format(time.RFC3339))
+	Db := tool.NewDb()
+	defer Db.Close()
+
+	cmd := fmt.Sprintf("UPDATE %s SET open = $1, close = $2, high = $3, low = $4, volume = $5 WHERE time = $6", c.TableName())
+	_, err := Db.Exec(cmd, c.Open, c.Close, c.High, c.Low, c.Volume, c.Time.Format(time.RFC3339))
 	if err != nil {
 		return err
 	}
@@ -446,20 +448,23 @@ func (c *Candle) Save() error {
 }
 
 func CronDelete() error {
-	cmd_sec := "DELETE FROM BTC_JPY_1s WHERE time < (select time from (select * from BTC_JPY_1s order by time desc limit 42000) order by time asc limit 1);"
-	_, err := DbConnection.Exec(cmd_sec)
+	Db := tool.NewDb()
+	defer Db.Close()
+
+	cmd_sec := "DELETE FROM BTC_JPY_1s WHERE time < (select time from (select * from BTC_JPY_1s order by time desc limit 50) AS hoge order by time asc limit 1);"
+	_, err := Db.Exec(cmd_sec)
 	if err != nil {
 		return err
 	}
 
-	cmd_min := "DELETE FROM BTC_JPY_1m0s WHERE time < (select time from (select * from BTC_JPY_1m0s order by time desc limit 720) order by time asc limit 1);"
-	_, err = DbConnection.Exec(cmd_min)
+	cmd_min := "DELETE FROM BTC_JPY_1m0s WHERE time < (select time from (select * from BTC_JPY_1m0s order by time desc limit 720) AS hoge order by time asc limit 1);"
+	_, err = Db.Exec(cmd_min)
 	if err != nil {
 		return err
 	}
 
-	cmd_hour := "DELETE FROM BTC_JPY_1h0m0s WHERE time < (select time from (select * from BTC_JPY_1h0m0s order by time desc limit 12) order by time asc limit 1);"
-	_, err = DbConnection.Exec(cmd_hour)
+	cmd_hour := "DELETE FROM BTC_JPY_1h0m0s WHERE time < (select time from (select * from BTC_JPY_1h0m0s order by time desc limit 12) AS hoge order by time asc limit 1);"
+	_, err = Db.Exec(cmd_hour)
 	if err != nil {
 		return err
 	}
@@ -468,9 +473,12 @@ func CronDelete() error {
 }
 
 func GetCandle(productCode string, duration time.Duration, dateTime time.Time) *Candle {
+	Db := tool.NewDb()
+	defer Db.Close()
+
 	tableName := GetCandleTableName(productCode, duration)
-	cmd := fmt.Sprintf("SELECT time, open, close, high, low, volume FROM %s WHERE time = ?", tableName)
-	row := DbConnection.QueryRow(cmd, dateTime.Format(time.RFC3339))
+	cmd := fmt.Sprintf("SELECT time, open, close, high, low, volume FROM %s WHERE time = $1", tableName)
+	row := Db.QueryRow(cmd, dateTime.Format(time.RFC3339))
 	var candle Candle
 	err := row.Scan(&candle.Time, &candle.Open, &candle.Close, &candle.High, &candle.Low, &candle.Volume)
 	if err != nil {
@@ -478,6 +486,18 @@ func GetCandle(productCode string, duration time.Duration, dateTime time.Time) *
 	}
 	return NewCandle(productCode, duration, candle.Time, candle.Open, candle.Close, candle.High, candle.Low, candle.Volume)
 }
+
+// func GetCandle(productCode string, duration time.Duration, dateTime time.Time) *Candle {
+// 	tableName := GetCandleTableName(productCode, duration)
+// 	cmd := fmt.Sprintf("SELECT time, open, close, high, low, volume FROM %s WHERE time = ?", tableName)
+// 	row := DbConnection.QueryRow(cmd, dateTime.Format(time.RFC3339))
+// 	var candle Candle
+// 	err := row.Scan(&candle.Time, &candle.Open, &candle.Close, &candle.High, &candle.Low, &candle.Volume)
+// 	if err != nil {
+// 		return nil
+// 	}
+// 	return NewCandle(productCode, duration, candle.Time, candle.Open, candle.Close, candle.High, candle.Low, candle.Volume)
+// }
 
 func CreateCandleWithDuration(ticker Ticker, productCode string, duration time.Duration) bool {
 	currentCandle := GetCandle(productCode, duration, ticker.TruncateDateTime(duration))
@@ -551,11 +571,14 @@ func (df *DataFrameCandle) Volumes() []float64 {
 }
 
 func GetAllCandle(productCode string, duration time.Duration, limit int) (dfCandle *DataFrameCandle, err error) {
+	Db := tool.NewDb()
+	defer Db.Close()
+
 	tableName := GetCandleTableName(productCode, duration)
 	cmd := fmt.Sprintf(`SELECT * FROM (
-		SELECT time, open, close, high, low, volume FROM %s ORDER BY time DESC LIMIT ?
-		) ORDER BY time ASC;`, tableName)
-	rows, err := DbConnection.Query(cmd, limit)
+		SELECT time, open, close, high, low, volume FROM %s ORDER BY time DESC LIMIT $1
+		) AS candle ORDER BY time ASC;`, tableName)
+	rows, err := Db.Query(cmd, limit)
 	if err != nil {
 		return
 	}
@@ -591,8 +614,11 @@ type SignalEvents struct {
 }
 
 func (s *SignalEvent) Save() bool {
-	cmd := fmt.Sprintf("INSERT INTO %s(time, product_code, side, price, size) VALUES (?, ?, ?, ?, ?)", tableNameSignalEvents)
-	_, err := DbConnection.Exec(cmd, s.Time.Format(time.RFC3339), s.ProductCode, s.Side, s.Price, s.Size)
+	Db := tool.NewDb()
+	defer Db.Close()
+
+	cmd := fmt.Sprintf("INSERT INTO %s(time, product_code, side, price, size) VALUES ($1, $2, $3, $4, $5)", tableNameSignalEvents)
+	_, err := Db.Exec(cmd, s.Time.Format(time.RFC3339), s.ProductCode, s.Side, s.Price, s.Size)
 	if err != nil {
 		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
 			log.Println(err)
@@ -609,10 +635,13 @@ func NewSignalEvents() *SignalEvents {
 }
 
 func GetSignalEventsByCount(loadEvents int) *bitflyer.SignalEvents {
+	Db := tool.NewDb()
+	defer Db.Close()
+
 	cmd := fmt.Sprintf(`SELECT * FROM (
-		SELECT time, product_code, side, price, size FROM %s WHERE product_code = ? ORDER BY time DESC LIMIT ? )
+		SELECT time, product_code, side, price, size FROM %s WHERE product_code = $1 ORDER BY time DESC LIMIT $2 ) AS signal 
 		ORDER BY time ASC;`, tableNameSignalEvents)
-	rows, err := DbConnection.Query(cmd, config.Config.ProductCode, loadEvents)
+	rows, err := Db.Query(cmd, config.Config.ProductCode, loadEvents)
 	if err != nil {
 		return nil
 	}
@@ -632,12 +661,16 @@ func GetSignalEventsByCount(loadEvents int) *bitflyer.SignalEvents {
 }
 
 func GetSignalEventsAfterTime(timeTime time.Time) *bitflyer.SignalEvents {
+	Db := tool.NewDb()
+	defer Db.Close()
+
 	cmd := fmt.Sprintf(`SELECT * FROM (
 		SELECT time, product_code, side, price, size FROM %s 
-		WHERE DATETIME(time) >= DATETIME(?)
+		WHERE time >= $1
 		ORDER BY time DESC
-	) ORDER BY time ASC;`, tableNameSignalEvents)
-	rows, err := DbConnection.Query(cmd, timeTime.Format(time.RFC3339))
+	) AS signal ORDER BY time ASC;`, tableNameSignalEvents)
+
+	rows, err := Db.Query(cmd, timeTime.Format(time.RFC3339))
 	if err != nil {
 		return nil
 	}
@@ -671,7 +704,8 @@ func (s *SignalEvents) CanBuy(time time.Time) bool {
 func (s *SignalEvents) CanSell(time time.Time) bool {
 	lenSignals := len(s.Signals)
 	if lenSignals == 0 {
-		return false
+		log.Println("you do not have stocks you have, so you can not sell in real system")
+		return true
 	}
 	lastSignal := s.Signals[lenSignals-1]
 	if lastSignal.Side == "BUY" && lastSignal.Time.Before(time) {
@@ -788,7 +822,7 @@ func (df *DataFrameCandle) AddEvents(timeTime time.Time) bool {
 
 func AutomaticNotification() {
 	period := 14
-	df, _ := GetAllCandle("BTC_JPY", time.Minute, 365)
+	df, _ := GetAllCandle("BTC_JPY", time.Second, 365)
 	if period < 14 {
 		fmt.Println("less data set compare with config")
 	}
@@ -805,21 +839,19 @@ func (df *DataFrameCandle) BackTestRsi(period int, buyThread, sellThread float64
 	values := talib.Rsi(df.Closes(), period)
 	lastValue := values[lenCandles-1]
 	secondLastValue := values[lenCandles-2]
-	fmt.Println(secondLastValue)
-	fmt.Println(lastValue)
-	fmt.Print(values)
 
 	if secondLastValue == 0 || secondLastValue == 100 {
 		return nil
 	}
 	if secondLastValue < buyThread && lastValue > buyThread {
+		fmt.Println(SignalEvents)
 		SignalEvents.Buy(df.ProductCode, df.Candles[lenCandles-1].Time, df.Candles[lenCandles-1].Close, 1.0, true)
 		fmt.Println("************************** Buy ***********************")
 	}
 
 	if secondLastValue > sellThread && lastValue <= sellThread {
-		SignalEvents.Sell(df.ProductCode, df.Candles[lenCandles-1].Time, df.Candles[lenCandles-1].Close, 1.0, true)
 		fmt.Println("************************** Sell ***********************")
+		SignalEvents.Sell(df.ProductCode, df.Candles[lenCandles-1].Time, df.Candles[lenCandles-1].Close, 1.0, true)
 	}
 
 	return SignalEvents
@@ -832,7 +864,6 @@ func SlackNotificationOfTrade(productCode, side string, price float64) {
 	message := "Notification: " + productCode + ", " + side + ", " + strconv.Itoa(int(price))
 	_, _, err := c.PostMessage("automatic-trading-notification", slack.MsgOptionText(message, true))
 	if err != nil {
-		fmt.Println("*********")
 		panic(err)
 	}
 }

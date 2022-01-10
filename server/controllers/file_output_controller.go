@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"reflect"
 	"strconv"
@@ -40,7 +39,6 @@ func GetCsvFile(w http.ResponseWriter, r *http.Request) {
 				value = v.(string)
 			}
 			w.Write([]byte(value + ","))
-			fmt.Println(value)
 		}
 		w.Write([]byte("\n"))
 	}

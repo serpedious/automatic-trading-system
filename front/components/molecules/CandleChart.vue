@@ -71,7 +71,7 @@ export default {
   },
   methods: {
   drawChart() {
-    this.dataTable = [["x", "Low", "Close", "Open", "High"]]; 
+    this.dataTable = [["x", "Low", "Close", "Open", "High"]];
     for (var i = 0; i < this.dataflame.candles.length; i++) {
         var candleData = []
         candleData.push(this.dataflame.candles[i]["time"])
@@ -82,7 +82,7 @@ export default {
         this.dataTable.push(candleData)
         candleData = []
     } 
-  },  
+  },
   getCandle: async function () {
     var params = {
         "product_code": this.config.candlestick.product_code,

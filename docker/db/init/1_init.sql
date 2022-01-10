@@ -105,3 +105,17 @@ INSERT INTO BTC_JPY_1s (time, open, close, high, low, volume) VALUES ('2006-01-0
 INSERT INTO BTC_JPY_1m0s (time, open, close, high, low, volume) VALUES ('2006-01-02T15:04:05Z07:00', 449.34820443, 449.34820443, 555000.03, 449.34820443, 449.34820443);
 INSERT INTO BTC_JPY_1h0m0s (time, open, close, high, low, volume) VALUES ('2006-01-02T15:04:05Z07:00', 449.34820443, 449.34820443, 555000.03, 449.34820443, 449.34820443);
 
+
+-- get signalevent
+-- SELECT * FROM 
+-- (SELECT time, product_code, side, price, size 
+-- FROM signal_events 
+-- WHERE product_code = 'BTC_JPY' 
+-- ORDER BY time DESC LIMIT 10) 
+-- AS signal ORDER BY time ASC;
+
+-- to_timestamp('2022-01-09 16:30:00 +0000 +0000', 'DD/MM/YYYY hh24:mi:ss')::timestamp
+SELECT time, product_code, side, price, size FROM signal_events WHERE time >= to_timestamp('2022-01-09 16:30:00 +0000 +0000', 'DD/MM/YYYY hh24:mi:ss')::timestamp ORDER BY time DESC;
+delete from BTC_JPY_1s;
+delete from BTC_JPY_1m0s;
+delete from BTC_JPY_1h0m0s; 

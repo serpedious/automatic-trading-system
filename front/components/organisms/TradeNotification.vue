@@ -44,10 +44,8 @@ export default {
       this.signal = resp.data
       var size = Object.values(this.signal)[0].length
       for (var i = 0; i < size; i++) {
-        console.log(Object.values(this.signal)[0][i].message)
         this.deposit.push(Object.values(this.signal)[0][i])
       }
-      console.log(this.deposit)
       this.deposit = this.deposit.sort(function(a,b){
         return new Date(b.event_date) - new Date(a.event_date);
       });

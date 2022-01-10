@@ -90,7 +90,6 @@
         this.checkbox = false
       },
       apiEdit: async function() {
-        console.log(this.password)
         let res = await axios.post(process.env.API_BASE_URL + "/editpass", {
           password: this.password
         });

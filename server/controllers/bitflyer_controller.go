@@ -17,7 +17,7 @@ import (
 
 func CleanUpStreamData() {
 	for {
-		time.Sleep(time.Hour * 12)
+		time.Sleep(time.Second * 12)
 		err := usecase.CronDelete()
 		if err != nil {
 			log.Fatalln("clean up error")
@@ -30,7 +30,7 @@ func StreamIngectionData() {
 	apiClient := usecase.New(config.Config.ApiKey, config.Config.ApiSecret)
 	go apiClient.GetRealTimeTicker(config.Config.ProductCode, tickerChannl)
 	for ticker := range tickerChannl {
-		log.Printf("action=StreamIngectionData, %v", ticker)
+		// log.Printf("action=StreamIngectionData, %v", ticker)
 		for _, duration := range config.Config.Durations {
 			isCreated := usecase.CreateCandleWithDuration(ticker, ticker.ProductCode, duration)
 			if isCreated && duration == config.Config.TradeDuration {
@@ -146,7 +146,6 @@ func SendOrder(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 	defer r.Body.Close()
-	fmt.Println(order)
 	sendorder_data, _ := apiClient.SendOrder(&order)
 	js, _ := json.Marshal(sendorder_data)
 	w.Write([]byte(js))
@@ -186,6 +185,9 @@ func ApiCandleHandler(w http.ResponseWriter, r *http.Request) {
 	df, _ := usecase.GetAllCandle(productCode, durationTime, limit)
 
 	firstTime := df.Candles[0].Time
+	
+	// 2022-01-09 16:30:00 +0000 +0000
+
 	df.AddEvents(firstTime)
 	df.AddRsi(14)
 
@@ -198,7 +200,7 @@ func ApiCandleHandler(w http.ResponseWriter, r *http.Request) {
 
 func GetRsi(w http.ResponseWriter, r *http.Request) {
 	period := 14
-	df, _ := usecase.GetAllCandle("BTC_JPY", time.Minute, 365)
+	df, _ := usecase.GetAllCandle("BTC_JPY", time.Second, 365)
 	if period < 14 {
 		fmt.Println("less data set compare with config")
 	}

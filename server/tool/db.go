@@ -27,7 +27,6 @@ func NewDb() *sql.DB {
 	PROD := os.Getenv("DB_PROD")
 	// distinguish whether env-file exsists or not
 	err := godotenv.Load()
-	fmt.Println(err)
 
 	if err != nil || PROD == "true" {
 		// prod
