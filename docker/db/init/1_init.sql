@@ -115,7 +115,7 @@ INSERT INTO BTC_JPY_1h0m0s (time, open, close, high, low, volume) VALUES ('2006-
 -- AS signal ORDER BY time ASC;
 
 -- to_timestamp('2022-01-09 16:30:00 +0000 +0000', 'DD/MM/YYYY hh24:mi:ss')::timestamp
-SELECT time, product_code, side, price, size FROM signal_events WHERE time >= to_timestamp('2022-01-09 16:30:00 +0000 +0000', 'DD/MM/YYYY hh24:mi:ss')::timestamp ORDER BY time DESC;
-delete from BTC_JPY_1s;
-delete from BTC_JPY_1m0s;
-delete from BTC_JPY_1h0m0s; 
+-- SELECT time, product_code, side, price, size FROM signal_events WHERE time >= to_timestamp('2022-01-09 16:30:00 +0000 +0000', 'DD/MM/YYYY hh24:mi:ss')::timestamp ORDER BY time DESC;
+-- delete from BTC_JPY_1s;
+-- delete from BTC_JPY_1m0s;
+-- delete from BTC_JPY_1h0m0s; 
