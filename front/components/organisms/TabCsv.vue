@@ -1,7 +1,7 @@
 <template>
   <section>
-  <v-card class=fluid style="margin: 5px; padding: 30px; width: 99%">
-    <v-card-title class="pb-5">
+  <v-card style="margin: 2px; padding: 30px; width: 100%;">
+    <v-card-title class="pb-3">
       <h3>CSV</h3>
     </v-card-title>
     <v-tabs

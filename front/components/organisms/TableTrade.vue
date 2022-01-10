@@ -1,5 +1,5 @@
 <template>
-  <v-card lass=fluid style="margin: 2px; padding: 30px; width: 100%">
+  <v-card style="margin: 2px; padding: 30px; width: 100%; height: 50%;">
     <v-card-title>
       <h3>Trade</h3>
     </v-card-title>

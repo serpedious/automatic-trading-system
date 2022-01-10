@@ -1,6 +1,6 @@
 <template>
-<v-card lass=fluid style="margin: 2px; padding: 30px; width: 100%">
-   <v-card-title class="pl-5">
+<v-card style="margin: 2px; padding: 30px; width: 100%; height: 50%;">
+   <v-card-title>
     <h3>Automatic Trade</h3>
     </v-card-title>
      <v-alert

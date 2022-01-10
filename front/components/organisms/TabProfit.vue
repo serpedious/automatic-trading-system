@@ -1,5 +1,5 @@
 <template>
-  <v-card lass=fluid style="margin: 5px; padding: 30px; width: 99%">
+  <v-card style="margin: 2px; padding: 30px; width: 100%;">
     <v-card-title class="pb-5">
       <h3>Profit</h3>
     </v-card-title>
@@ -28,7 +28,7 @@
         <v-card flat color="" v-if="item.content !== null">
           <v-card-text class="text-center pt-8 text-h4 indigo--text"><b>{{ item.content }} YEN</b></v-card-text>
         </v-card>
-        <v-card class="text-center pt-8" v-else>
+        <v-card style="padding-bottom: 24px; width: 100%; height: 100%;" class="text-center pt-8" v-else>
           <v-progress-circular
             indeterminate
             color="primary"

@@ -1,6 +1,6 @@
 <template>
-<v-card lass=fluid style="margin: 2px; padding: 30px; width: 100%" v-if="dataTable.length !== 1">
-   <v-card-title class="pb-5">
+<v-card style="margin: 2px; padding: 30px; width: 100%; height: 50%;" v-if="dataTable.length !== 1">
+   <v-card-title>
       <h3>Chart</h3>
     </v-card-title>
     <div class="pb-2">
@@ -15,7 +15,7 @@
       :options="chartOptions"
   />
 </v-card>
-  <v-card lass=fluid style="margin: 5px; padding: 30px; width: 100%" v-else>
+  <v-card lass=fluid style="margin: 2px; padding: 30px; width: 100%; height: 50%;" v-else>
     <v-card-actions class="justify-center pt-16">
        <v-progress-circular
          class="pt-16"
