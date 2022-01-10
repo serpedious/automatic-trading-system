@@ -451,7 +451,7 @@ func CronDelete() error {
 	Db := tool.NewDb()
 	defer Db.Close()
 
-	cmd_sec := "DELETE FROM BTC_JPY_1s WHERE time < (select time from (select * from BTC_JPY_1s order by time desc limit 50) AS hoge order by time asc limit 1);"
+	cmd_sec := "DELETE FROM BTC_JPY_1s WHERE time < (select time from (select * from BTC_JPY_1s order by time desc limit 5000) AS hoge order by time asc limit 1);"
 	_, err := Db.Exec(cmd_sec)
 	if err != nil {
 		return err
@@ -839,11 +839,11 @@ func (df *DataFrameCandle) BackTestRsi(period int, buyThread, sellThread float64
 	values := talib.Rsi(df.Closes(), period)
 	lastValue := values[lenCandles-1]
 	secondLastValue := values[lenCandles-2]
-	fmt.Println("****************************************")
-	fmt.Println(SignalEvents)
-	fmt.Println(values)
-	fmt.Println(lastValue)
-	fmt.Println(secondLastValue)
+	log.Println("****************************************")
+	log.Println(SignalEvents)
+	log.Println(values)
+	log.Println(lastValue)
+	log.Println(secondLastValue)
 
 	if secondLastValue == 0 || secondLastValue == 100 {
 		return nil
