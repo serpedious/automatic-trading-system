@@ -839,17 +839,11 @@ func (df *DataFrameCandle) BackTestRsi(period int, buyThread, sellThread float64
 	values := talib.Rsi(df.Closes(), period)
 	lastValue := values[lenCandles-1]
 	secondLastValue := values[lenCandles-2]
-	log.Println("****************************************")
-	log.Println(SignalEvents)
-	log.Println(values)
-	log.Println(lastValue)
-	log.Println(secondLastValue)
 
 	if secondLastValue == 0 || secondLastValue == 100 {
 		return nil
 	}
 	if secondLastValue < buyThread && lastValue > buyThread {
-		fmt.Println(SignalEvents)
 		SignalEvents.Buy(df.ProductCode, df.Candles[lenCandles-1].Time, df.Candles[lenCandles-1].Close, 1.0, true)
 		fmt.Println("************************** Buy ***********************")
 	}
