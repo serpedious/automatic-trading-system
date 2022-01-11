@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <v-btn color="error" @click.stop="dialog = true" large class="ma-2">
+  <div class="ml-5 mt-10">
+    <v-btn color="error" @click.stop="dialog = true" class="ma-2">
       Sell
     </v-btn>
-    <v-btn color="success" @click.stop="dialog = true" large class="ma-2">
+    <v-btn color="success" @click.stop="dialog = true" class="ma-2">
       Buy
     </v-btn>
     <v-dialog v-model="dialog" max-width="400px">

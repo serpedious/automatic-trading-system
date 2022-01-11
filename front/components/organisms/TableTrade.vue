@@ -26,17 +26,20 @@
         :key="item.tab"
       >
         <v-card flat color="">
-          <v-card-text>{{ item.content }}</v-card-text>
-<div class="pl-5 text-h5">
-              Value: {{ item.value }} JPY
-</div>
-          <div class="d-flex justify-start">
-          <img style="margin-left: 25px" class="pl-5" width="100px" height="100px" :src="item.img"/>
-          <div style="margin-left: 150px; margin-top: -30px">
+    <v-alert
+      class="pa-3 ma-2"
+      dense
+      shaped
+      outlined
+      icon="mdi-currency-usd"
+      color="purple"
+    >
+      {{ item.content }} --> <strong> Value: {{ item.value }} JPY </strong> 
+    </v-alert>
+          <div class="d-flex justify-center">
+            <img class="mt-6" width="100px" height="100px" :src="item.img"/>
             <OrderButton/><br>
-            Japanese Yen: {{ item.jpy }} JPY
-            </div>
-                </div>
+          </div>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
