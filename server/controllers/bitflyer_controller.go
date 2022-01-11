@@ -30,11 +30,13 @@ func StreamIngectionData() {
 	apiClient := usecase.New(config.Config.ApiKey, config.Config.ApiSecret)
 	go apiClient.GetRealTimeTicker(config.Config.ProductCode, tickerChannl)
 	for ticker := range tickerChannl {
-		// log.Printf("action=StreamIngectionData, %v", ticker)
+		log.Println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+		log.Printf("action=StreamIngectionData, %v", ticker)
 		for _, duration := range config.Config.Durations {
 			isCreated := usecase.CreateCandleWithDuration(ticker, ticker.ProductCode, duration)
 			if isCreated && duration == config.Config.TradeDuration {
 				usecase.AutomaticNotification()
+				log.Println("****************************************")
 			}
 		}
 	}
