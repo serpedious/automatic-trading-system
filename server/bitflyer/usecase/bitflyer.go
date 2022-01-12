@@ -469,6 +469,12 @@ func CronDelete() error {
 		return err
 	}
 
+	cmd_signal := "DELETE FROM signal_events WHERE time < (select time from (select * from signal_events order by time desc limit 100) AS hoge order by time asc limit 1);"
+	_, err = Db.Exec(cmd_signal)
+	if err != nil {
+		return err
+	}
+
 	return err
 }
 

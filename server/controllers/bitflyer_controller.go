@@ -17,7 +17,7 @@ import (
 
 func CleanUpStreamData() {
 	for {
-		time.Sleep(time.Second * 12)
+		time.Sleep(time.Hour * 12)
 		err := usecase.CronDelete()
 		if err != nil {
 			log.Fatalln("clean up error")
