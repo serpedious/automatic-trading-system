@@ -1,15 +1,17 @@
 <template>
   <div class="ml-5 mt-10">
-    <v-btn color="error" @click.stop="dialog = true" class="ma-2">
+    <v-btn color="error" v-on:click="setSellSide" @click.stop="dialog = true" class="ma-2">
       Sell
     </v-btn>
-    <v-btn color="success" @click.stop="dialog = true" class="ma-2">
+    <v-btn color="success" v-on:click="setBuySide" @click.stop="dialog = true" class="ma-2">
       Buy
     </v-btn>
     <v-dialog v-model="dialog" max-width="400px">
       <dialog-card
         v-on:clickSubmit="onSubmit"
         :name="amount"
+        :value="message"
+        :selected_side="selected_side"
       ></dialog-card>
     </v-dialog>
   </div>
@@ -20,6 +22,12 @@ import DialogCard from '../molecules/DialogCard.vue'
 import axios from 'axios'
 
 export default {
+  props: {
+    message: {
+      type: String,
+      require: true,
+    }
+  },
   components: {
     DialogCard
   },
@@ -28,7 +36,8 @@ export default {
       dialog: false,
       crypto: "",
       amount: "",
-      side: ""
+      side: "",
+      selected_side: ""
     }
   },
   methods: {
@@ -42,6 +51,12 @@ export default {
       this.side = params.side
       this.amount = parseFloat(params.amount)
       this.sendOrder();
+    },
+    setBuySide: function () {
+      this.selected_side = 'BUY'
+    },
+    setSellSide: function () {
+      this.selected_side = 'SELL'
     },
     sendOrder: async function() {
       await axios.post(process.env.API_BASE_URL + "/sendorder", {

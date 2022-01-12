@@ -3,33 +3,19 @@
     <v-card-title>Order</v-card-title>
     <v-card-text>
       <v-container>
-        <v-row>
-           <v-col
-                cols="16"
-                sm="12"
-              >
-                <v-select
-                  :items="['BTC_JPY', 'XRP_JPY', 'ETH_JPY', 'XLM_JPY', 'MONA_JPY']"
-                  label="Crypto"
-                  v-model="returnData.crypto"
-                  required
-                ></v-select>
-              </v-col>
-               <v-col
-                cols="12"
-                sm="6"
-              >
-                <v-select
-                  :items="['SELL', 'BUY']"
-                  label="Side"
-                  v-model="returnData.side"
-                  required
-                ></v-select>
-              </v-col>
-          <v-col cols="6">
-            <v-text-field label="Amount" v-model="returnData.amount" required></v-text-field>
-          </v-col>
-        </v-row>
+        <v-alert  
+          outlined
+          type="warning"
+          border="left">
+          <h4>Crypto: -> {{ value }}</h4>
+        </v-alert>
+        <v-alert  
+          outlined
+          type="warning"
+          border="left">
+          <h5>Side: -> {{ selected_side }}</h5>
+        </v-alert>
+        <v-text-field filled label="Amount" v-model="child_amount" required></v-text-field>
       </v-container>
     </v-card-text>
     <v-card-actions>
@@ -46,23 +32,40 @@
 
 <script>
 export default {
+  name: "diagCard",
   props: {
     crypto: '',
     side: '',
-    amount: ''
+    amount: '',
+    value: {
+      type: String,
+      require: true,
+    },
+    selected_side: {
+      type: String,
+      default: '',
+      required: true
+    }
   },
   data() {
     return {
+      child_crypto: this.value,
+      child_side: this.selected_side,
+      child_amount: 0,
       returnData: {
-        crypto: this.crypto,
-        side: this.side,
-        amount: this.amount
+        crypto: "",
+        side: "",
+        amount: ""
       }
     }
   },
   methods: {
     submit() {
+      this.returnData.crypto = this.child_crypto
+      this.returnData.side = this.child_side
+      this.returnData.amount = this.child_amount
       this.$emit('clickSubmit', this.returnData)
+      this.$router.go({path: this.$router.currentRoute.path, force: true})
     },
     cancel() {
       this.$emit('clickSubmit', "")

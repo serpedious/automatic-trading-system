@@ -38,7 +38,7 @@
     </v-alert>
           <div class="d-flex justify-center">
             <img class="mt-6" width="100px" height="100px" :src="item.img"/>
-            <OrderButton/><br>
+            <order-button :message="item.tab"/><br>
           </div>
         </v-card>
       </v-tab-item>
@@ -60,11 +60,11 @@ export default {
         balance: [],
         tickers: [],
         items: [
-          { tab: 'BTC/JPY', content: 'Bitcoin Marketplace', value: null, jpy: null, img: "/bitcoin.svg" },
-          { tab: 'XRP/JPY', content: 'XRP Marketplace', value: null, jpy: null, img: "/ripple.svg"},
-          { tab: 'ETH/JPY', content: 'ETH Marketplace', value: null, jpy: null, img: "/ethereum.svg" },
-          { tab: 'XLM/JPY', content: 'XLM Marketplace', value: null, jpy: null, img: "/stellar.svg"},
-          { tab: 'MONA/JPY', content: 'MONA Marketplace', value: null, jpy: null, img: "/mona.svg" },
+          { tab: 'BTC_JPY', content: 'Bitcoin Marketplace', value: null, jpy: null, img: "/bitcoin.svg" },
+          { tab: 'XRP_JPY', content: 'XRP Marketplace', value: null, jpy: null, img: "/ripple.svg"},
+          { tab: 'ETH_JPY', content: 'ETH Marketplace', value: null, jpy: null, img: "/ethereum.svg" },
+          { tab: 'XLM_JPY', content: 'XLM Marketplace', value: null, jpy: null, img: "/stellar.svg"},
+          { tab: 'MONA_JPY', content: 'MONA Marketplace', value: null, jpy: null, img: "/mona.svg" },
         ],
         }
     },
