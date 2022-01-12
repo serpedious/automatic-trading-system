@@ -33,16 +33,8 @@ func StreamIngectionData() {
 		log.Printf("action=StreamIngectionData, %v", ticker)
 		for _, duration := range config.Config.Durations {
 			isCreated := usecase.CreateCandleWithDuration(ticker, ticker.ProductCode, duration)
-			log.Println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-			log.Println(isCreated)
-			log.Println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-
-			log.Println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-			log.Println(config.Config.TradeDuration)
-			log.Println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 			if isCreated && duration == config.Config.TradeDuration {
 				usecase.AutomaticNotification()
-				log.Println("****************************************")
 			}
 		}
 	}

@@ -15,6 +15,7 @@
         <tr
           v-for="item in deposit"
           :key="item.id"
+          :class="[item.side === 'BUY' ? 'green lighten-5' : 'red lighten-5']"
         >
           <td>{{item.product_code}} is recommended to trade with {{ item.side}} positon</td>
           <td>{{ item.event_date}}  {{item.time}} </td>
