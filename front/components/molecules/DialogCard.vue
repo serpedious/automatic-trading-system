@@ -1,22 +1,21 @@
 <template>
-  <v-card>
+  <v-container>
+  <v-card width="100%">
     <v-card-title>Order</v-card-title>
     <v-card-text>
-      <v-container>
         <v-alert  
           outlined
           type="warning"
           border="left">
-          <h4>Crypto: -> {{ value }}</h4>
+          <h4>Crypto: -> <strong>{{ value }}</strong></h4>
         </v-alert>
         <v-alert  
           outlined
           type="warning"
           border="left">
-          <h5>Side: -> {{ selected_side }}</h5>
+          <h4>Side: -> <strong>{{ selected_side }}</strong></h4>
         </v-alert>
         <v-text-field filled label="Amount" v-model="child_amount" required></v-text-field>
-      </v-container>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
@@ -28,6 +27,7 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+</v-container>
 </template>
 
 <script>
