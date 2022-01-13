@@ -380,6 +380,9 @@ OUTER:
 		message := new(bitflyer.JsonRPC2)
 		if err := c.ReadJSON(message); err != nil {
 			log.Println("read:", err)
+			var ticker Ticker
+			ticker.State = "err"
+			ch <- ticker
 			return
 		}
 

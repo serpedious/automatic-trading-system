@@ -25,12 +25,22 @@ func CleanUpStreamData() {
 	}
 }
 
+func ParentStreamIngectionData() {
+	for {
+		StreamIngectionData()
+		time.Sleep(time.Second * 5)
+	}
+}
+
 func StreamIngectionData() {
 	var tickerChannl = make(chan usecase.Ticker)
 	apiClient := usecase.New(config.Config.ApiKey, config.Config.ApiSecret)
 	go apiClient.GetRealTimeTicker(config.Config.ProductCode, tickerChannl)
 	for ticker := range tickerChannl {
-		log.Printf("action=StreamIngectionData, %v", ticker)
+		// log.Printf("action=StreamIngectionData, %v", ticker)
+		if ticker.State == "err" {
+			return
+		}
 		for _, duration := range config.Config.Durations {
 			isCreated := usecase.CreateCandleWithDuration(ticker, ticker.ProductCode, duration)
 			if isCreated && duration == config.Config.TradeDuration {
@@ -40,14 +50,6 @@ func StreamIngectionData() {
 	}
 }
 
-func GetRealTimeTicker() {
-	apiClient := usecase.New(config.Config.ApiKey, config.Config.ApiSecret)
-	tickerChannel := make(chan usecase.Ticker)
-	go apiClient.GetRealTimeTicker(config.Config.ProductCode, tickerChannel)
-	for ticker := range tickerChannel {
-		fmt.Println(ticker)
-	}
-}
 
 func Balance(w http.ResponseWriter, r *http.Request) {
 	apiClient := usecase.CreateClient()

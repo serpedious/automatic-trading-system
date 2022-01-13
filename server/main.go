@@ -22,7 +22,7 @@ func hello() int {
 func main() {
 	utils.LoggingSettings(config.Config.LogFile)
 
-	go controllers.StreamIngectionData()
+	go controllers.ParentStreamIngectionData()
 	go controllers.CleanUpStreamData()
 
 	r := chi.NewRouter()
