@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <v-card class="mx-auto mt-5 pa-5" width="400px">
+    <v-card class="mx-auto mt-5 pa-5" width="400px" v-if="loading === 0">
       <v-card-title class="pb-10">
         <h2>Signup</h2>
       </v-card-title>
@@ -45,6 +45,15 @@
         </form>
       </v-card-text>
     </v-card>
+    <v-card class="mx-auto mt-5 pa-16" width="400px" height="464" v-else>
+    <v-card-actions class="justify-center pt-16 ma-16">
+       <v-progress-circular
+          class="pt-16"
+          indeterminate
+          color="primary"
+          ></v-progress-circular>
+ </v-card-actions>
+  </v-card>
   </section>
 </template>
 
@@ -69,6 +78,7 @@ export default {
       email: '',
       password: '',
       checkbox: false,
+      loading: 0,
     }
   },
    computed: {
@@ -95,13 +105,18 @@ export default {
     },
   methods: {
       apiSignup: async function() {
+        this.loading = 1
         this.$v.$touch()
         let res = await axios.post(process.env.API_BASE_URL + "/signup", {
             email: this.email,
             password: this.password
+        }).catch(error => {
+          console.log(error)
+          this.loading = 0
         });
         this.email = res.data.email
-        this.$router.push("/dashboard");
+        this.$router.push("/dashboard")
+        this.loading = 0
       }
   }
 }

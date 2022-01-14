@@ -25,7 +25,7 @@ func Mail(useremail string) {
 
 	wd, err := os.Getwd()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	t, _ := template.ParseFiles(wd + "/mail_tmp/create_user.html")
@@ -45,7 +45,7 @@ func Mail(useremail string) {
 
 	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, body.Bytes())
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		return
 	}
 	fmt.Println("Email Sent Successfully!")
