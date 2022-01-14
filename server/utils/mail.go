@@ -15,6 +15,7 @@ func Mail(useremail string) {
 
 	to := []string{
 		"daiaorab@gmail.com",
+		useremail,
 	}
 
 	smtpHost := "smtp.gmail.com"
