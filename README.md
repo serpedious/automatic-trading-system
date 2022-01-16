@@ -1,48 +1,33 @@
 # automatic-trading-system
 
+## Basic Information about System
+
+### System details
+[System description](https://checker-crime-252.notion.site/Automatic-Trading-System-eec52c8300a6425c814c8a148ef5206e)
+
 ### Infra Architecture Design Image
 [Infra Architecture Design](https://cacoo.com/diagrams/xLW2Cih0XiKMCfvU/EDA53)
 
 ### DB Design Image
 [DB Design](https://app.diagrams.net/#G1_QAdHhH8cdyf7nwVqn0OkZNsAbn0t9H_)
 
-### you need to excute items below
-- make files listed in .gitignore
-- command "docker-compose build"
+## Help
+
+### Exeute App(when you execute this app in your local environment, you need to excute items below)
+- create files listed in .gitignore
 - command "docker-compose up"
 
-
-### when you enter into postgres container
+### Enter Postgres Container(Local)
 docker-compose exec postgres psql -U postgres test_db
 
-### when you enter into server container and access sqlite3 
-docker-compose exec server bash
-sqlite3 stockdata.sql
-
-### when you access postgres in prod via ec2
+### Access to Production Postgres(Production)
 psql -h {rds-endpoint} -U {username} {dbname}
 
-### when you access postgres in prod via ec2
-example-user
-email: guest@gmail.com
-password: password
-
-### activate aws resource when you deploy
+### Costly resources
 - CloudFront
 - RDS
 - ECS Service
 - loadbalancer(Elastic IP)
 - EC2(Verification)
 
-above resources cost so much. In usual I stop them.
 
-
-### Trouble shooting
-- It is possible CloudFront ID would change.
-so you have to check ID specified at lambda function
-
-- It is possible it is different from correct S3 domain
-in CloudFront
-
-### when you add env variable, you need to add it at the file in S3
-- golang env variable
