@@ -2,14 +2,12 @@
 
 ## Basic Information about System
 
-### System details
+### System Web URL
+[URL](https://serpedious.link/)
+
+### System details(Infra Architecture Design Image, DB Design Image)
 [System description](https://checker-crime-252.notion.site/Automatic-Trading-System-eec52c8300a6425c814c8a148ef5206e)
 
-### Infra Architecture Design Image
-[Infra Architecture Design](https://cacoo.com/diagrams/xLW2Cih0XiKMCfvU/EDA53)
-
-### DB Design Image
-[DB Design](https://app.diagrams.net/#G1_QAdHhH8cdyf7nwVqn0OkZNsAbn0t9H_)
 
 ## Help
 
