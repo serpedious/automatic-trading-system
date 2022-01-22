@@ -11,6 +11,10 @@
 
 ## HELP
 
+### default guest user
+- email: guest@gmail.com
+- password: password
+
 ### Exeute App(when you execute this app in your local environment, you need to excute items below)
 - create .env and set proper parameters
 - command execute "docker-compose up"
