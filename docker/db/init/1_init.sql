@@ -64,7 +64,7 @@ CREATE TABLE BTC_JPY_1h0m0s (
 );
 
 
-INSERT INTO users (email, password) VALUES ('guest@gmail.com', 'password');
+-- INSERT INTO users (email, password) VALUES ('guest@gmail.com', 'password');
 -- INSERT INTO memos (content, done, delete, user_id) VALUES ('test', false, false, 1);
 -- INSERT INTO signal_events (time, product_code, side, price, size) VALUES ('2006-01-02T15:04:05Z07:00', 'BTC_JPY', 'BUY', 555000.03, 1.0);
 -- INSERT INTO BTC_JPY_1s (time, open, close, high, low, volume) VALUES ('2006-01-02T15:04:05Z07:00', 449.34820443, 449.34820443, 555000.03, 449.34820443, 449.34820443);

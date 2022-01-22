@@ -7,10 +7,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
  
-make: *** No rule to make target `all'.  Stop.
- 
 
-# Make data base, printed on Mon Jan 17 21:52:07 2022
+# Make data base, printed on Sat Jan 22 20:42:40 2022
 
 # Variables
 
@@ -19,16 +17,7 @@ make: *** No rule to make target `all'.  Stop.
 # automatic
 ?F = $(notdir $?)
 # environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
-# environment
-GOENV_ROOT = /Users/serpedious/.goenv
- 
-# environment
-LC_CTYPE = UTF-8
-# environment
 VSCODE_LOG_NATIVE = false
-# environment
-NVM_INC = /Users/serpedious/.nvm/versions/node/v14.15.1/include/node
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -46,33 +35,23 @@ _ = /usr/bin/make
 # makefile
 MAKEFILE_LIST := 
 # environment
-GOENV_SHELL = zsh
-# environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-INFOPATH = /opt/homebrew/share/info:
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/wm/ss4rnks50zxd6y3r9yjdz7000000gn/T/vscode-ipc-5e31322d-cf8e-4b33-9dcf-ffa85bd0e4a9.sock
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/wm/ss4rnks50zxd6y3r9yjdz7000000gn/T/vscode-ipc-ff4c90f4-6727-451d-b85a-b1416e145564.sock
-# environment
-VSCODE_CWD = /Users/serpedious/go/src/github.com/serpedious/automatic-trading-system
+VSCODE_CWD = /
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # environment
-PATH = /Users/serpedious/.goenv/versions/1.16.0/bin:/Users/serpedious/.nvm/versions/node/v14.15.1/bin:/opt/homebrew/Cellar/postgresql/13.1/bin:/Users/serpedious/.goenv/shims:/Users/serpedious/.goenv/bin:/opt/homebrew/opt/python@3.9/libexec/bin:/opt/homebrew/bin:/opt/homebrew/bin:/Users/serpedious/Library/Python/3.8/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/opt/X11/bin:/Library/Apple/usr/bin:/Users/serpedious/go/bin
-# environment
-GOROOT = /Users/serpedious/.goenv/versions/1.16.0
-# environment
-LSCOLORS = Gxfxcxdxbxegedabagacad
+PATH = /usr/local/go/bin:/usr/bin:/bin:/usr/sbin:/sbin
 # environment
 GOPATH = /Users/serpedious/go
 # environment
-NVM_BIN = /Users/serpedious/.nvm/versions/node/v14.15.1/bin
-# environment
-LaunchInstanceID = D801F1E4-806A-4B6D-B28A-A8C6BF6E09C4
+LaunchInstanceID = B35C098B-8BEB-4FD6-901D-8AA3EFA0D8E0
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -80,21 +59,17 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.J3G8P6NORH/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Ps4A1jX0cZ/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-DISPLAY = /private/tmp/com.apple.launchd.IPqwBGJkLI/org.macosforge.xquartz:0
+DISPLAY = /private/tmp/com.apple.launchd.GP7lT418xS/org.macosforge.xquartz:0
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /Users/serpedious/go/src/github.com/serpedious/automatic-trading-system
 # environment
-HOMEBREW_CELLAR = /opt/homebrew/Cellar
-# environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
-# environment
-MANPATH = /Users/serpedious/.nvm/versions/node/v14.15.1/share/man:/opt/homebrew/share/man::
 # environment
 GOMODCACHE = /Users/serpedious/go/pkg/mod
 # environment
@@ -102,50 +77,33 @@ HOME = /Users/serpedious
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CLI = 1
-# environment
 VSCODE_CODE_CACHE_PATH = /Users/serpedious/Library/Application Support/Code/CachedData/899d46d82c4c95423fb7e10e68eba52050e30ba3
 # environment
 LOGNAME = serpedious
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
-# environment
-NVM_CD_FLAGS = -q
-# environment
-ZSH = /Users/serpedious/.oh-my-zsh
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 XPC_FLAGS = 0x0
-# environment
-COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
 # environment
-LC_TERMINAL = iTerm2
-# environment
-SHLVL = 3
+SHLVL = 1
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = serpedious
 # makefile
 .DEFAULT_GOAL := 
-# default
-MAKECMDGOALS := all
-# environment
-TERM_SESSION_ID = w0t0p0:AA2BE56D-A01D-4DCC-BEB9-88AE868282EE
-# environment
-LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
- 
-# environment
-TERM_PROGRAM = iTerm.app
 # default
 .VARIABLES := 
 # environment
@@ -161,25 +119,11 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-TERM_PROGRAM_VERSION = 3.4.12
-# environment
-NVM_DIR = /Users/serpedious/.nvm
-# environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.26994174.26994180.F7ECA5F0-F5F0-4B29-8E22-1F4F0456B333
-# environment
-LC_TERMINAL_VERSION = 3.4.12
-# environment
-HOMEBREW_PREFIX = /opt/homebrew
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.26994174.26994180
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
 +F = $(notdir $+)
-# environment
-ITERM_SESSION_ID = w0t0p0:AA2BE56D-A01D-4DCC-BEB9-88AE868282EE
-# environment
-HOMEBREW_REPOSITORY = /opt/homebrew
-# environment
-COLORFGBG = 15;0
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
 # environment
@@ -189,13 +133,7 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
-ITERM_PROFILE = Default
-# environment
-PAGER = less
-# environment
 LC_ALL = C
-# environment
-AWS_DEFAULT_PROFILE = serpedious
 # environment
 SECURITYSESSIONID = 186a5
 # automatic
@@ -207,12 +145,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-TERM = xterm-256color
-# environment
-VSCODE_PID = 1906
+VSCODE_PID = 573
 # variable set hash-table stats:
- 
-# Load=97/1024=9%, Rehash=0, Collisions=6/117=5%
+# Load=67/1024=7%, Rehash=0, Collisions=2/87=2%
 
 # Pattern-specific Variable Values
 
@@ -227,7 +162,6 @@ VSCODE_PID = 1906
 # Implicit Rules
 
 # No implicit rules.
- 
 
 # Files
 
@@ -295,6 +229,8 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Mon Jan 17 21:52:07 2022
+# Finished Make data base on Sat Jan 22 20:42:40 2022
 
+ 
+make: *** No rule to make target `all'.  Stop.
  

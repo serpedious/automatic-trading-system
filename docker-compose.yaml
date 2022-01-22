@@ -17,6 +17,14 @@ services:
       - 8000:8000
     volumes:
       - ./server:/api
+    
+  pyapi:
+    build:
+      context: ./pyapi
+    ports:
+      - 8080:8080
+    volumes:
+      - ./pyapi:/pyapi
   
   postgres:
     image: postgres:10-alpine

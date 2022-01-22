@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -15,6 +16,9 @@ import (
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	userId := tool.GetUserIdFromCookie(w, r)
+	fmt.Println("***********************")
+	fmt.Println(userId)
+	fmt.Println("***********************")
 	var u usecase.User
 	v, err := u.GetUser(userId)
 	var error utils.Error
