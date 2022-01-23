@@ -18,11 +18,11 @@ logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
 
 if __name__ == "__main__":
-    streamThread = Thread(target=stream.get_realtime_ticker)
+    # streamThread = Thread(target=stream.get_realtime_ticker)
     serverThread = Thread(target=start)
 
-    streamThread.start()
+    # streamThread.start()
     serverThread.start()
 
-    streamThread.join()
+    # streamThread.join()
     serverThread.join()

@@ -1,15 +1,56 @@
+from datetime import datetime
 from email import header
+from locale import currency
 import logging
 import hashlib
 import hmac
 import requests
 import time
 import json
+import dateutil.parser
 
 import settings
+import constants
 
 
 logger = logging.getLogger(__name__)
+
+class Balance(object):
+    def __init__(self, currency_code, available):
+        self.currency_code = currency_code
+        self.available = available
+
+
+class Ticker(object):
+    def __init__(self, product_code, timestamp, best_bid, best_ask, volume):
+        self.product_code = product_code
+        self.timestamp = timestamp
+        self.best_bid = best_bid
+        self.best_ask = best_ask
+        self.volume = volume
+    
+    @property
+    def time(self):
+        return datetime.utcfromtimestamp(self.timestamp)
+    
+    @property
+    def mid_price(self):
+        return (self.best_ask + self.best_bid) / 2
+    
+    def truncate_date_time(self, duration):
+        ticker_time = self.time
+        if duration == constants.DURATION_1S:
+            time_format = '%Y-%m-%d %H:%M:%S'
+        elif duration == constants.DURATION_1M:
+            time_format = '%Y-%m-%d %H:%M'
+        elif duration == constants.DURATION_1H:
+            time_format = '%Y-%m-%d %H'
+        else:
+            logger.warning('action=truncate_date_time error=no_datetime_format')
+            return None
+
+        str_date = datetime.strftime(ticker_time, time_format)
+        return datetime.strptime(str_date, time_format)
 
 class APIClient(object):
     def __init__(self, api_key, api_secret) -> None:
@@ -34,22 +75,47 @@ class APIClient(object):
 
 
     def get_balance(self):
-        base_url = 'https://api.bitflyer.com'
+        base_url = constants.BITFLYER_BASE_URL
         endpoint = '/v1/me/getbalance'
         headers = self.header('GET', endpoint=endpoint, body='')
-        response = requests.get(base_url + endpoint, headers=headers)
-        return response.json()
+        try:
+            response = requests.get(base_url + endpoint, headers=headers)
+        except:
+            logger.error(f'action=get_balance error')
+            raise
+
+        # arry_balance = []
+        json_resp = response.json()
+        # for v in json_resp:
+        #    currency_code = v["currency_code"]
+        #    available = v["available"]
+        #    arry_balance.append(Balance(currency_code=currency_code, available=available))
+        # print(arry_balance[0].available)
+        return json_resp
     
     def get_ticker(self):
-        base_url = 'https://api.bitflyer.com'
+        base_url = constants.BITFLYER_BASE_URL
         endpoint = '/v1/ticker'
         product_code = 'btc_jpy'
 
         response = requests.get(base_url + endpoint, params={"product_code": product_code})
+        json_resp = response.json()
+        product_code = json_resp["product_code"]
+        timestamp = datetime.timestamp(
+            dateutil.parser.parse(json_resp['timestamp']))
+        best_bid = json_resp["best_bid"]
+        best_ask = json_resp["best_ask"]
+        volume = json_resp["volume"]
+        ticker = Ticker(product_code=product_code, timestamp=timestamp, best_bid=best_bid, best_ask=best_ask, volume=volume)
+        print(ticker.truncate_date_time('1m'))
+        print(ticker.truncate_date_time('1s'))
+        print(ticker.truncate_date_time('1h'))
+        
+
         return response.json()
 
     def order(self):
-        base_url = 'https://api.bitflyer.com'
+        base_url = constants.BITFLYER_BASE_URL
         endpoint = "/v1/me/sendchildorder"
 
         body = {
