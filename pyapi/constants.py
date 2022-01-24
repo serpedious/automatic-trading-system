@@ -19,5 +19,5 @@ TRADE_MAP = {
 BUY = 'BUY'
 SELL = 'SELL'
 
-PRODUCT_CODE_USD_JPY = 'BTC_JPY'
+PRODUCT_CODE_BTC_JPY = 'BTC_JPY'
 BITFLYER_BASE_URL = 'https://api.bitflyer.com'

@@ -5,3 +5,4 @@ omitempty==0.1.1
 python-dateutil==2.8.0
 requests==2.23.0
 websocket-client==1.2.3
+SQLAlchemy==1.3.7

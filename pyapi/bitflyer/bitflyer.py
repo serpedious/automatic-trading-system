@@ -80,8 +80,8 @@ class APIClient(object):
         headers = self.header('GET', endpoint=endpoint, body='')
         try:
             response = requests.get(base_url + endpoint, headers=headers)
-        except:
-            logger.error(f'action=get_balance error')
+        except Exception as e:
+            logger.error(f'action=get_balance error={e}')
             raise
 
         # arry_balance = []
@@ -98,7 +98,11 @@ class APIClient(object):
         endpoint = '/v1/ticker'
         product_code = 'btc_jpy'
 
-        response = requests.get(base_url + endpoint, params={"product_code": product_code})
+        try:
+            response = requests.get(base_url + endpoint, params={"product_code": product_code})
+        except Exception as e:
+            logger.error(f'action=get_ticker error={e}')
+            raise
         json_resp = response.json()
         product_code = json_resp["product_code"]
         timestamp = datetime.timestamp(
@@ -129,7 +133,10 @@ class APIClient(object):
 
         body = json.dumps(body)
         headers = self.header('POST', endpoint=endpoint, body=body)
-        response = requests.post(base_url + endpoint, data=body, headers=headers)
+        try:
+            response = requests.post(base_url + endpoint, data=body, headers=headers)
+        except Exception as e:
+            logger.error(f'action=order err={e}')
         return response.json()
 
 
