@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, render_template
+from sqlalchemy import Integer
 import app.controllers.conversation as r
 from flask_socketio import SocketIO
 from flask_cors import CORS, cross_origin
@@ -90,6 +91,9 @@ def bye():
 @socketio.on('message')
 @cross_origin(supports_credentials=True)
 def handleMes(msg, t):
+    if t in [1, 2, 3] and not msg in ["1", "2", "3"]:
+        socketio.emit('message', "err") 
+        return "please fill in type of int value"
     robot = r.generate_robot()
     response = {
         'avatar': '/robot.svg',
@@ -106,8 +110,6 @@ def handleMes(msg, t):
         b = r.talk_about_dignosis_second(robot, msg)
         response['title'] = 'Question No3'
         response['subtitle'] = b
-        print(response)
-        print("*****************************")
         socketio.emit('message', response)
         return "ok"
     if t == 2:

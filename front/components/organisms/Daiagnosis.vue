@@ -115,6 +115,7 @@ export default {
       this.socket.send(this.input, this.turn);
       this.turn += 1
       this.input = ''
+      console.log(this.turn)
       if (this.turn === 6) {
         this.turn = 0
         this.hidden = !this.hidden
@@ -129,6 +130,12 @@ export default {
   mounted() {
     this.socket.on('message', (data) => {
         this.messages = [...this.messages, {divider: true, inset: true}]
+        console.log(data)
+        if (data === "err") {
+          this.turn -= 1
+          this.messages.pop()
+          return
+        }
         this.messages = [...this.messages, data];
     });
   }
