@@ -19,3 +19,6 @@ trade_duration = conf['pytrading']['trade_duration'].lower()
 back_test = bool_from_str(conf['pytrading']['back_test'])
 past_period = int(conf['pytrading']['past_period'])
 stop_limit_percent = float(conf['pytrading']['stop_limit_percent'])
+
+CSV_FILE_PATH='diagnosis.csv'
+TEMPLATE_PATH=''

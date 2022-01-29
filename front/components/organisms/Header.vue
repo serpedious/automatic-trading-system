@@ -103,7 +103,7 @@ export default {
       { title: 'History', icon: 'mdi-history', to: '/dashboard/history' },
       { title: 'Memo', icon: 'mdi-format-list-checks', to: '/dashboard/memo' },
       { title: 'Alert', icon: 'mdi-bell-outline', to: '/dashboard/alert' },
-      { title: 'Daiagnosis', icon: 'mdi-bell-outline', to: '/dashboard/diagnosis' },
+      { title: 'Daiagnosis', icon: 'mdi-stethoscope', to: '/dashboard/diagnosis' },
     ],
     user: "",
     balance: 0,

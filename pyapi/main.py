@@ -1,10 +1,8 @@
 from datetime import datetime
-import imp
 from threading import Thread
 import sys
 import logging
-import websocket
-import json
+
 
 from bitflyer.bitflyer import APIClient
 from app.models.candle import factory_candle_class
@@ -34,10 +32,10 @@ if __name__ == "__main__":
 
  
     # streamThread = Thread(target=stream.get_realtime_ticker)
-    # serverThread = Thread(target=start)
+    serverThread = Thread(target=start)
 
     # streamThread.start()
-    # serverThread.start()
+    serverThread.start()
 
     # streamThread.join()
-    # serverThread.join()
+    serverThread.join()
