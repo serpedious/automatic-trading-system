@@ -91,25 +91,42 @@ def bye():
 @cross_origin(supports_credentials=True)
 def handleMes(msg, t):
     robot = r.generate_robot()
+    response = {
+        'avatar': '/robot.svg',
+        'title': '',
+        'subtitle': ''
+    }
     if t == 0:
         a = r.talk_about_diagnosis(robot, msg)
-        socketio.emit('message', a)
+        response['title'] = 'Question No2'
+        response['subtitle'] = a
+        socketio.emit('message', response)
         return "ok"
     if t == 1:
         b = r.talk_about_dignosis_second(robot, msg)
-        socketio.emit('message', b)
+        response['title'] = 'Question No3'
+        response['subtitle'] = b
+        print(response)
+        print("*****************************")
+        socketio.emit('message', response)
         return "ok"
     if t == 2:
         e = r.talk_about_dignosis_third(robot, msg)
-        socketio.emit('message', e)
+        response['title'] = 'Question No4'
+        response['subtitle'] = e
+        socketio.emit('message', response)
         return "ok"
     if t == 3:
         k = r.talk_about_dignosis_forth(robot, msg)
-        socketio.emit('message', k)
+        response['title'] = 'Question No5'
+        response['subtitle'] = k
+        socketio.emit('message', response)
         return "ok"
     if t == 4:
         f = r.talk_about_dignosis_final(robot)
-        socketio.emit('message', f)
+        response['title'] = 'Question No6'
+        response['subtitle'] = f
+        socketio.emit('message', response)
         return "ok"
     return 'a string'
 
@@ -117,7 +134,13 @@ def handleMes(msg, t):
 @cross_origin(supports_credentials=True)
 def handleMessage(msg):
     a = r.only_hello()
-    socketio.emit('message', a)
+    response = {
+        'avatar': '/robot.svg',
+        'title': 'Question No1',
+        'subtitle': ''
+    }
+    response['subtitle'] = a
+    socketio.emit('message', response)
     return msg
 
 @socketio.on('ff')
@@ -136,10 +159,11 @@ def get_user_name(json):
     return 'a string'
     
     
-@socketio.on('disconnect')
-@cross_origin(supports_credentials=True)
-def disconnect():
-    print("disconnect")
+# @socketio.on('disconnect')
+# @cross_origin(supports_credentials=True)
+# def disconnect():
+#     socketio.emit('message', "disconnect")
+#     return 'disconnect'
 
 
 def start():

@@ -1,67 +1,124 @@
 <template>
   <div>
-     <v-container fluid>
-    <v-row>
-      <v-col
-        cols="12"
-        sm="12"
-        md="6"
-        offset-md="3"
-      >
-        <v-card>
+        <v-card class=fluid style="margin: 5px; padding: 30px; width: 100%">
           <v-toolbar extended>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
-            <h1>Diagnosis Robot</h1>
-              <v-btn v-show="!hidden" text color="success" @click="sendStart">
-                Start
-              </v-btn>
+             <v-card-title class="pt-16">
+               <h3>Diagnostic Robot</h3>
+             </v-card-title>
+              <v-btn
+                v-show="!hidden"
+                @click="sendStart"
+                class="mx-2 mt-14"
+                fab
+                dark
+                large
+                color="teal"
+               >
+                <v-icon dark>
+                  mdi-android
+                </v-icon>
+            </v-btn>
           </v-toolbar>
-      <tr
-        v-for="(msg, index) in messages" :key="index"
-      >
-        <td>{{ msg }}</td>
-      </tr>
+          <v-list three-line>
+      <template v-for="(item, index) in messages">
+        <v-subheader
+          v-if="item.header"
+          :key="item.header"
+          v-text="item.header"
+        ></v-subheader>
+
+        <v-divider
+          v-else-if="item.divider"
+          :key="index"
+          :inset="item.inset"
+        ></v-divider>
+
+        <v-list-item
+          v-else
+          :key="item.title"
+        >
+          <v-list-item-avatar>
+            <v-img :src="item.avatar"></v-img>
+          </v-list-item-avatar>
+
+          <v-list-item-content>
+            <v-list-item-title v-html="item.title"></v-list-item-title>
+            <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+    </v-list>
     <div>
-      <v-text-field v-show="hidden" filled label="Amount" v-model="ddd" required></v-text-field>
-      <v-btn v-show="hidden" text color="success" @click="sendMessage">
-        Proceed
-      </v-btn>
+      <v-text-field 
+        v-show="hidden" 
+        filled label="text" 
+        v-model="input"
+        required
+        :counter="10"
+        :error-messages="inputErrors"
+        @input="$v.input.$touch()"
+        @blur="$v.input.$touch()"  
+      >
+      </v-text-field>
+      <v-btn
+      v-show="hidden"
+      @click="sendMessage"
+      outlined
+      :disabled="input==''"
+      color="teal"
+    >
+      <v-icon left>
+        mdi-send
+      </v-icon>
+      Send
+    </v-btn>
     </div>
      </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
   </div>
 </template>
 
 <script>
 import io from 'socket.io-client';
-
+import { validationMixin } from 'vuelidate'
+import { maxLength } from 'vuelidate/lib/validators'
 
 export default {
+  mixins: [validationMixin],
   name: 'room',
+  validations: {
+      input: { maxLength: maxLength(10) },
+    },
   data() {
     return {
       hidden: false,
-      messages: [],
+      messages: [
+        { header: 'chat for diagnosis' },
+      ],
       message: "",
       turn: 0,
-      ddd: "",
+      input: "",
       socket : io(process.env.PY_API_BASE_URL)
     }
   },
+   computed: {
+      inputErrors () {
+        const errors = []
+        if (!this.$v.input.$dirty) return errors
+        !this.$v.input.maxLength && errors.push('Input must be at most 10 characters long')
+        // !this.$v.input.required && errors.push('Input is required.')
+        return errors
+      },
+    },
   methods: {
     sendMessage() {
-      console.log(this.ddd)
-      this.socket.send(this.ddd, this.turn);
-      console.log(this.turn)
-      console.log("turn")
+      this.$v.$touch()
+      this.socket.send(this.input, this.turn);
       this.turn += 1
-      this.ddd = ''
+      this.input = ''
       if (this.turn === 6) {
         this.turn = 0
         this.hidden = !this.hidden
-        this.messages = []
+        this.messages = [{ header: 'chat for diagnosis' }]
       }
     },
     sendStart() {
@@ -71,10 +128,8 @@ export default {
   },
   mounted() {
     this.socket.on('message', (data) => {
+        this.messages = [...this.messages, {divider: true, inset: true}]
         this.messages = [...this.messages, data];
-        console.log('Upload component', data);
-        console.log('Upload component', this.message);
-        console.log(this.messages.length)
     });
   }
 }
