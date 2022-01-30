@@ -143,7 +143,7 @@ def handleMessage(msg):
     }
     response['subtitle'] = a
     socketio.emit('message', response)
-    return msg
+    return "ok"
 
 @socketio.on('ff')
 @cross_origin(supports_credentials=True)

@@ -44,7 +44,6 @@ DB_NAME = os.environ.get('DB_NAME')
 print(os.path.exists('.env'))
 if os.path.exists('.env'):
     CONNECT_STR = '{}://{}:{}@{}:{}/{}'.format(DEV_DATABASE, DEV_USER, DEV_PASSWORD, DEV_HOST, DEV_PORT, DEV_DB_NAME)
-    print("**888************************************************")
 else:
     CONNECT_STR = '{}://{}:{}@{}:{}/{}'.format(DATABASE, USER, PASSWORD, HOST, PORT, DB_NAME)
 
