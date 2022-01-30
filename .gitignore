@@ -5,7 +5,7 @@ server/gotrading.log
 server/.env
 server/tmp/runner-build
 
-pyapi/settings.ini
+pyapi/.env
 
 
 terraform/.envrc
