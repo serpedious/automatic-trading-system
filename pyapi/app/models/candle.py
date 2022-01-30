@@ -75,13 +75,13 @@ class BaseCandleMixin(object):
         }
 
 class BtcJpyBaseCandle1H(BaseCandleMixin, Base):
-    __tablename__ = 'BTC_JPY_1H'
+    __tablename__ = 'btc_jpy_1h0m0s'
 
 class BtcJpyBaseCandle1M(BaseCandleMixin, Base):
-    __tablename__ = 'BTC_JPY_1M'
+    __tablename__ = 'btc_jpy_1m0s'
 
 class BtcJpyBaseCandle1S(BaseCandleMixin, Base):
-    __tablename__ = 'BTC_JPY_1S'
+    __tablename__ = 'btc_jpy_1s'
 
 
 def factory_candle_class(product_code, duration):

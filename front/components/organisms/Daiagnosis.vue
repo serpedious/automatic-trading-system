@@ -117,6 +117,7 @@ export default {
       this.input = ''
       console.log(this.turn)
       if (this.turn === 6) {
+        print()
         this.turn = 0
         this.hidden = !this.hidden
         this.messages = [{ header: 'chat for diagnosis' }]
@@ -130,7 +131,6 @@ export default {
   mounted() {
     this.socket.on('message', (data) => {
         this.messages = [...this.messages, {divider: true, inset: true}]
-        console.log(data)
         if (data === "err") {
           this.turn -= 1
           this.messages.pop()
