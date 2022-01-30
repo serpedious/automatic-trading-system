@@ -3,7 +3,8 @@
 ## BASIC INFORMATION ABOUT THIS APPLICATION
 
 ### APPLICATION WEB URL
-[URL](https://serpedious.link/)(Locked by Basic Authentication, ask to developer when you access)
+~~[URL](https://serpedious.link/)(Locked by Basic Authentication, ask to developer when you access)~~ 
+(now, application is stopped because of generating expense)
 
 ### APPLICATION DETAILS(Including Design Image of Infrastructure Architecture, DB Design Image)
 [System description](https://checker-crime-252.notion.site/Automatic-Trading-System-eec52c8300a6425c814c8a148ef5206e)
