@@ -1,4 +1,3 @@
-from importlib.resources import contents
 import os
 import string
 
@@ -19,8 +18,10 @@ def get_template_dir_path():
     
     return template_dir_path
 
+
 class NoTemplateError(Exception):
     """No Template Error"""
+
 
 def find_template(temp_file):
     template_dir_path = get_template_dir_path()

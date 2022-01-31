@@ -9,19 +9,15 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 
-
-
 api_key = os.environ.get('BITFLYER_API_KEY')
 api_secret = os.environ.get('BITFLYER_API_KEY_SECRET')
 product_code = os.environ.get('PRODUCT_CODE')
-
 
 web_port = int(os.environ.get('WEB_PORT'))
 
 trade_duration = os.environ.get('TRADE_DURATION')
 past_period = int(os.environ.get('PAST_PERIOD'))
 stop_limit_percent = float(os.environ.get('STOP_LIMIT_PERCENT'))
-
 
 CSV_FILE_PATH='diagnosis.csv'
 TEMPLATE_PATH=''

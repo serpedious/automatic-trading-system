@@ -53,12 +53,8 @@ class DiagnosisRobot(Robot):
     @_hello_decorator
     def ask_user_feeling(self, chosed_num):
         diagnosis_question = "are you feeling good?"
-        # if not chosed_num in ['1', '2', '3']:
-        #     continue
-
         self.diagnosis_model.increment(diagnosis_question, chosed_num)
                 
-
     def ask_only_sleepy(self):
         diagnosis_question = 'Are you sleepy now?\n Please choose number [1: so sleepy] [2: so so] [3: not at all]'
         return diagnosis_question 
@@ -66,8 +62,6 @@ class DiagnosisRobot(Robot):
     @_hello_decorator 
     def ask_user_sleep(self, chosed_num):
         diagnosis_question = "Are you sleepy?"
-        # if not chosed_num in ['1', '2', '3']:
-        #     continue
         self.diagnosis_model.increment(diagnosis_question, chosed_num)
 
     def ask_only_worried(self):
@@ -77,9 +71,6 @@ class DiagnosisRobot(Robot):
     @_hello_decorator
     def ask_user_worry(self, chosed_num):
         diagnosis_question = "Do you have some worried?"
-        # if not chosed_num in ['1', '2', '3']:
-        #     continue
-        
         self.diagnosis_model.increment(diagnosis_question, chosed_num)
 
     def generate_diagnosis_result(self):
@@ -107,4 +98,3 @@ class DiagnosisRobot(Robot):
         diagnosis_question = 'Result %d/9 -> %s good bye! (fill [end] and enter)' %(score, result)
         return diagnosis_question 
     
-

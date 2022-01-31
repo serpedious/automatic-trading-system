@@ -2,9 +2,6 @@ import pathlib
 import os
 import collections
 import csv
-from queue import PriorityQueue
-from turtle import title
-
 
 GIVEN_QUESTION_COLUMN = 'QUESTION'
 USER_CHOISE_COLUMN = 'ANSWER'
