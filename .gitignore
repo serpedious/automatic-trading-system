@@ -1,5 +1,8 @@
 .env
 
+front/coverage/
+
+
 server/config.ini
 server/gotrading.log
 server/.env
