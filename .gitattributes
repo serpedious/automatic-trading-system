@@ -1,0 +1,6 @@
+* linguist-vendored
+*.go linguist-vendored=false
+*.py linguist-vendored=false
+*.vue linguist-vendored=false
+*.js linguist-vendored=false
+*.tf linguist-vendored=false
