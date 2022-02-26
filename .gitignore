@@ -1,6 +1,6 @@
 .env
 
-front/coverage/
+front/coverage
 
 
 server/config.ini
