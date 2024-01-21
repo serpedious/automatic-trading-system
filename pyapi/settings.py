@@ -16,8 +16,8 @@ product_code = os.environ.get('PRODUCT_CODE')
 web_port = int(os.environ.get('WEB_PORT'))
 
 trade_duration = os.environ.get('TRADE_DURATION')
-past_period = int(os.environ.get('PAST_PERIOD'))
-stop_limit_percent = float(os.environ.get('STOP_LIMIT_PERCENT'))
+# past_period = int(os.environ.get('PAST_PERIOD'))
+# stop_limit_percent = float(os.environ.get('STOP_LIMIT_PERCENT'))
 
 CSV_FILE_PATH='diagnosis.csv'
 TEMPLATE_PATH=''

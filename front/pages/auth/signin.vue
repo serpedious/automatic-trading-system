@@ -114,8 +114,8 @@ export default {
       },
       guestSignin: async function() {
         let res = await axios.post(process.env.API_BASE_URL + "/signin", {
-            email: "guest@gmail.com",
-            password: "password",
+            email: "test@test.com",
+            password: "hogehoge",
         }, { withCredentials: true });
         this.token = res.data.token
         this.$router.push("/dashboard");
