@@ -17,7 +17,7 @@
 - password: password
 
 ### Exeute App(when you execute this app in your local environment, you need to excute items below)
-- create .env and set proper parameters
+- create .env and set proper parameters(local is same with example env)
 - command execute "docker-compose up"
 
 ### Enter Postgres Container(Local)
